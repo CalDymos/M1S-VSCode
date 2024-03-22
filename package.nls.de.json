@@ -1,12 +1,12 @@
 {
-  "vbs.command.vbs.runScript": "VBS: Skript ausführen (veraltet, siehe issue #48)",
-  "vbs.command.vbs.killScript": "VBS: Laufendes Skript abbrechen",
-  "vbs.config.interpreter.description": "Pfad zum Skriptinterpreter",
-  "vbs.config.includes.description": "zusätzliche Quelldateien zum Includen für Vervollständigung",
-  "vbs.config.showVariableSymbols.description": "Variablen in Gliederung anzeigen",
-  "vbs.config.showParamSymbols.description": "Parameter in Gliederung anzeigen",
-  "vbs.config.customIncludePattern.description": "Benutzerdefinierter Regulärer Ausdruck für eigene Include Funktion",
-  "vbs.config.customIncludeDirs.description": "Suchpfade für die benutzerdefinierte Include Function",
-  "vbs.msg.runningscript": "Führe Skript aus...'",
-  "vbs.msg.interpreterRunError": "Skriptinterpreter kann nicht ausgeführt werden"
+  "m1s.command.m1s.runScript": "M1S: Skript ausführen (veraltet, siehe issue #48)",
+  "m1s.command.m1s.killScript": "M1S: Laufendes Skript abbrechen",
+  "m1s.config.interpreter.description": "Pfad zum Skriptinterpreter",
+  "m1s.config.includes.description": "zusätzliche Quelldateien zum Includen für Vervollständigung",
+  "m1s.config.showVariableSymbols.description": "Variablen in Gliederung anzeigen",
+  "m1s.config.showParamSymbols.description": "Parameter in Gliederung anzeigen",
+  "m1s.config.customIncludePattern.description": "Benutzerdefinierter Regulärer Ausdruck für eigene Include Funktion",
+  "m1s.config.customIncludeDirs.description": "Suchpfade für die benutzerdefinierte Include Function",
+  "m1s.msg.runningscript": "Führe Skript aus...'",
+  "m1s.msg.interpreterRunError": "Skriptinterpreter kann nicht ausgeführt werden"
 }
