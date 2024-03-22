@@ -3,12 +3,12 @@
 import { languages, SymbolKind, DocumentSymbol, Range, workspace, TextDocument } from "vscode";
 import * as PATTERNS from "./patterns";
 
-const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols");
-const showParameterSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showParamSymbols");
+const showVariableSymbols: boolean = workspace.getConfiguration("m1s").get<boolean>("showVariableSymbols");
+const showParameterSymbols: boolean = workspace.getConfiguration("m1s").get<boolean>("showParamSymbols");
 
 const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
-const CLASS = RegExp(PATTERNS.CLASS.source, "i");
-const PROP = RegExp(PATTERNS.PROP.source, "i");
+//const CLASS = RegExp(PATTERNS.CLASS.source, "i");
+//const PROP = RegExp(PATTERNS.PROP.source, "i");
 
 function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
   const result: DocumentSymbol[] = [];
@@ -31,11 +31,12 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
 
       let matches: RegExpMatchArray | null = [];
 
-      if ((matches = CLASS.exec(lineText)) !== null) {
+     /* if ((matches = CLASS.exec(lineText)) !== null) {
         name = matches[3];
-        symbol = new DocumentSymbol(name, "", SymbolKind.Class, line.range, line.range);
+        symbol = new DocumentSymbol(name, "", SymbolKind.Class, line.range, line.range); */
 
-      } else if ((matches = FUNCTION.exec(lineText)) !== null) {
+      //} else if ((matches = FUNCTION.exec(lineText)) !== null) {
+      if ((matches = FUNCTION.exec(lineText)) !== null) {
         name = matches[4];
         let detail = "";
         let symKind = SymbolKind.Function;
@@ -62,11 +63,11 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
             });
         }
 
-      } else if ((matches = PROP.exec(lineText)) !== null) {
+     /* } else if ((matches = PROP.exec(lineText)) !== null) {
         name = matches[4];
         symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
         if ((/Default[\t ]*Property[\t ]*Get/i).test(matches[2]))
-          symbol.detail = "Default Get";
+          symbol.detail = "Default Get"; */
 
       } else if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
@@ -110,7 +111,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
 }
 
 export default languages.registerDocumentSymbolProvider(
-  { scheme: "file", language: "vbs" },
+  { scheme: "file", language: "m1s" },
   { provideDocumentSymbols }
 );
 
