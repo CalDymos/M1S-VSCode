@@ -1,9 +1,9 @@
 {
-  "name": "vbsvscode",
-  "displayName": "VBS",
-  "description": "VBScript Language Support",
-  "version": "1.2.1",
-  "publisher": "Serpen",
+  "name": "m1svscode",
+  "displayName": "M1S",
+  "description": "Mach3 Script (CB SCript) Language Support",
+  "version": "0.12.1",
+  "publisher": "CalDymos",
   "icon": "assets/logo.png",
   "galleryBanner": {
     "color": "#6EE5E5",
@@ -17,26 +17,26 @@
     "Snippets"
   ],
   "keywords": [
-    "VBS",
-    "VBScript"
+    "M1S",
+    "Mach3 Script"
   ],
   "bugs": {
-    "url": "https://github.com/Serpen/VBS-VSCode/issues"
+    "url": "https://github.com/CalDymos/M1S-VSCode/issues"
   },
   "license": "MIT",
   "main": "./dist/extension",
   "activationEvents": [
-    "onLanguage:vbs"
+    "onLanguage:m1s"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Serpen/VBS-VSCode.git"
+    "url": "https://github.com/CalDymos/M1S-VSCode.git"
   },
-  "homepage": "https://github.com/Serpen/VBS-VSCode",
+  "homepage": "https://github.com/CalDymos/M1S-VSCode",
   "contributes": {
     "debuggers": [
       {
-        "type": "vbs",
+        "type": "m1s",
         "label": "CScript",
         "program": "./dist/debugger/debugAdapter.js",
         "runtime": "node",
@@ -55,7 +55,7 @@
         },
         "initialConfigurations": [
           {
-            "type": "vbs",
+            "type": "m1s",
             "request": "launch",
             "name": "CScript",
             "program": "${file}"
@@ -65,7 +65,7 @@
           {
             "label": "CScript",
             "body": {
-              "type": "vbs",
+              "type": "m1s",
               "request": "launch",
               "program": "${file}"
             }
@@ -75,79 +75,79 @@
     ],
     "languages": [
       {
-        "id": "vbs",
+        "id": "m1s",
         "aliases": [
-          "VBScript",
-          "vbs"
+          "Mach3 Script",
+          "m1s"
         ],
         "extensions": [
-          ".vbs"
+          ".m1s"
         ],
         "configuration": "./syntaxes/language-configuration.json"
       }
     ],
     "commands": [
       {
-        "command": "vbs.runScript",
-        "title": "%vbs.command.vbs.runScript%"
+        "command": "m1s.runScript",
+        "title": "%m1s.command.m1s.runScript%"
       },
       {
-        "command": "vbs.killScript",
-        "title": "%vbs.command.vbs.killScript%"
+        "command": "m1s.killScript",
+        "title": "%m1s.command.m1s.killScript%"
       }
     ],
     "grammars": [
       {
-        "language": "vbs",
-        "scopeName": "source.vbs",
-        "path": "./syntaxes/vbs.tmLanguage.json"
+        "language": "m1s",
+        "scopeName": "source.m1s",
+        "path": "./syntaxes/m1s.tmLanguage.json"
       }
     ],
     "snippets": [
       {
-        "language": "vbs",
-        "path": "./snippets/vbs.json"
+        "language": "m1s",
+        "path": "./snippets/m1s.json"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "VBScript",
+      "title": "Mach3 Script",
       "properties": {
-        "vbs.interpreter": {
+        "m1s.interpreter": {
           "type": "string",
           "default": "C:\\WINDOWS\\system32\\cscript.exe",
-          "description": "%vbs.config.interpreter.description%"
+          "description": "%m1s.config.interpreter.description%"
         },
-        "vbs.includes": {
+        "m1s.includes": {
           "type": "array",
           "uniqueItems": true,
           "items": {
             "type": "string"
           },
           "default": [],
-          "description": "%vbs.config.includes.description%"
+          "description": "%m1s.config.includes.description%"
         },
-        "vbs.showVariableSymbols": {
+        "m1s.showVariableSymbols": {
           "type": "boolean",
           "default": true,
-          "description": "%vbs.config.showVariableSymbols.description%"
+          "description": "%m1s.config.showVariableSymbols.description%"
         },
-        "vbs.showParamSymbols": {
+        "m1s.showParamSymbols": {
           "type": "boolean",
           "default": false,
-          "description": "%vbs.config.showParamSymbols.description%"
+          "description": "%m1s.config.showParamSymbols.description%"
         },
-        "vbs.custumIncludePattern": {
+        "m1s.custumIncludePattern": {
           "type": "string",
-          "description": "%vbs.config.customIncludePattern.description%",
+          "description": "%m1s.config.customIncludePattern.description%",
           "deprecationMessage": "use customIncludePattern"
         },
-        "vbs.customIncludePattern": {
+        "m1s.customIncludePattern": {
           "type": "string",
           "default": "\\binclude\\b[\\t ]*\\(?[\\t ]*\"([^\"]+)\"[\\t ]*\\)?",
-          "description": "%vbs.config.customIncludePattern.description%"
+          "description": "%m1s.config.customIncludePattern.description%"
         },
-        "vbs.customIncludeDirs": {
+        "m1s.customIncludeDirs": {
           "type": "array",
           "uniqueItems": true,
           "items": {
@@ -156,7 +156,7 @@
           "default": [
             ".", "${workspaceFolder}"
           ],
-          "description": "%vbs.config.customIncludeDirs.description%"
+          "description": "%m1s.config.customIncludeDirs.description%"
         }
       }
     }
