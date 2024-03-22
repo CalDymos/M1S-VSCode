@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as PATTERNS from "./patterns";
 
-class VBSColorProvider implements vscode.DocumentColorProvider {
+class M1SColorProvider implements vscode.DocumentColorProvider {
 
   // eslint-disable-next-line no-magic-numbers
   private readonly MAX_COLOR = 0xff;
@@ -81,6 +81,6 @@ class VBSColorProvider implements vscode.DocumentColorProvider {
 }
 
 export default vscode.languages.registerColorProvider(
-  { scheme: "file", language: "vbs" },
-  new VBSColorProvider()
+  { scheme: "file", language: "m1s" },
+  new M1SColorProvider()
 );
