@@ -27,4 +27,4 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
  - OS: [e.g. Win10 2004 x64]
  - VS Code Version: [e.g. 1.49]
- - VBS-VSCode Version [e.g. 1.0.0]
+ - M1S-VSCode Version [e.g. 1.0.0]
