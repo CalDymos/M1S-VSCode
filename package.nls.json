@@ -1,12 +1,12 @@
 {
-  "vbs.command.vbs.runScript": "VBS: Run Script (obsolete, see issue #48)",
-  "vbs.command.vbs.killScript": "VBS: Kill Running Script",
-  "vbs.config.interpreter.description": "Path to Script Interpreter",
-  "vbs.config.includes.description": "Additional include sourcefiles for completion",
-  "vbs.config.showVariableSymbols.description": "Show variables in outline",
-  "vbs.config.showParamSymbols.description": "Show parameters in outline",
-  "vbs.config.customIncludePattern.description": "Custom RegExp-Pattern for userdefined include statement",
-  "vbs.config.customIncludeDirs.description": "Custom directories with files for custom include statement",
-  "vbs.msg.runningscript": "Running the script...'",
-  "vbs.msg.interpreterRunError": "Script Interpreter can't be executed"
+  "m1s.command.m1s.runScript": "M1S: Run Script (obsolete, see issue #48)",
+  "m1s.command.m1s.killScript": "M1S: Kill Running Script",
+  "m1s.config.interpreter.description": "Path to Script Interpreter",
+  "m1s.config.includes.description": "Additional include sourcefiles for completion",
+  "m1s.config.showVariableSymbols.description": "Show variables in outline",
+  "m1s.config.showParamSymbols.description": "Show parameters in outline",
+  "m1s.config.customIncludePattern.description": "Custom RegExp-Pattern for userdefined include statement",
+  "m1s.config.customIncludeDirs.description": "Custom directories with files for custom include statement",
+  "m1s.msg.runningscript": "Running the script...'",
+  "m1s.msg.interpreterRunError": "Script Interpreter can't be executed"
 }
