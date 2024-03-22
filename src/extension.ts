@@ -10,8 +10,8 @@ import * as cmds from "./commands";
 import { IncludeFile, Includes, reloadImportDocuments } from "./Includes";
 
 export function activate(context: ExtensionContext): void {
-  Includes.set("Global", new IncludeFile(context.asAbsolutePath("./GlobalDefs.vbs")));
-  Includes.set("ObjectDefs", new IncludeFile(context.asAbsolutePath("./ObjectDefs.vbs")));
+  Includes.set("Global", new IncludeFile(context.asAbsolutePath("./GlobalDefs.m1s")));
+  Includes.set("ObjectDefs", new IncludeFile(context.asAbsolutePath("./ObjectDefs.m1s")));
 
   workspace.onDidChangeConfiguration(reloadImportDocuments);
   reloadImportDocuments();
@@ -28,12 +28,12 @@ export function activate(context: ExtensionContext): void {
   );
 
   // Run Script Command
-  commands.registerCommand("vbs.runScript", () => {
+  commands.registerCommand("m1s.runScript", () => {
     cmds.runScript();
   });
 
   // Kill running script command
-  commands.registerCommand("vbs.killScript", () => {
+  commands.registerCommand("m1s.killScript", () => {
     cmds.killScript();
   });
 }
