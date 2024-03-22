@@ -1,8 +1,5 @@
-# VBScript Extension for Visual Studio Code
-This extension implements basic language features of Visual Basic Script/VBScript/VBS for [Visual Studio Code](https://code.visualstudio.com/).
-
-[![Version](https://vsmarketplacebadge.apphb.com/version/serpen.vbsvscode.svg)](https://marketplace.visualstudio.com/items?itemName=serpen.vbsvscode)
-[![Build status](https://ci.appveyor.com/api/projects/status/0i0hrbt657y8geef?svg=true)](https://ci.appveyor.com/project/Serpen/vbs-vscode)
+# Mach3 Script Extension for Visual Studio Code
+This extension implements basic language features of Mach3 Script (CB Script) for [Visual Studio Code](https://code.visualstudio.com/).
 
 <p align="center">
   <span>English</span> | 
@@ -41,7 +38,4 @@ You can support this project through PR with your changes or simply add an issue
 - ...
 
 ## References / Thanks
-This extension is based on the Visual Basic extension shipped with VS Code and the design from AutoIt Extension from loganch.
-
-## Purpose
-This extension was founded to help developing with VBS in an buisness application (medico Klinische Dokumentation)
+This extension is based on the "VBScript Extension for Visual Studio Code" from serpen.
