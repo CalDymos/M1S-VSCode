@@ -41,7 +41,7 @@
         "program": "./dist/debugger/debugAdapter.js",
         "runtime": "node",
         "languages": [
-          "vbs"
+          "m1s"
         ],
         "configurationAttributes": {
           "launch": {
