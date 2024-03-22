@@ -9,9 +9,9 @@ interface ILaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
   program: string;
 }
 
-const diagCollection = vscode.languages.createDiagnosticCollection("vbs");
+const diagCollection = vscode.languages.createDiagnosticCollection("m1s");
 
-export class VbsDebugSession extends LoggingDebugSession {
+export class M1sDebugSession extends LoggingDebugSession {
 
   private _runner : ChildProcessWithoutNullStreams;
 
@@ -36,7 +36,7 @@ export class VbsDebugSession extends LoggingDebugSession {
 
     this.sendResponse(response);
 
-    const configuration = vscode.workspace.getConfiguration("vbs");
+    const configuration = vscode.workspace.getConfiguration("m1s");
     const scriptInterpreter: string = configuration.get<string>("interpreter");
 
     this._runner = spawn(scriptInterpreter, [args.program], { "cwd": workDir });
@@ -80,8 +80,8 @@ export class DebugConfigurationProvider implements vscode.DebugConfigurationProv
 
     const editor = vscode.window.activeTextEditor;
     if (!config || !config.request) {
-      if (editor && editor.document.languageId === "vbs") {
-        config.type = "vbs";
+      if (editor && editor.document.languageId === "m1s") {
+        config.type = "m1s";
         config.name = "CScript";
         config.request = "launch";
         config.program = editor.document.uri.fsPath;
@@ -89,7 +89,7 @@ export class DebugConfigurationProvider implements vscode.DebugConfigurationProv
         return;
     }
 
-    if (!config.program || !editor || editor.document.languageId !== "vbs") {
+    if (!config.program || !editor || editor.document.languageId !== "m1s") {
       return vscode.window.showInformationMessage("Cannot find a program to debug").then(() => {
         return undefined;	// abort launch
       });
@@ -101,12 +101,12 @@ export class DebugConfigurationProvider implements vscode.DebugConfigurationProv
 
 export class InlineDebugAdapterFactory implements vscode.DebugAdapterDescriptorFactory {
   createDebugAdapterDescriptor(): vscode.ProviderResult<vscode.DebugAdapterDescriptor> {
-    return new vscode.DebugAdapterInlineImplementation(new VbsDebugSession());
+    return new vscode.DebugAdapterInlineImplementation(new M1sDebugSession());
   }
 }
 
-const launchConfigProvider = vscode.debug.registerDebugConfigurationProvider("vbs", new DebugConfigurationProvider());
-const inlineDebugAdapterFactory = vscode.debug.registerDebugAdapterDescriptorFactory("vbs", new InlineDebugAdapterFactory());
+const launchConfigProvider = vscode.debug.registerDebugConfigurationProvider("m1s", new DebugConfigurationProvider());
+const inlineDebugAdapterFactory = vscode.debug.registerDebugAdapterDescriptorFactory("m1s", new InlineDebugAdapterFactory());
 
 export default { launchConfigProvider, inlineDebugAdapterFactory };
 
