@@ -4,9 +4,9 @@ import path from "path";
 import localize from "./localize";
 import * as fs from "fs";
 
-const configuration = workspace.getConfiguration("vbs");
+const configuration = workspace.getConfiguration("m1s");
 
-const vbsOut = window.createOutputChannel("VBScript");
+const m1sOut = window.createOutputChannel("Mach3 Script");
 
 let runner: childProcess.ChildProcessWithoutNullStreams;
 
@@ -21,20 +21,20 @@ export function runScript(): void {
   try {
     fs.accessSync(scriptInterpreter, fs.constants.X_OK);
   } catch {
-    window.showErrorMessage(`${localize("vbs.msg.interpreterRunError")} ${ scriptInterpreter}`);
+    window.showErrorMessage(`${localize("m1s.msg.interpreterRunError")} ${ scriptInterpreter}`);
   }
 
   const doc = window.activeTextEditor.document;
   doc.save().then(() => {
-    vbsOut.clear();
-    vbsOut.show(true);
+    m1sOut.clear();
+    m1sOut.show(true);
 
     const workDir = path.dirname(doc.fileName);
 
     if (statbar)
       statbar.dispose();
 
-    statbar = window.setStatusBarMessage(localize("vbs.msg.runningscript"));
+    statbar = window.setStatusBarMessage(localize("m1s.msg.runningscript"));
 
     runner = childProcess.spawn(scriptInterpreter, [doc.fileName], {
       cwd: workDir
@@ -42,16 +42,16 @@ export function runScript(): void {
 
     runner.stdout.on("data", data => {
       const output = data.toString();
-      vbsOut.append(output);
+      m1sOut.append(output);
     });
 
     runner.stderr.on("data", data => {
       const output = data.toString();
-      vbsOut.append(output);
+      m1sOut.append(output);
     });
 
     runner.on("exit", code => {
-      vbsOut.appendLine(`Process exited with code ${code}`);
+      m1sOut.appendLine(`Process exited with code ${code}`);
       statbar.dispose();
     });
   }, () => {
