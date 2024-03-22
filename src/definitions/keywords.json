@@ -8,9 +8,6 @@
   "Call": {
     "documentation": "Transfers control to a Sub procedure or Function procedure"
   },
-  "Class": {
-    "documentation": ""
-  },
   "Const": {
     "documentation": ""
   },
@@ -70,27 +67,6 @@
   },
   "On Error Goto 0": {
     "documentation": "Disables any enabled error handler in the current procedure."
-  },
-  "Redim Preserve": {
-    "documentation": ""
-  },
-  "Property": {
-    "documentation": ""
-  },
-  "Property Get": {
-    "documentation": "Property procedure, which gets the value of a property."
-  },
-  "Property Let": {
-    "documentation": "Property procedure, which assigns a value to a property."
-  },
-  "Property Set": {
-    "documentation": "Property procedure, which sets a reference to an object."
-  },
-  "Private": {
-    "documentation": ""
-  },
-  "Public": {
-    "documentation": ""
   },
   "Randomize": {
     "documentation": "Initializes the random-number generator."
