@@ -1,8 +1,5 @@
-# VBScript Extension für Visual Studio Code
-Diese Erweiterung bietet Sprachunterstützung für Visual Basic Script/VBScript/VBS für [Visual Studio Code](https://code.visualstudio.com/).
-
-[![Version](https://vsmarketplacebadge.apphb.com/version/serpen.vbsvscode.svg)](https://marketplace.visualstudio.com/items?itemName=serpen.vbsvscode)
-[![Build status](https://ci.appveyor.com/api/projects/status/0i0hrbt657y8geef?svg=true)](https://ci.appveyor.com/project/Serpen/vbs-vscode)
+# Mach3 Script Extension für Visual Studio Code
+Diese Erweiterung bietet Sprachunterstützung für Mach3 Script (CB Script) für [Visual Studio Code](https://code.visualstudio.com/).
 
 <p align="center">
   <a href="./README.md">English</a> | 
@@ -27,22 +24,20 @@ Diese Erweiterung bietet Sprachunterstützung für Visual Basic Script/VBScript/
 
 ![Hover](assets/docs/ColorProvider.png)
 
-- Zusätzliche VBS Funktions Bibliotheken als VBS Dateien einbinden
+- Zusätzliche M1S Funktions Bibliotheken als M1S Dateien einbinden
 ```
 { // settings.json
-    "vbs.includes": ["c:\\mylibrary.vbs"]
+    "m1s.includes": ["c:\\mylibrary.m1s"]
 }
 ```
 
 ## Mitarbeit
 Du kannst dieses Projekt unterstützen, indem du die Quelldateien forkst und einen Pull Request/PR mit deinen Veränderungen erzeugst oder eine Issue mit deinem Problem/deiner Idee erzeugst.
-- Vervollständigung der VBS Sprachdokumentation #21
+- Vervollständigung der M1S Sprachdokumentation #21
 - Übersetzung in weitere Sprachen
 - ...
 
 
 ## Referenzen / Danksagung
-Diese Erweiterung basiert auf der Visual Basic Erweitung die mit VS Code ausgeliefert wird und dem Design der AutoIt Erweiterung von loganch.
+Diese Erweiterung basiert auf VBScript Extension für Visual Studio Code von serpen.
 
-## Zweck
-Die Erweiterung wurde entwickelt um die VBS Entwicklung innerhalb einer Geschäftssoftware (medico Klinische Dokumentation) zu unterstützen.
