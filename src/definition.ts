@@ -61,4 +61,4 @@ function provideDefinition(doc: TextDocument, position: Position): Location[] {
   return posLoc;
 }
 
-export default languages.registerDefinitionProvider({ scheme: "file", language: "vbs" }, { provideDefinition });
+export default languages.registerDefinitionProvider({ scheme: "file", language: "m1s" }, { provideDefinition });
