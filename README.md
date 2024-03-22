@@ -24,10 +24,10 @@ This extension implements basic language features of Mach3 Script (CB Script) fo
 
 ![Hover](assets/docs/ColorProvider.png)
 
-- Add extra VBS Source (libraries) files for extra completion
+- Add extra M1S Source (libraries) files for extra completion
 ```
 { // settings.json
-    "vbs.includes": ["c:\\mylibrary.vbs"]
+    "m1s.includes": ["c:\\mylibrary.m1s"]
 }
 ```
 
