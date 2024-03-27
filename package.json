@@ -111,7 +111,7 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "Mach3 Script",
+      "title": "Mach3Script",
       "properties": {
         "m1s.interpreter": {
           "type": "string",
