@@ -79,10 +79,10 @@
 					"name": "punctuation.definition.parameters.end.m1s"
 				}
 			},
-			"match": "(?i:(Private|Public)[\\t ]+)?(?i:(Class|Function|Sub|(?:Default\\s+)?Property [GLS]et))[\\t ]+(\\[?[a-zA-Z]\\w*\\]?)[\\t ]*(?:(\\()([^)]*)(\\)))?"
+			"match": "(?i:(Private|Public)[\\t ]+)?(?i:(Type|Function|Sub|(?:Default\\s+)?Property [GLS]et))[\\t ]+(\\[?[a-zA-Z]\\w*\\]?)[\\t ]*(?:(\\()([^)]*)(\\)))?"
 		},
 		{
-			"match": "(?i:End[\\t ]+(Sub|Function))",
+			"match": "(?i:End[\\t ]+(Type|Sub|Function))",
 			"name": "storage.type.end.m1s"
 		},
 		{
@@ -95,11 +95,11 @@
 			"name": "storage.modifier.m1s"
 		},
 		{
-			"match": "(?i:\\b(Call|If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Sub))\\b)",
+			"match": "(?i:\\b(Call|If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Sub|Type))\\b)",
 			"name": "keyword.control.m1s"
 		},
 		{
-			"match": "(?i:\\b(Mod|And|Not|Or|Xor|as|Is|Eqv)\\b)",
+			"match": "(?i:\\b(Mod|And|Not|Or|Xor|As|Is|Eqv)\\b)",
 			"name": "keyword.operator.expression.m1s"
 		},
 		{
@@ -139,7 +139,7 @@
 			]
 		},
 		{
-			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CByte|CCur|CDate|CDbl|Chr|CInt|CLng|Cos|CreateObject|CSng|CStr|Date|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Day|Derived|Escape|Eval|Exists|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|ScriptEngine|ScriptEngineBuildVersion|ScriptEngineMajorVersion|ScriptEngineMinorVersion|Second|SetLocale|Sgn|Sin|Space|Split|Sqr|StrComp|String|StrReverse|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
+			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CDate|CDbl|Chr|CInt|CLng|Cos|CreateObject|CSng|CStr|Date|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Day|Derived|Escape|Eval|Exists|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|Second|Sgn|Sin|Space|Sqr|StrComp|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
 			"name": "support.function.m1s"
 		},
 		{
@@ -169,6 +169,10 @@
 		{
 			"match": "\\b\\[?[a-zA-Z]\\w*\\]?(?=\\.)",
 			"name": "variable.other.object.m1s"
+		},
+		{
+			"match": "(?i)\\b(Any|Byte|Boolean|String|Currency|Date|Double|Integer|Long|Object|Single|Variant)\\b",
+			"name": "support.type.builtin.m1s"
 		},
 		{
 			"match": "(?<=\\.)\\[?[a-zA-Z]\\w*\\]?\\b",
