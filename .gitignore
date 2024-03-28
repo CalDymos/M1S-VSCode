@@ -1,8 +1,0 @@
-# Dependency directories
-node_modules
-jspm_packages
-dist/
-.cache
-*.vsix
-testsa
-.vscode-test
