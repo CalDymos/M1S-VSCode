@@ -1,41 +1,26 @@
 ''' <summary>Returns the absolute value of a number.</summary>
-''' <param name="expr">Any valid numeric expression.</param>
-Function Abs(expr) ' As Integer
+''' <param name="Number">Any valid numeric expression.</param>
+Function Abs(ByVal Number As Variant) As Double
 End Function
 
 ''' <summary>Returns a Variant containing an array.</summary>
 ''' <param name="arglist">arglist argument is a comma-delimited list of values that are assigned to the elements of an array</param>
-Function Array(arglist)
+Function Array(ByVal arglist As Variant) As Variant
 End Function
 
 ''' <summary>Returns the unicode code of a character.</summary>
-''' <param name="char">The character to get the code for. If a string is used, the code for the first character is given.</param>
-Function Asc(char)
-End Function
-
-''' <summary>Returns the ANSI character code corresponding to the first letter in a string.</summary>
-Function AscB(char)
-End Function
-
-''' <summary>Function that returns the Unicode (wide) character code that represents a specific Unicode character.</summary>
-Function AscW(char)
+''' <param name="String">The character to get the code for. If a string is used, the code for the first character is given.</param>
+Function Asc(ByVal String As String) As Integer
 End Function
 
 ''' <summary>Returns the arctangent of a number.</summary>
-Function Atn(number)
+Function Atn(ByVal Number As Variant) As Double
 End Function
-
 ''' <summary>Returns an expression that has been converted to a Variant of subtype Boolean.</summary>
-Function CBool(expr) ' As Boolean
+Function CBool(ByVal expression As Variant) As Boolean
 End Function
 
-Function CByte(expr) ' As Byte
-End Function
-
-Function CCur(expr) ' As Currency
-End Function
-
-Function CDate(expr) ' As Date
+Function CDate(ByVal expression As Variant) As Date
 End Function
 
 Function CDbl(expr) ' As Double
@@ -508,18 +493,6 @@ End Function
 Function RTrim(str) ' As String
 End Function
 
-Function ScriptEngine ' As String
-End Function
-
-Function ScriptEngineBuildVersion ' As String
-End Function
-
-Function ScriptEngineMajorVersion ' As String
-End Function
-
-Function ScriptEngineMinorVersion ' As String
-End Function
-
 Function Second(time)
 End Function
 
@@ -536,18 +509,6 @@ End Function
 Function Space(number) ' As String
 End Function
 
-Function Split(str)
-End Function
-
-Function Split(str, delimiter)
-End Function
-
-Function Split(str, delimiter, count)
-End Function
-
-Function Split(str, delimiter, count, compare)
-End Function
-
 Function Sqr(number)
 End Function
 
@@ -555,9 +516,6 @@ Function StrComp(string1, string2)
 End Function
 
 Function StrComp(string1, string2, compare)
-End Function
-
-Function StrReverse(str)
 End Function
 
 Function Tan(number)
@@ -618,6 +576,666 @@ End Function
 ''' <param name="date">Any expression that can represent a date</param>
 Function Year(date)
 End Function
+
+'Mach 3 Functions and Subs
+
+Sub StraightFeed(ByVal x As Double, ByVal Y As Double, ByVal Z As Double, ByVal a As Double, ByVal B As Double, ByVal C As Double)
+End Sub
+
+Sub HelpAbout()
+End Sub
+
+Function GetSafeZ() As Double
+End Function
+
+Sub SetSafeZ(ByVal SafeZ As Double)
+End Sub
+
+Sub SetCurrentTool(ByVal Tool As Integer)
+End Sub
+
+Function GetSelectedTool() As Integer
+End Function
+
+Function GetToolChangeStart(ByVal Axis As Integer) As Double
+End Function
+
+Sub StraightTraverse(ByVal x As Double, ByVal Y As Double, ByVal Z As Double, ByVal a As Double, ByVal B As Double, ByVal C As Double)
+End Sub
+
+Function ToolLengthOffset() As Double
+End Function
+
+Function CommandedFeed() As Double
+End Function
+
+Sub SetFeedRate(ByVal Rate As Double)
+End Sub
+
+Sub ActivateSignal(ByVal Signal As Integer)
+End Sub
+
+Function IsActive(ByVal Signal As Integer) As Byte
+End Function
+
+Sub DeActivateSignal(ByVal Signal As Integer)
+End Sub
+
+Sub SystemWaitFor(ByVal Signal As Integer)
+End Sub
+
+Function Param1() As Double
+End Function
+
+Function Param2() As Double
+End Function
+
+Function Param3() As Double
+End Function
+
+Sub VerifyAxis(ByVal Silent As Long)
+End Sub
+
+Function GetVar(ByVal var As Integer) As Double
+End Function
+
+Sub SetVar(ByVal var As Integer, ByVal Value As Double)
+End Sub
+
+Sub OpenDigFile()
+End Sub
+
+Sub CloseDigFile()
+End Sub
+
+Sub THCOn()
+End Sub
+
+Sub THCOff()
+End Sub
+
+Sub Code(ByVal Command As String)
+End Sub
+
+Function GetScale(ByVal Axis As Integer) As Double
+End Function
+
+Sub SetScale(ByVal Axis As Integer, ByVal dScale As Double)
+End Sub
+
+Sub SendSerial(ByVal sData As String)
+End Sub
+
+Function GetPortByte(ByVal PortAddress As Integer) As Byte
+End Function
+
+Function PutPortByte(ByVal PortAddress As Integer, ByVal data As Byte) As Integer
+End Function
+
+Function IsMoving() As Integer
+End Function
+
+Sub ResetTHC()
+End Sub
+
+Function GetParam(ByVal Param As String) As Double
+End Function
+
+Sub SetParam(ByVal Param As String, ByVal Value As Double)
+End Sub
+
+Sub setobj(ByVal thevar As String, ByVal thevalue As Double)
+End Sub
+
+Function GetCurrentTool() As Integer
+End Function
+
+Sub DoOEMButton(ByVal Button As Integer)
+End Sub
+
+Sub LoadRun(ByVal Filename As String)
+End Sub
+
+Sub DoButton(ByVal ButtonNum As Integer)
+End Sub
+
+Function GetLED(ByVal Led As Integer) As Boolean
+End Function
+
+Sub SetOEMLED(ByVal Led As Integer, ByVal state As Integer)
+End Sub
+
+Function GetOEMLed(ByVal Led As Integer) As Boolean
+End Function
+
+Function GetOEMDRO(ByVal dro As Integer) As Double
+End Function
+
+Function GetDRO(ByVal dro As Integer) As Double
+End Function
+
+Sub SetDRO(ByVal dro As Integer, ByVal Value As Double)
+End Sub
+
+Sub SetOEMDRO(ByVal dro As Integer, ByVal Value As Double)
+End Sub
+
+Sub GetCoord(ByVal Question As String)
+End Sub
+
+Function GetXCoor() As Double
+End Function
+
+Function GetYCoor() As Double
+End Function
+
+Function GetZCoor() As Double
+End Function
+
+Function GetACoor() As Double
+End Function
+
+Function IsFirst() As Boolean
+End Function
+
+Sub SetMachZero(ByVal Axis As Integer)
+End Sub
+
+Sub RunFile()
+End Sub
+
+Sub SetUserDRO(ByVal dro As Integer, ByVal Value As Double)
+End Sub
+
+Sub SetUserLED(ByVal Led As Integer, ByVal state As Integer)
+End Sub
+
+Function GetUserDRO(ByVal dro As Integer) As Double
+End Function
+
+Function GetUserLED(ByVal Led As Integer) As Integer
+End Function
+
+Function tXStart() As Double
+End Function
+
+Function tZStart() As Double
+End Function
+
+Function tEndX() As Double
+End Function
+
+Function tEndZ() As Double
+End Function
+
+Function tClearX() As Double
+End Function
+
+Function tLead() As Double
+End Function
+
+Function tSpring() As Integer
+End Function
+
+Function tPasses() As Integer
+End Function
+
+Function tChamfer() As Double
+End Function
+
+Function tTaper() As Double
+End Function
+
+Function tInFeed() As Double
+End Function
+
+Function tDepthLastPass() As Double
+End Function
+
+Function IsLoading() As Integer
+End Function
+
+Function GetABSPostion(Axis) As Double
+End Function
+
+Function GetRPM() As Double
+End Function
+
+Sub DoSpinCW()
+End Sub
+
+Sub DoSpinCCW()
+End Sub
+
+Sub DoSpinStop()
+End Sub
+
+Sub SetSpinSpeed(ByVal rpm As Double)
+End Sub
+
+Sub InFeeds(ByVal iteration As Integer)
+End Sub
+
+Sub ThreadDepth(ByVal iteration As Integer)
+End Sub
+
+Sub tTapers(ByVal iteration As Integer)
+End Sub
+
+Sub SetTicker(ByVal TickerNum As Integer, ByVal Message As String)
+End Sub
+
+Sub SetUserLabel(ByVal LabelNum As Integer, ByVal LabelText As String)
+End Sub
+
+Sub RefCombination(ByVal combo As Integer)
+End Sub
+
+Sub IsSuchSignal(ByVal Signal As Integer)
+End Sub
+
+Sub OpenTeachFile(ByVal name As String)
+End Sub
+
+Sub CloseTeachFile()
+End Sub
+
+Sub SetButtonText(ByVal Text As String)
+End Sub
+
+Sub LoadStandardLayout()
+End Sub
+
+Sub LoadTeachFile()
+End Sub
+
+Function IsOutputActive(ByVal Signal As Integer) As Boolean
+End Function
+
+Sub SingleVerify()
+End Sub
+
+Function GetPage() As Integer
+End Function
+
+Sub SetPage(ByVal page As Integer)
+End Sub
+
+Sub ToggleScreens()
+End Sub
+
+Sub PlayWave(ByVal wavename As String)
+End Sub
+
+Sub Speak(ByVal Text As String)
+End Sub
+
+Sub Message(ByVal Text As String)
+End Sub
+
+Function IsStopped() As Integer
+End Function
+
+Sub SaveWizard()
+End Sub
+
+Sub SingleVerifyReport(ByVal Axis As Integer)
+End Sub
+
+Sub SetIJMode(ByVal mode As Integer)
+End Sub
+
+Function GetIJMode() As Integer
+End Function
+
+Function GetMinPass() As Double
+End Function
+
+Function AppendTeachFile(ByVal name As String) As Integer
+End Function
+
+Function Random() As Double
+End Function
+
+Function IsDiameter() As Integer
+End Function
+
+Function ModGetInputWord(ByVal bit As Integer) As Integer
+End Function
+
+Function FillFromCoil(ByVal slave As Integer, ByVal startAddress As Integer, ByVal nBytes As Integer) As Integer
+End Function
+
+Function FillFromStatus(ByVal slave As Integer, ByVal startAddress As Integer, ByVal nBytes As Integer) As Integer
+End Function
+
+Function FillFromHolding(ByVal slave As Integer, ByVal startAddress As Integer, ByVal nBytes As Integer) As Integer
+End Function
+
+Function FillFromInput(ByVal slave As Integer, ByVal startAddress As Integer, ByVal nBytes As Integer) As Integer
+End Function
+
+Function GetModWord(ByVal index As Integer) As Integer
+End Function
+
+Function tMinDepth() As Double
+End Function
+
+Function tGetCutType() As Integer
+End Function
+
+Function tGetInfeedType() As Integer
+End Function
+
+Sub tSetCutType(ByVal iType As Integer)
+End Sub
+
+Sub tSetInFeedType(ByVal iType As Integer)
+End Sub
+
+Function OpenSubroutineFile(ByVal name As String) As Integer
+End Function
+
+Function tZClear() As Double
+End Function
+
+Function FeedRate() As Double
+End Function
+
+Function tCutDepth() As Double
+End Function
+
+Function Filename() As String
+End Function
+
+Function MinX() As Double
+End Function
+
+Function MaxX() As Double
+End Function
+
+Function MinY() As Double
+End Function
+
+Function MaxY() As Double
+End Function
+
+Function RetractMode() As Integer
+End Function
+
+Sub GotoSafeZ()
+End Sub
+
+Sub SetPulley(ByVal pulley As Integer)
+End Sub
+
+Sub LoadWizard(ByVal name As String)
+End Sub
+
+Sub SetOutput(ByVal word As Integer)
+End Sub
+
+Function GetInput(ByVal word As Integer)
+End Function
+
+Sub SetModOutput(ByVal reg As Integer, ByVal Value As Integer)
+End Sub
+
+Sub LoadFile(ByVal Filename As String)
+End Sub
+
+Sub SetTriggerMacro(ByVal macro As Integer)
+End Sub
+
+Sub SetHomannString(ByVal x As Integer, ByVal Y As Integer, ByVal Text As String)
+End Sub
+
+Sub JogOn(ByVal Axis As Integer, ByVal dir As Integer)
+End Sub
+
+Sub JogOff(ByVal Axis As Integer)
+End Sub
+
+Sub OpenSubFile(ByVal Filename As String)
+End Sub
+
+Sub SetToolX(ByVal Value As Double)
+End Sub
+
+Sub SetToolZ(ByVal Value As Double)
+End Sub
+
+Function GetTurretAng() As Double
+End Function
+
+Function GetFiFoEntry() As String
+End Function
+
+Sub RunProgram(ByVal Program As String)
+End Sub
+
+Sub SendFIFO(ByVal com As String)
+End Sub
+
+Function Round(val) As Double
+End Function
+
+Function roun(val) As Double
+End Function
+
+Function nFmt(ByVal val As Double, ByVal DEC As Integer) As Double
+End Function
+
+Sub ZeroTHC()
+End Sub
+
+Function IsWiz() As Integer
+End Function
+
+Sub WaitForPoll()
+End Sub
+
+Sub SetModIOString(ByVal slave As Integer, ByVal x As Integer, ByVal Y As Integer, ByVal OutText As String)
+End Sub
+
+Sub Sleep(ByVal iTime As Integer)
+End Sub
+
+Sub SendFIFOcr(ByVal data As String)
+End Sub
+
+Sub SendFIFObyte(ByVal data As Integer)
+End Sub
+
+Sub SendFIFOword(ByVal data As Integer)
+End Sub
+
+Sub SetTimer(ByVal iTimer As Integer)
+End Sub
+
+Function GetTimer(ByVal iTimer As Integer) As Double
+End Function
+
+Function AskTextQuestion(ByVal Question As String) As String
+End Function
+
+Function GetDROString(ByVal nDRO As Integer)
+End Function
+
+Sub LoadLinTable()
+End Sub
+
+Sub SwapAxis(ByVal Primary As Integer, ByVal Secondary As Integer)
+End Sub
+
+Sub ResetAxisSwap()
+End Sub
+
+Sub SetFormula(ByVal Formula As String, ByVal Axis As Integer)
+End Sub
+
+Sub IsProbing()
+End Sub
+
+Function GetInBit(ByVal index As Integer, ByVal bit As Integer) As Integer
+End Function
+
+Sub SetOutBit(ByVal index As Integer, ByVal bit As Integer)
+End Sub
+
+Sub ResetOutBit(ByVal index As Integer, ByVal bit As Integer)
+End Sub
+
+Sub SetProbeActive(ByVal level As Integer)
+End Sub
+
+Sub StartVideo()
+End Sub
+
+Sub VBTest()
+End Sub
+
+Sub StartTHC()
+End Sub
+
+Sub EndTHC()
+End Sub
+
+Sub CoupleSlave(ByVal state As Integer)
+End Sub
+
+Function GetToolParam(ByVal toolnum As Integer, ByVal Param As Integer) As Double
+End Function
+
+Sub SetToolParam(ByVal toolnum As Integer, ByVal Param As Integer, ByVal data As Double)
+End Sub
+
+Sub SetProbeState(ByVal state As Integer)
+End Sub
+
+Function GetMainFolder() As String
+End Function
+
+Sub DoMenu(ByVal MenuIndex As Integer, ByVal MenuItem As Integer)
+End Sub
+
+Function GetMasterInput(ByVal Param As Integer) As Integer
+End Function
+
+Function GetMasterOutput(ByVal Param As Integer) As Integer
+End Function
+
+Sub SetMasterOutput(ByVal Param As Integer, ByVal Value As Integer)
+End Sub
+
+Sub SetMasterInput(ByVal Param As Integer, ByVal Value As Integer)
+End Sub
+
+Function GetUserLabel(ByVal nLabel As Integer) As String
+End Function
+
+Function GetToolDesc(ByVal Tool As Integer) As String
+End Function
+
+Sub NotifyPlugins(ByVal Message As Integer)
+End Sub
+
+Function IsEstop() As Integer
+End Function
+
+Function IsSafeZ() As Integer
+End Function
+
+Sub MachMSG(ByVal Msg As String, ByVal Title As String, ByVal iType As Integer)
+End Sub
+
+Function GetMessage() As String
+End Function
+
+Sub SetModPlugString(ByVal Message As String, ByVal cfg As Integer, ByVal address As Integer)
+End Sub
+
+Sub ClearFiFo()
+End Sub
+
+Function GetMachVersion(ByRef major As Integer, ByRef minor As Integer, ByRef Build As Integer) As Boolean
+End Function
+
+Function SetToolDesc(ByVal ToolNumber As Integer, ByVal Description As String) As Boolean
+End Function
+
+Function RunScript(ByVal macro As String) As Boolean
+End Function
+
+Function GetActiveProfileName() As String
+End Function
+
+Function NumberPad(ByVal MessageString As String) As Boolean
+End Function
+
+Function GetMyWindowsHandle() As Long
+End Function
+
+Function GetLoadedGCodeDir() As String
+End Function
+
+Function GetLoadedGCodeFileName() As String
+End Function
+
+Function GetActiveProfileDir() As String
+End Function
+
+Function GetActiveScreenSetName() As String
+End Function
+
+Function IncludeTLOinZFromG31() As Boolean
+End Function
+
+Function ProgramSafetyLockout() As Boolean
+End Function
+
+Function GetSetupUnits() As Integer
+End Function
+
+Function StartPeriodicScript(ByVal ScriptPath As String, ByVal UpdateTime As Double) As Boolean
+End Function
+
+Function StopPeriodicScript(ByVal ScriptPath As String) As Boolean
+End Function
+
+Function IsPeriodicScriptRunning(ByVal PathString As String) As Boolean
+End Function
+
+Function GetIODevName(ByVal DeviceNumber As Integer) As String
+End Function
+
+Function SetDevOutput(ByVal DeviceID As Integer, ByVal OutputNum As Integer, ByVal Value As Integer) As Integer
+End Function
+
+Function GetIODevInput(ByVal DeviceID As Integer, ByVal InputNum As Integer) As Double
+End Function
+
+Function GetIODevIOName(ByVal DeviceID As Integer, ByVal InputNumber As Integer) As String
+End Function
+
+Function SetMachPos(ByVal Axis As Integer, ByVal Value As Double) As Integer
+End Function
+
+Function SetInputData(ByVal InputNumber As Integer, ByVal PinNumber As Integer, ByVal ActiveLow) As Integer
+End Function
+
+Function SetIODevDataPointers(ByVal DeviceID As Integer, ByVal PinNumber As Integer, ByVal SetValueDRO As Integer, ByVal SetOffsetDRO As Integer) As Integer
+End Function
+
+Sub NoDelaySpindle(ByVal StopForSpeedChange As Integer)
+End Sub
+
+Sub SetEnaContext(ByVal Ctx As Long)
+End Sub
+
+Sub WriteProtocol(ByVal Value As String, Optional bRuntimeInfo As Boolean = True)
+End Sub
+
 
 ''' Enum VbVarType
 Const vbEmpty = 0
