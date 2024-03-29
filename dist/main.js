@@ -68,11 +68,11 @@ var start = function start_(options) {
   var data = document.getText();
 
   var bsource = m1sindent({
-    FormatterLevel: options.FormatterLevel,
-    FormatterIndentChar: options.FormatterIndentChar,
-    FormatterBreakLineChar: options.FormatterBreakLineChar,
-    FormatterBreakOnSeperator: options.FormatterBreakOnSeperator,
-    FormatterRemoveComments: options.FormatterRemoveComments,
+    level: options.FormatterLevel,
+    indentChar: options.FormatterIndentChar,
+    breakLineChar: options.FormatterBreakLineChar,
+    breakOnSeperator: options.FormatterBreakOnSeperator,
+    removeComments: options.FormatterRemoveComments,
     source: data
   });
 
