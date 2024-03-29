@@ -1,4 +1,5 @@
 "use strict";
+
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -33,6 +34,22 @@ const colorprovider_1 = __importDefault(require("./colorprovider"));
 const Launcher_1 = __importDefault(require("./Launcher"));
 const cmds = __importStar(require("./commands"));
 const Includes_1 = require("./Includes");
+
+const m1sindent = require('./dist/indent');
+const path = require('path');
+const {
+	Position,
+	Range,
+} = require('vscode');
+
+const contributions = vscode_1.workspace.getConfiguration('m1svscode');
+const indentCharValue = '\t';
+const breakLineCharValue = '\n';
+const levelValue = contributions.get('level');
+const breakOnSeperatorValue = contributions.get('breakOnSeperator');
+const removeCommentsValue = contributions.get('removeComments');
+const editor = vscode_1.window.activeTextEditor;
+
 function activate(context) {
     Includes_1.Includes.set("Global", new Includes_1.IncludeFile(context.asAbsolutePath("./GlobalDefs.vbs")));
     Includes_1.Includes.set("ObjectDefs", new Includes_1.IncludeFile(context.asAbsolutePath("./ObjectDefs.vbs")));
@@ -46,20 +63,20 @@ function activate(context) {
         cmds.killScript();
     });
     	
-    let buttonActivation = vscode.commands.registerTextEditorCommand('extension.indent', (editor) => {
-		let document = editor.document
+    let buttonActivation = vscode_1.commands.registerTextEditorCommand('extension.indent', (editor) => {
+	let document = editor.document
+	prepareDocument(document)
+    });
+
+    context.subscriptions.push(buttonActivation);
+
+    let formatFunction = vscode_1.languages.registerDocumentFormattingEditProvider('m1s', {
+	provideDocumentFormattingEdits: (document) => {
 		prepareDocument(document)
-	});
-
-	context.subscriptions.push(buttonActivation);
-
-	let formatFunction = vscode.languages.registerDocumentFormattingEditProvider('m1s', {
-		provideDocumentFormattingEdits: (document) => {
-			prepareDocument(document)
 		}
-	});
+    });
 
-	context.subscriptions.push(formatFunction);
+    context.subscriptions.push(formatFunction);
 }
 
 function prepareDocument(document) {
@@ -74,7 +91,7 @@ function prepareDocument(document) {
 		const range = new Range(start, end);
 		const sourceFile = document.getText(range);
 
-		vscode.window.showInformationMessage('Formatting Script');
+		vscode_1.window.showInformationMessage('Formatting Script');
 
 		let outFile = m1sindent({
 			level: levelValue,
@@ -85,12 +102,12 @@ function prepareDocument(document) {
 			source: sourceFile,
 		});
 		console.log(outFile);
-		const edit = new vscode.WorkspaceEdit();
+		const edit = new vscode_1.WorkspaceEdit();
 		edit.replace(document.uri, range, outFile);
-		return vscode.workspace.applyEdit(edit)
+		return vscode_1.workspace.applyEdit(edit)
 
 	} else {
-		vscode.window.showInformationMessage('Not a Mach3 Script file!');
+		vscode_1.window.showInformationMessage('Not a Mach3 Script file!');
 	}
 }
 
