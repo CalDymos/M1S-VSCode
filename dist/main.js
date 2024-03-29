@@ -17,7 +17,7 @@ var start = function start_(options) {
     var option = arg.replace('--', '');
 
     switch (option) {
-      case 'level':
+      case 'FormatterLevel':
         var value = process.argv[++i];
         if (!isNaN(value)) {
           options[option] = Number(value);
@@ -26,7 +26,7 @@ var start = function start_(options) {
           process.exit(1);
         }
         break;
-      case 'indentChar':
+      case 'FormatterIndentChar':
         var value = process.argv[++i];
         if (/^(\ +|\\t)$/.test(value)) {
           options[option] = value.replace('\\t', '\t');
@@ -35,7 +35,7 @@ var start = function start_(options) {
           process.exit(2);
         }
         break;
-      case 'breakLineChar':
+      case 'FormatterBreakLineChar':
         var value = process.argv[++i];
         if (/^(\\n|\\r\\n)$/.test(value)) {
           options[option] = value.replace('\\n', '\n').replace('\\r', '\r');
@@ -44,13 +44,13 @@ var start = function start_(options) {
           process.exit(3);
         }
         break;
-      case 'breakOnSeperator':
+      case 'FormatterBreakOnSeperator':
         options[option] = true;
         break;
-      case 'removeComments':
+      case 'FormatterRemoveComments':
         options[option] = true;
         break;
-      case 'output':
+      case 'FormatterOutput':
         var value = process.argv[++i];
         if (value) {
           outFile = value;
@@ -68,11 +68,11 @@ var start = function start_(options) {
   var data = document.getText();
 
   var bsource = m1sindent({
-    level: options.level,
-    indentChar: options.indentChar,
-    breakLineChar: options.breakLineChar,
-    breakOnSeperator: options.breakOnSeperator,
-    removeComments: options.removeComments,
+    FormatterLevel: options.FormatterLevel,
+    FormatterIndentChar: options.FormatterIndentChar,
+    FormatterBreakLineChar: options.FormatterBreakLineChar,
+    FormatterBreakOnSeperator: options.FormatterBreakOnSeperator,
+    FormatterRemoveComments: options.FormatterRemoveComments,
     source: data
   });
 
