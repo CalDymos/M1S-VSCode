@@ -94,11 +94,11 @@ function prepareDocument(document) {
 		vscode_1.window.showInformationMessage('Formatting Script');
 
 		let outFile = m1sindent({
-			level: levelValue,
-			indentChar: indentCharValue,
-			breakLineChar: breakLineCharValue,
-			breakOnSeperator: breakOnSeperatorValue,
-			removeComments: removeCommentsValue,
+			level: FormatterLevelValue,
+			indentChar: FormatterIndentCharValue,
+			breakLineChar: FormatterBreakLineCharValue,
+			breakOnSeperator: FormatterBreakOnSeperatorValue,
+			removeComments: FormatterRemoveCommentsValue,
 			source: sourceFile,
 		});
 		console.log(outFile);
