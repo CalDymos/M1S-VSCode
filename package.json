@@ -114,6 +114,21 @@
       "type": "object",
       "title": "Mach3Script",
       "properties": {
+	      "m1s.FormaterLevel": {
+					"type": "number",
+					"default": 0,
+					"description": "Indent level to start off"
+				},
+				"m1s.FormatterBreakOnSeperator": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether it breaks the line on occurrences of the \":\" statement separator."
+				},
+				"m1s.FormatterRemoveComments": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether it removes comments from the input."
+				},
         "m1s.interpreter": {
           "type": "string",
           "default": "C:\\WINDOWS\\system32\\cscript.exe",
