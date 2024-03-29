@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Language="en-US" Id="m1svscode" Version="0.12.1" Publisher="CalDymos"/>
+    <Identity Language="en-US" Id="m1svscode" Version="0.13.0" Publisher="CalDymos"/>
     <DisplayName>M1S</DisplayName>
     <Description xml:space="preserve">Mach3 Script Language Support</Description>
     <Tags>M1S,Mach3 Script,snippet,debuggers,m1s,__ext_m1s</Tags>
-    <Categories>Programming Languages,Snippets</Categories>
+    <Categories>Programming Languages,Snippets, Formatter</Categories>
     <GalleryFlags>Public</GalleryFlags>
     <Badges></Badges>
     <Properties>
-      <Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.47.0" />
+      <Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.85.0" />
       <Property Id="Microsoft.VisualStudio.Code.ExtensionDependencies" Value="" />
       <Property Id="Microsoft.VisualStudio.Code.ExtensionPack" Value="" />
       <Property Id="Microsoft.VisualStudio.Code.ExtensionKind" Value="workspace" />
