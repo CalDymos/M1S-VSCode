@@ -35,7 +35,7 @@ const Launcher_1 = __importDefault(require("./Launcher"));
 const cmds = __importStar(require("./commands"));
 const Includes_1 = require("./Includes");
 
-const m1sindent = require('./dist/indent');
+const m1sindent = require('./indent');
 const path = require('path');
 const {
 	Position,
@@ -46,16 +46,21 @@ const contributions = vscode_1.workspace.getConfiguration('m1svscode');
 const indentCharValue = '\t';
 const breakLineCharValue = '\n';
 const levelValue = contributions.get('FormatterLevel');
-const breakOnSeperatorValue = contributions.get('FormaterBreakOnSeperator');
+const breakOnSeperatorValue = contributions.get('FormatterBreakOnSeperator');
 const removeCommentsValue = contributions.get('FormatterRemoveComments');
 const editor = vscode_1.window.activeTextEditor;
 
+/**
+ * @param {vscode.ExtensionContext} context
+ */
 function activate(context) {
+	//vscode_1.window.showInformationMessage('M1S is now active!');
+
     Includes_1.Includes.set("Global", new Includes_1.IncludeFile(context.asAbsolutePath("./GlobalDefs.vbs")));
     Includes_1.Includes.set("ObjectDefs", new Includes_1.IncludeFile(context.asAbsolutePath("./ObjectDefs.vbs")));
     vscode_1.workspace.onDidChangeConfiguration(Includes_1.reloadImportDocuments);
     Includes_1.reloadImportDocuments();
-    context.subscriptions.push(hover_1.default, completion_1.default, symbols_1.default, signature_1.default, definition_1.default, colorprovider_1.default, Launcher_1.default.launchConfigProvider, Launcher_1.default.inlineDebugAdapterFactory);
+    
     vscode_1.commands.registerCommand("m1s.runScript", () => {
         cmds.runScript();
     });
@@ -63,12 +68,10 @@ function activate(context) {
         cmds.killScript();
     });
     	
-    let buttonActivation = vscode_1.commands.registerTextEditorCommand('extension.indent', (editor) => {
+    let buttonActivation = vscode_1.commands.registerTextEditorCommand('extension.indenter', (editor) => {
 	let document = editor.document
 	prepareDocument(document)
     });
-
-    context.subscriptions.push(buttonActivation);
 
     let formatFunction = vscode_1.languages.registerDocumentFormattingEditProvider('m1s', {
 	provideDocumentFormattingEdits: (document) => {
@@ -76,7 +79,7 @@ function activate(context) {
 		}
     });
 
-    context.subscriptions.push(formatFunction);
+    context.subscriptions.push(hover_1.default, completion_1.default, symbols_1.default, signature_1.default, definition_1.default, colorprovider_1.default, Launcher_1.default.launchConfigProvider, Launcher_1.default.inlineDebugAdapterFactory, buttonActivation, formatFunction);
 }
 
 function prepareDocument(document) {
@@ -94,11 +97,11 @@ function prepareDocument(document) {
 		vscode_1.window.showInformationMessage('Formatting Script');
 
 		let outFile = m1sindent({
-			level: FormatterLevelValue,
-			indentChar: FormatterIndentCharValue,
-			breakLineChar: FormatterBreakLineCharValue,
-			breakOnSeperator: FormatterBreakOnSeperatorValue,
-			removeComments: FormatterRemoveCommentsValue,
+			level: levelValue,
+			indentChar: indentCharValue,
+			breakLineChar: breakLineCharValue,
+			breakOnSeperator: breakOnSeperatorValue,
+			removeComments: removeCommentsValue,
 			source: sourceFile,
 		});
 		console.log(outFile);
@@ -132,5 +135,5 @@ function getFileExtension(fileName) {
 	return path.extname(fileName);
 }
 
-module.exports = {activate}
+exports.activate = activate;
 //# sourceMappingURL=extension.js.map
