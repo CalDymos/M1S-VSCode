@@ -45,9 +45,9 @@ const {
 const contributions = vscode_1.workspace.getConfiguration('m1svscode');
 const indentCharValue = '\t';
 const breakLineCharValue = '\n';
-const levelValue = contributions.get('level');
-const breakOnSeperatorValue = contributions.get('breakOnSeperator');
-const removeCommentsValue = contributions.get('removeComments');
+const levelValue = contributions.get('FormatterLevel');
+const breakOnSeperatorValue = contributions.get('FormaterBreakOnSeperator');
+const removeCommentsValue = contributions.get('FormatterRemoveComments');
 const editor = vscode_1.window.activeTextEditor;
 
 function activate(context) {
