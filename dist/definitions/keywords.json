@@ -1,50 +1,53 @@
 {
+    "Begin Dialog": {
+        "documentation": "Start the definition of a Dialog Box control"
+    },
     "ByRef": {
-        "documentation": ""
+        "documentation": "Gives other subroutines and functions the permission to make changes to variables that are passed in as parameters."
     },
     "ByVal": {
-        "documentation": ""
+        "documentation": "Denies this permission to make changes to variables that are passed in the parameters, so they cannot be reassigned outside their local procedure."
     },
     "Call": {
         "documentation": "Transfers control to a Sub procedure or Function procedure"
     },
-    "Class": {
-        "documentation": ""
-    },
     "Const": {
-        "documentation": ""
+        "documentation": "Assigns a symbolic name to a constant value."
     },
     "Dim": {
-        "documentation": ""
+        "documentation": "Allocates storage for and declares the data type of variables and arrays in a module. "
     },
     "Do": {
-        "documentation": ""
+        "documentation": "Repeats a group of  statements while a condition is true or until a condition is met."
     },
     "Each": {
         "documentation": ""
     },
     "Else": {
-        "documentation": ""
+        "documentation": "This instruction should be used if a statement block is to be executed if the condition does not apply."
     },
     "End": {
-        "documentation": ""
+        "documentation": "Ends a program or a block of statements such as a Sub procedure, function or a Dialog Box control."
     },
     "Erase": {
-        "documentation": ""
-    },
-    "Execute": {
-        "documentation": ""
-    },
-    "ExecuteGlobal": {
-        "documentation": ""
+        "documentation": "Reinitializes the elements of a fixed array."
     },
     "Exit": {
-        "documentation": ""
+        "documentation": "Exits a loop or procedure."
     },
     "For": {
-        "documentation": ""
+        "documentation": "Repeats a group of instructions."
     },
     "Function": {
+        "documentation": ""
+    },
+    "GoSub": {
+        "documentation": "Branches to a subroutine within a procedure."
+    },
+    "GoTo": {
+        "documentation": "Branches unconditionally and without return to a specified label in a procedure."
+    },
+    "Global": {
         "documentation": ""
     },
     "If": {
@@ -56,6 +59,9 @@
     "Loop": {
         "documentation": ""
     },
+    "Line Input": {
+        "documentation": "Reads a line from a sequential file into a String or Variant variable."
+    },
     "New": {
         "documentation": ""
     },
@@ -65,31 +71,19 @@
     "Option Explicit": {
         "documentation": "Used at script level to force explicit declaration of all variables in that script."
     },
+    "Option Base 1": {
+        "documentation": "Changes the default lower bound for arrays to 1."
+    },
     "On Error Resume Next": {
         "documentation": "Specifies that when a run-time error occurs, control goes to the statement immediately following the statement where the error occurred and execution continues"
     },
-    "On Error Goto 0": {
+    "On Error GoTo 0": {
         "documentation": "Disables any enabled error handler in the current procedure."
     },
-    "Redim Preserve": {
+    "Optional": {
         "documentation": ""
-    },
-    "Property": {
-        "documentation": ""
-    },
-    "Property Get": {
-        "documentation": "Property procedure, which gets the value of a property."
-    },
-    "Property Let": {
-        "documentation": "Property procedure, which assigns a value to a property."
-    },
-    "Property Set": {
-        "documentation": "Property procedure, which sets a reference to an object."
     },
     "Private": {
-        "documentation": ""
-    },
-    "Public": {
         "documentation": ""
     },
     "Randomize": {
@@ -99,13 +93,25 @@
         "documentation": "Used at the procedure level to reallocate storage space for dynamic array variables."
     },
     "Rem": {
+        "documentation": "Used to include explanatory remarks in a program."
+    },
+    "Return": {
+        "documentation": "Returns from a subroutine within a procedure."
+    },
+    "Seek": {
         "documentation": ""
     },
     "Select Case": {
+        "documentation": "Executes one of the statement blocks in the 'case' based on the test variable."
+    },
+    "Set": {
         "documentation": ""
     },
+    "Static": {
+        "documentation": "Used to declare static variables and allocate storage space. These variables will retain their value through the program run."
+    },
     "Stop": {
-        "documentation": ""
+        "documentation": "Ends execution of the program."
     },
     "Step": {
         "documentation": "Amount counter is changed each time through the loop. If not specified, step defaults to one."
@@ -118,6 +124,12 @@
     },
     "To": {
         "documentation": ""
+    },
+    "Type": {
+        "documentation": "Defines a user-defined data type containing one or more elements."
+    },
+    "TEXT": {
+        "documentation": "Creates a text field for titles and labels in Dialog Box controls"
     },
     "Until": {
         "documentation": ""
