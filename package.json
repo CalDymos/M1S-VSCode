@@ -2,7 +2,7 @@
   "name": "m1svscode",
   "displayName": "M1S",
   "description": "Mach3 Script (CB SCript) Language Support",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "publisher": "CalDymos",
   "icon": "assets/logo.png",
   "galleryBanner": {
@@ -137,7 +137,7 @@
 		"m1s.FormatterLevel": {
 			"type": "number",
 			"default": 0,
-			"description": "Indent level to start off"
+			"description": "%m1s.config.FormatterLevel.description%"
 		},
 		"m1s.FormatterBreakOnSeperator": {
 			"type": "boolean",
@@ -147,7 +147,7 @@
 		"m1s.FormatterRemoveComments": {
 			"type": "boolean",
 			"default": false,
-			"description": "Whether it removes comments from the input."
+			"description": "%m1s.config.FormatterRemoveComments.description%"
         },
         "m1s.interpreter": {
           	"type": "string",
@@ -218,6 +218,6 @@
 		"test": "vscode-test"
   },
   "dependencies": {
-    "vscode-debugadapter": "^1.85.0"
+    "vscode-debugadapter": "^1.47.0"
   }
 }

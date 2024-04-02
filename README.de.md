@@ -10,19 +10,19 @@ Diese Erweiterung bietet Sprachunterstützung für Mach3 Script (CB Script) für
 - Gliederung
 - Autovervollständigung
 
-![Outline](assets/docs/Completion-And-Outline.png)
+![Outline](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/Completion-And-Outline.png)
 - Gehe zu Definition
 - Ausführen (kein Debugging)
 - Hover
 
-![Hover](assets/docs/Hover.png)
+![Hover](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/Hover.png)
 - Signaturen
 
-![Hover](assets/docs/Signature.png)
+![Signature](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/Signature.png)
 
 - Farbinformationen anzeigen
 
-![Hover](assets/docs/ColorProvider.png)
+![ColorProvider](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/ColorProvider.png)
 
 - Zusätzliche M1S Funktions Bibliotheken als M1S Dateien einbinden
 ```

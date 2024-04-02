@@ -53,19 +53,10 @@ Class Dictionary
 End Class
 
 
-''' <summary>Contains information about run-time errors. Accepts the Raise and Clear methods for generating and clearing run-time errors.</summary>
+''' <summary>Contains information about run-time errors. Accepts the Raise for generating errors.</summary>
 Class Err
 
-	Sub Clear()
-	End Sub
-
 	Property Get Description
-	End Property
-
-	Property Get HelpContext
-	End Property
-
-	Property Get HelpFile
 	End Property
 
 	Property Get Number
@@ -73,12 +64,6 @@ Class Err
 
 	Sub Raise(number)
 	End Sub
-	
-	Sub Raise(number, source, description, helpfile, helpcontext)
-	End Sub
-
-	Property Get Source
-	End Property
 	
 End Class
 

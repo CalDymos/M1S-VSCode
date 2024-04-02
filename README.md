@@ -10,19 +10,19 @@ This extension implements basic language features of Mach3 Script (CB Script) fo
 - Outline
 - Completion
 
-![Outline](assets/docs/Completion-And-Outline.png)
+![Outline](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/Completion-And-Outline.png)
 - Goto Definition
 - Run (no debugging)
 - Hover 
 
-![Hover](assets/docs/Hover.png)
+![Hover](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/Hover.png)
 
 - Signatures
-![Hover](assets/docs/Signature.png)
+![Signature](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/Signature.png)
 
 - Color Information
 
-![Hover](assets/docs/ColorProvider.png)
+![ColorProvider](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/ColorProvider.png)
 
 - Add extra M1S Source (libraries) files for extra completion
 ```
@@ -33,7 +33,7 @@ This extension implements basic language features of Mach3 Script (CB Script) fo
 
 ## Contribute
 You can support this project through PR with your changes or simply add an issue with your idea/bug.
-- Complete Language Source Documentation #21
+- Complete Language Source Documentation [#21](https://github.com/CalDymos/M1S-VSCode/issues/21)
 - Translate
 - ...
 
