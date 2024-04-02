@@ -21,8 +21,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
 const PATTERNS = __importStar(require("./patterns"));
-const showVariableSymbols = vscode_1.workspace.getConfiguration("vbs").get("showVariableSymbols");
-const showParameterSymbols = vscode_1.workspace.getConfiguration("vbs").get("showParamSymbols");
+const showVariableSymbols = vscode_1.workspace.getConfiguration("m1s").get("showVariableSymbols");
+const showParameterSymbols = vscode_1.workspace.getConfiguration("m1s").get("showParamSymbols");
 const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
 const CLASS = RegExp(PATTERNS.CLASS.source, "i");
 const PROP = RegExp(PATTERNS.PROP.source, "i");
@@ -110,5 +110,5 @@ function provideDocumentSymbols(doc) {
     }
     return result;
 }
-exports.default = vscode_1.languages.registerDocumentSymbolProvider({ scheme: "file", language: "vbs" }, { provideDocumentSymbols });
+exports.default = vscode_1.languages.registerDocumentSymbolProvider({ scheme: "file", language: "m1s" }, { provideDocumentSymbols });
 //# sourceMappingURL=symbols.js.map

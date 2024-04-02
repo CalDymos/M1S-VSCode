@@ -110,9 +110,8 @@ var m1sformatter = function m1sformatter_(options) {
                               break;
                           case 'WITH':
                           case 'FUNCTION':
-                          case 'PROPERTY':
                           case 'SUB':
-                          case 'CLASS':
+                          case 'TYPE':
                           case 'IF':
                               indent = 1;
                               WSAfter = " ";
@@ -121,9 +120,8 @@ var m1sformatter = function m1sformatter_(options) {
                           case 'END_SUB':
                           case 'END_WITH':
                           case 'END_FUNCTION':
-                          case 'END_CLASS':
+                          case 'END_TYPE':
                           case 'END_IF':
-                          case 'END_PROPERTY':
                               indent = -1;
                               break;
                           case 'SELECT_CASE':
