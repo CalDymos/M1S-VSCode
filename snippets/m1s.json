@@ -1,23 +1,18 @@
 {
-	"new class": {
-		"prefix": "Class",
+	"new WordDoc": {
+		"prefix": "WordDocument",
 		"body": [
-			"Class ${1:$TM_FILENAME_BASE}",
-				"",
-				"\tPrivate Sub Class_Initialize()",
-					"\t\t",
-				"\tEnd Sub",
-				"",
-				"\tPrivate Sub Class_Terminate()",
-					"\t\t",
-				"\tEnd Sub",
-				"",
-				"$0",
-			"End Class ' $1"
+			"Set word = CreateObject(\"Word.Basic\")"
 		],
-		"description": "New Class..."
+		"description": "New Word document Object..."
 	},
-
+	"new xmlDoc": {
+		"prefix": "domdocument",
+		"body": [
+			"Set xmlDoc = CreateObject(\"msxml2.domdocument\")"
+		],
+		"description": "New XML2 document Object..."
+	},
 	"new fso": {
 		"prefix": "FileSystemObject",
 		"body": [
@@ -42,13 +37,6 @@
 		"description": "Execute WMI Query"
 	},
 
-	"Wscript.Echo": {
-		"prefix": "Echo",
-		"body": [
-			"WScript.Echo $0"
-		]
-	},
-
 	"new function": {
 		"prefix": "Function",
 		"body": [
@@ -66,31 +54,6 @@
 			"End Sub ' ${1:Name}"
 		],
 		"description": "New Sub..."
-	},
-
-	"public property": {
-		"prefix": "PropertyPublic",
-		"body": [
-			"Public Property Get ${1:PropertyName}",
-				"\tSet ${1:PropertyName} = m_${1:PropertyName}",
-			"End Property",
-			"Public Property Let ${1:PropertyName}(Value)",
-				"\tSet m_${1:PropertyName} = Value",
-			"End Property"
-		],
-		"description": "Public Property..."
-	},
-	"private property": {
-		"prefix": "PropertyPrivate",
-		"body": [
-			"Private Property Get ${1:PropertyName}",
-				"\tSet ${1:PropertyName} = m_${1:PropertyName}",
-			"End Property",
-			"Private Property Let ${1:PropertyName}(Value)",
-				"\tSet m_${1:PropertyName} = Value",
-			"End Property"
-		],
-		"description": "Private Property..."
 	},
 
 	"if statement": {
