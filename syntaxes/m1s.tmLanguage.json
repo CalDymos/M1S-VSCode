@@ -58,32 +58,45 @@
 			"match": "(?i:'|Rem\\b).*$"
 		},
 		{
+			"comment": "Type definition",
+			"captures": {
+				"1": {
+					"name": "storage.type.struct.m1s"
+				},
+				"2": {
+					"name": "entity.name.type.struct.m1s"
+				}
+			},
+			"match": "(?i:(Type))[\\t ]+(\\[?[a-zA-Z]\\w*\\]?)"
+		},
+		{
 			"comment": "function definition",
 			"captures": {
 				"1": {
-					"name": "storage.modifier.m1s"
-				},
-				"2": {
 					"name": "storage.type.function.m1s"
 				},
-				"3": {
+				"2": {
 					"name": "entity.name.function.m1s"
 				},
-				"4": {
+				"3": {
 					"name": "punctuation.definition.parameters.begin.m1s"
 				},
-				"5": {
+				"4": {
 					"name": "variable.parameter.function.m1s"
 				},
-				"6": {
+				"5": {
 					"name": "punctuation.definition.parameters.end.m1s"
 				}
 			},
-			"match": "(?i:(Private|Public)[\\t ]+)?(?i:(Type|Function|Sub|(?:Default\\s+)?Property [GLS]et))[\\t ]+(\\[?[a-zA-Z]\\w*\\]?)[\\t ]*(?:(\\()([^)]*)(\\)))?"
+			"match": "(?i:(Function|Sub))[\\t ]+(\\[?[a-zA-Z]\\w*\\]?)[\\t ]*(?:(\\()([^)]*)(\\)))?"
 		},
 		{
-			"match": "(?i:End[\\t ]+(Type|Sub|Function))",
+			"match": "(?i:End[\\t ]+(Sub|Function))",
 			"name": "storage.type.end.m1s"
+		},
+		{
+			"match": "(?i:End[\\t ]+(Type))",
+			"name": "storage.type.struct.end.m1s"
 		},
 		{
 			"match": "(?i:\\s*\\b(Redim|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo|Stop)\\b\\s*)",
@@ -138,17 +151,24 @@
 				}
 			]
 		},
+		{ "match": "^\\s*(#\\s*expand)\\s+(<.*>|\".*\")",
+		  "name": "keyword.control.directive.include.m1s"
+	    },
 		{
-			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CDate|CDbl|Chr|CInt|CLng|Cos|CreateObject|CSng|CStr|Date|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Day|Derived|Escape|Eval|Exists|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|Second|Sgn|Sin|Space|Sqr|StrComp|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
+			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CDate|CDbl|Chr|CInt|CLng|Cos|CreateObject|CSng|CStr|Date|DateSerial|DateValue|Day|Exp|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|Second|Sgn|Sin|Space|Sqr|StrComp|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
 			"name": "support.function.m1s"
 		},
 		{
-			"match": "(?i:\\b(Err|vbtrue|vbfalse|vbcr|vbcrlf|vbformfeed|vblf|vbnewline|vbnullchar|vbnullstring|vbtab|vbverticaltab|vbbinarycompare|vbtextcomparevbsunday|vbmonday|vbtuesday|vbwednesday|vbthursday|vbfriday|vbsaturday|vbusesystemdayofweek|vbfirstjan1|vbfirstfourdays|vbfirstfullweek|vbgeneraldate|vblongdate|vbshortdate|vblongtime|vbshorttime|vbobjecterror|vbEmpty|vbNull|vbInteger|vbLong|vbSingle|vbDouble|vbCurrency|vbDate|vbString|vbObject|vbError|vbBoolean|vbVariant|vbDataObject|vbDecimal|vbByte|vbArray)\\b)",
+			"match": "(?i:\\b(Err)\\b)",
 			"name": "support.type.m1s"
 		},
 		{
 			"match": "\\b\\[?[a-zA-Z]\\w*\\]?\\s*\\(",
 			"name": "entity.name.function.m1s"
+		},
+		{
+			"match": "\\b\\[?[a-zA-Z]\\w*\\]?\\s*\\(",
+			"name": "entity.name.type.struct.m1s"
 		},
 		{
 			"match": "#\\d+\/\\d+\/\\d+#",
