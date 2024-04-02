@@ -21,7 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = __importStar(require("vscode"));
 const PATTERNS = __importStar(require("./patterns"));
-class VBSColorProvider {
+class M1SColorProvider {
     constructor() {
         this.MAX_COLOR = 0xff;
     }
@@ -92,5 +92,5 @@ class VBSColorProvider {
         return [new vscode.ColorPresentation(`RGB(${color.red * this.MAX_COLOR}, ${color.green * this.MAX_COLOR}, ${color.blue * this.MAX_COLOR})`)];
     }
 }
-exports.default = vscode.languages.registerColorProvider({ scheme: "file", language: "m1s" }, new VBSColorProvider());
+exports.default = vscode.languages.registerColorProvider({ scheme: "file", language: "m1s" }, new M1SColorProvider());
 //# sourceMappingURL=colorprovider.js.map

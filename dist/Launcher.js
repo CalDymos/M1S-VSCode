@@ -19,13 +19,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InlineDebugAdapterFactory = exports.DebugConfigurationProvider = exports.VbsDebugSession = void 0;
+exports.InlineDebugAdapterFactory = exports.DebugConfigurationProvider = exports.M1sDebugSession = void 0;
 const vscode_debugadapter_1 = require("vscode-debugadapter");
 const vscode = __importStar(require("vscode"));
 const path_1 = require("path");
 const child_process_1 = require("child_process");
-const diagCollection = vscode.languages.createDiagnosticCollection("vbs");
-class VbsDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
+const diagCollection = vscode.languages.createDiagnosticCollection("m1s");
+class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
     constructor() {
         super();
     }
@@ -69,7 +69,7 @@ class VbsDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
         this.sendResponse(response);
     }
 }
-exports.VbsDebugSession = VbsDebugSession;
+exports.M1sDebugSession = M1sDebugSession;
 class DebugConfigurationProvider {
     resolveDebugConfiguration(_folder, config) {
         const editor = vscode.window.activeTextEditor;
@@ -94,7 +94,7 @@ class DebugConfigurationProvider {
 exports.DebugConfigurationProvider = DebugConfigurationProvider;
 class InlineDebugAdapterFactory {
     createDebugAdapterDescriptor() {
-        return new vscode.DebugAdapterInlineImplementation(new VbsDebugSession());
+        return new vscode.DebugAdapterInlineImplementation(new M1sDebugSession());
     }
 }
 exports.InlineDebugAdapterFactory = InlineDebugAdapterFactory;

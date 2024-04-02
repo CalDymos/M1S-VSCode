@@ -29,7 +29,7 @@ const path_1 = __importDefault(require("path"));
 const localize_1 = __importDefault(require("./localize"));
 const fs = __importStar(require("fs"));
 const configuration = vscode_1.workspace.getConfiguration("m1s");
-const vbsOut = vscode_1.window.createOutputChannel("Mach3Script");
+const m1sOut = vscode_1.window.createOutputChannel("Mach3Script");
 let runner;
 const scriptInterpreter = configuration.get("interpreter");
 let statbar;
@@ -44,8 +44,8 @@ function runScript() {
     }
     const doc = vscode_1.window.activeTextEditor.document;
     doc.save().then(() => {
-        vbsOut.clear();
-        vbsOut.show(true);
+        m1sOut.clear();
+        m1sOut.show(true);
         const workDir = path_1.default.dirname(doc.fileName);
         if (statbar)
             statbar.dispose();
@@ -55,14 +55,14 @@ function runScript() {
         });
         runner.stdout.on("data", data => {
             const output = data.toString();
-            vbsOut.append(output);
+            m1sOut.append(output);
         });
         runner.stderr.on("data", data => {
             const output = data.toString();
-            vbsOut.append(output);
+            m1sOut.append(output);
         });
         runner.on("exit", code => {
-            vbsOut.appendLine(`Process exited with code ${code}`);
+            m1sOut.appendLine(`Process exited with code ${code}`);
             statbar.dispose();
         });
     }, () => {
