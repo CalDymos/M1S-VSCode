@@ -26,6 +26,7 @@ var m1sparser = function m1sparser_(options) {
       "dim": { "label": "Dim", "type": "DIM"},
       "redim": { "label": "ReDim", "type": "REDIM"},
       "private": { "label": "Private", "type": "PRIVATE"},
+      "global": { "label": "Global", "type": "GLOBAL"},
       "default": { "label": "Default", "type": "DEFAULT"},
       "next": { "label": "Next", "type": "FOR_LOOP_NEXT"},
       "nothing": { "label": "Nothing", "type": "OBJECT_NOTHING"},
@@ -160,6 +161,9 @@ var m1sparser = function m1sparser_(options) {
         return (char === ' ' || char === '\t' || char === '\f' || char ===
           '\v');
       },
+      isEqualSign = function m1sparser_tokenizer_isEqualSign(char) {
+        return (char === '=');
+      },
       isEOLorEOF = function m1sparser_tokenizer_isEOLorEOF(char) {
         char = char || buffer[index];
         if (char === -1) return true;
@@ -196,9 +200,9 @@ var m1sparser = function m1sparser_(options) {
       },
       prevChar = function m1sparser_tokenizer_prevChar() {
         if (index - 1 >= 0 && bLength > 0) {
-          return -1;
+          return buffer[index - 1]
         }
-        return buffer[index - 1]
+        return -1;
       },
       nextChar = function m1sparser_tokenizer_nextChar() {
         if (index + 1 >= bLength) {
@@ -298,8 +302,10 @@ var m1sparser = function m1sparser_(options) {
     var
       curChar,
       nextChr,
+      prevChr,
       ch,
-      word;
+      word,
+      nextWord;
 
     while ((ch = currentChar()) !== -1) {
       word = '';
@@ -337,10 +343,15 @@ var m1sparser = function m1sparser_(options) {
           read();
           word = '#' + readTill(function(char) {
             return char !== '#';
-          }) + '#';
+          });
           read();
-          pushToken(word, 'DATE');
-          break;
+          if (word.indexOf("#expand ") != -1){
+            pushToken(word, 'STRING');
+          }else { 
+            word + '#';
+            pushToken(word, 'DATE');
+          }
+          break; 
         case '[':
           word = readTill(function(char) {
             return char !== ']';
@@ -360,14 +371,21 @@ var m1sparser = function m1sparser_(options) {
           break;
         case '+':
         case '^':
-        case '%':
-        case '-':
         case '*':
         case '/':
+        case '%':
         case '\\':
         case '=':
           pushToken(read(), 'ARTHMETIC_OPERATOR');
           break;
+        case '-':
+          prevChr = prevChar();
+          if ((charAt(index - 2) === ',') && (prevChr === ' ')) {
+            pushToken(read(), 'INVALID');
+            continue;
+          }
+          pushToken(read(), 'ARTHMETIC_OPERATOR');
+          break;          
         case '<':
           nextChr = nextChar();
 
@@ -606,12 +624,37 @@ var m1sparser = function m1sparser_(options) {
                 break;
             }
           } else {
+
+              curChar = currentChar()
+              nextChr = nextChar();
+
+              switch (curChar) {
+              
+                case ':':
+                  if (nextChr === '='){
+                    read(2);
+                    nextWord = readTill(function(char) {
+                      return isAlphaNumeric(char);
+                    });
+                    pushToken(word + ':=' + nextWord, "ARGUMENT_ASSIGNMENT")
+                    break;
+                  }
+                  if ((nextChr === '\n') || (nextChr === '\r')){
+                    read();
+                    pushToken(word + ':', "LABEL");
+                    break;
+                  }
+                default:
+                  pushToken(word, 'UNKNOWN');
+                  break;
+            
+                }
             /*switch (word.toUpperCase()) {
                             case 'REM':
                                 pushToken(word + readLine(), 'COMMENT');
                                 break;
                             default:*/
-            pushToken(word, 'UNKNOWN');
+            //pushToken(word, 'UNKNOWN');
             /*break;
                         }*/
           }

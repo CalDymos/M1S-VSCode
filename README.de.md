@@ -1,5 +1,5 @@
 # Mach3 Script Extension für Visual Studio Code
-Diese Erweiterung bietet Sprachunterstützung für Mach3 Script (CB Script) für [Visual Studio Code](https://code.visualstudio.com/).
+Diese Erweiterung bietet Sprachunterstützung für Mach3 Script für [Visual Studio Code](https://code.visualstudio.com/).
 
 <p align="center">
   <a href="./README.md">English</a> | 
@@ -7,6 +7,7 @@ Diese Erweiterung bietet Sprachunterstützung für Mach3 Script (CB Script) für
 </p>
 
 ## Features
+- Formatierung
 - Gliederung
 - Autovervollständigung
 

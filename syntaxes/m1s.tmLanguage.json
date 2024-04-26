@@ -99,7 +99,7 @@
 			"name": "storage.type.struct.end.m1s"
 		},
 		{
-			"match": "(?i:\\s*\\b(Redim|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo|Stop)\\b\\s*)",
+			"match": "(?i:\\s*\\b(Redim|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo|Stop|End)\\b\\s*)",
 			"name": "keyword.control.m1s"
 		},
 		{
@@ -108,7 +108,15 @@
 			"name": "storage.modifier.m1s"
 		},
 		{
-			"match": "(?i:\\b(Call|If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Sub|Type))\\b)",
+			"match": "(?i:\\b(If|ElseIf)\\b)",
+			"name": "keyword.control.if.m1s"
+		},
+		{
+			"match": "(?i:\\b(Else)\\b)",
+			"name": "keyword.control.else.m1s"
+		},
+		{
+			"match": "(?i:\\b(Call|Then|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Sub))\\b)",
 			"name": "keyword.control.m1s"
 		},
 		{
@@ -124,7 +132,7 @@
 					"name": "variable.other.dim.m1s"
 				}
 			},
-			"match": "\\b(?i:((?:public|private)\\s+const|public|private|dim|const)\\s+\\b(\\[?[a-zA-Z]\\w*\\]?\\b(?:\\s*,\\s*\\b\\[?[a-zA-Z]\\w*\\]?\\b)*))"
+			"match": "\\b(?i:((?:global|private)\\s+const|global|private|dim|const)\\s+\\b(\\[?[a-zA-Z]\\w*\\]?\\b(?:\\s*,\\s*\\b\\[?[a-zA-Z]\\w*\\]?\\b)*))"
 		},
 		{
 			"match": "(?i:\\s*\\b(Empty|False|Nothing|Null|True)\\b)",

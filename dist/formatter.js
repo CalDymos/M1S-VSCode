@@ -93,9 +93,8 @@ var m1sformatter = function m1sformatter_(options) {
                           case 'IF_ONE_LINE':
                           case 'NEW_OPERATOR':
                           case 'OPTION':
-                          case 'PRESERVE':
                           case 'PRIVATE':
-                          case 'PUBLIC':
+                          case 'GLOBAL':
                           case 'REDIM':
                           case 'RESUME':
                           case 'ERROR':
@@ -172,6 +171,13 @@ var m1sformatter = function m1sformatter_(options) {
                               indent = -1;
                               WSAfter = " ";
                               break;
+                          case 'LABEL':
+                          case 'ARGUMENT_ASSIGNMENT':
+                              indent = 0;
+                              WSBefore = "";
+                              WSAfter = "";
+                              lineIndent = 0;
+                              break;  
                         }
 
                         return {

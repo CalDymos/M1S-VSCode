@@ -1,5 +1,5 @@
 # Mach3 Script Extension for Visual Studio Code
-This extension implements basic language features of Mach3 Script (CB Script) for [Visual Studio Code](https://code.visualstudio.com/).
+This extension implements basic language features of Mach3 Script for [Visual Studio Code](https://code.visualstudio.com/).
 
 <p align="center">
   <span>English</span> | 
@@ -7,6 +7,7 @@ This extension implements basic language features of Mach3 Script (CB Script) fo
 </p>
 
 ## Features
+- Formatting
 - Outline
 - Completion
 

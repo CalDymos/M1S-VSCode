@@ -1,126 +1,126 @@
 {
-  "name": "m1svscode",
-  "displayName": "M1S",
-  "description": "Mach3 Script (CB SCript) Language Support",
-  "version": "0.14.0",
-  "publisher": "CalDymos",
-  "icon": "assets/logo.png",
-  "galleryBanner": {
-    "color": "#6EE5E5",
-    "theme": "light"
-  },
-  "engines": {
-    "vscode": "^1.85.0"
-  },
-  "categories": [
-    "Programming Languages",
-    "Snippets",
-    "Formatters"
-  ],
-  "keywords": [
-    "M1S",
-    "Mach3 Script"
-  ],
-  "bugs": {
-    "url": "https://github.com/CalDymos/M1S-VSCode/issues"
-  },
-  "license": "MIT",
-  "main": "./dist/extension.js",
-  "activationEvents": [
-    "onLanguage:m1s"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/CalDymos/M1S-VSCode.git"
-  },
-  "homepage": "https://github.com/CalDymos/M1S-VSCode",
-  "contributes": {
-    "debuggers": [
-      {
-        "type": "m1s",
-        "label": "CScript",
-        "program": "./dist/debugger/debugAdapter.js",
-        "runtime": "node",
-        "languages": [
-          "m1s"
-        ],
-        "configurationAttributes": {
-          "launch": {
-            "properties": {
-              "program": {
-                "type": "string",
-                "default": "${file}"
-              }
-            }
-          }
-        },
-        "initialConfigurations": [
-          {
-            "type": "m1s",
-            "request": "launch",
-            "name": "CScript",
-            "program": "${file}"
-          }
-        ],
-        "configurationSnippets": [
-          {
-            "label": "CScript",
-            "body": {
-              "type": "m1s",
-              "request": "launch",
-              "program": "${file}"
-            }
-          }
-        ]
-      }
-    ],
-    "languages": [
-      {
-        "id": "m1s",
-        "aliases": [
-          "Mach3 Script",
-          "m1s"
-        ],
-        "extensions": [
-          ".m1s"
-        ],
-        "configuration": "./syntaxes/language-configuration.json"
-      }
-    ],
-    "commands": [
-      {
-        "command": "m1s.runScript",
-        "title": "%m1s.command.m1s.runScript%"
-      },
-      {
-        "command": "m1s.killScript",
-        "title": "%m1s.command.m1s.killScript%"
-      },
-      {
-        "when": "!editorReadonly && resourceExtname == '.m1s'",
-        "command": "extension.indenter",
-        "title": "M1S-Formatter"
-      }
-    ],
+	"name": "m1svscode",
+	"displayName": "M1S",
+	"description": "Mach3 Script Language Support",
+	"version": "0.14.3",
+	"publisher": "CalDymos",
+	"icon": "assets/logo.png",
+	"galleryBanner": {
+		"color": "#6EE5E5",
+		"theme": "light"
+	},
+	"engines": {
+		"vscode": "^1.85.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets",
+		"Formatters"
+	],
+	"keywords": [
+		"M1S",
+		"Mach3 Script"
+	],
+	"bugs": {
+		"url": "https://github.com/CalDymos/M1S-VSCode/issues"
+	},
+	"license": "MIT",
+	"main": "./dist/extension.js",
+	"activationEvents": [
+		"onLanguage:m1s"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CalDymos/M1S-VSCode.git"
+	},
+	"homepage": "https://github.com/CalDymos/M1S-VSCode",
+	"contributes": {
+		"debuggers": [
+			{
+				"type": "m1s",
+				"label": "CScript",
+				"program": "./dist/debugger/debugAdapter.js",
+				"runtime": "node",
+				"languages": [
+					"m1s"
+				],
+				"configurationAttributes": {
+					"launch": {
+						"properties": {
+							"program": {
+								"type": "string",
+								"default": "${file}"
+							}
+						}
+					}
+				},
+				"initialConfigurations": [
+					{
+						"type": "m1s",
+						"request": "launch",
+						"name": "CScript",
+						"program": "${file}"
+					}
+				],
+				"configurationSnippets": [
+					{
+						"label": "CScript",
+						"body": {
+							"type": "m1s",
+							"request": "launch",
+							"program": "${file}"
+						}
+					}
+				]
+			}
+		],
+		"languages": [
+			{
+				"id": "m1s",
+				"aliases": [
+					"Mach3 Script",
+					"m1s"
+				],
+				"extensions": [
+					".m1s"
+				],
+				"configuration": "./syntaxes/language-configuration.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "m1s.runScript",
+				"title": "%m1s.command.m1s.runScript%"
+			},
+			{
+				"command": "m1s.killScript",
+				"title": "%m1s.command.m1s.killScript%"
+			},
+			{
+				"when": "!editorReadonly && resourceExtname == '.m1s'",
+				"command": "extension.indenter",
+				"title": "M1S-Formatter"
+			}
+		],
 		"keybindings": [
 			{
 				"command": "extension.indenter",
 				"key": "ctrl+alt+b"
 			}
 		],
-    "grammars": [
-      {
-        "language": "m1s",
-        "scopeName": "source.m1s",
-        "path": "./syntaxes/m1s.tmLanguage.json"
-      }
-    ],
-    "snippets": [
-      {
-        "language": "m1s",
-        "path": "./snippets/m1s.json"
-      }
-    ],
+		"grammars": [
+			{
+				"language": "m1s",
+				"scopeName": "source.m1s",
+				"path": "./syntaxes/m1s.tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "m1s",
+				"path": "./snippets/m1s.json"
+			}
+		],
 		"menus": {
 			"editor/context": [
 				{
@@ -130,94 +130,98 @@
 				}
 			]
 		},
-    "configuration": {
-      "type": "object",
-      "title": "Mach3Script",
-      "properties": {
-		"m1s.FormatterLevel": {
-			"type": "number",
-			"default": 0,
-			"description": "%m1s.config.FormatterLevel.description%"
-		},
-		"m1s.FormatterBreakOnSeperator": {
-			"type": "boolean",
-			"default": false,
-			"description": "Whether it breaks the line on occurrences of the \":\" statement separator."
-		},
-		"m1s.FormatterRemoveComments": {
-			"type": "boolean",
-			"default": false,
-			"description": "%m1s.config.FormatterRemoveComments.description%"
-        },
-        "m1s.interpreter": {
-          	"type": "string",
-          	"default": "C:\\WINDOWS\\system32\\cscript.exe",
-          	"description": "%m1s.config.interpreter.description%"
-        },
-        "m1s.includes": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string"
-          },
-          "default": [],
-          "description": "%m1s.config.includes.description%"
-        },
-        "m1s.showVariableSymbols": {
-          "type": "boolean",
-          "default": true,
-          "description": "%m1s.config.showVariableSymbols.description%"
-        },
-        "m1s.showParamSymbols": {
-          "type": "boolean",
-          "default": false,
-          "description": "%m1s.config.showParamSymbols.description%"
-        },
-        "m1s.custumIncludePattern": {
-          "type": "string",
-          "description": "%m1s.config.customIncludePattern.description%",
-          "deprecationMessage": "use customIncludePattern"
-        },
-        "m1s.customIncludePattern": {
-          "type": "string",
-          "default": "\\binclude\\b[\\t ]*\\(?[\\t ]*\"([^\"]+)\"[\\t ]*\\)?",
-          "description": "%m1s.config.customIncludePattern.description%"
-        },
-        "m1s.customIncludeDirs": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "type": "string"
-          },
-          "default": [
-            ".", "${workspaceFolder}"
-          ],
-          "description": "%m1s.config.customIncludeDirs.description%"
-        }
-      }
-    }
-  },
-  "devDependencies": {
-    "@types/chai": "^4.2.17",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^18.x",
-    "@types/vscode": "^1.85.0",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "eslint": "^8.54.0",
-    "mocha": "^8.3.2",
-    "ts-node": "^9.1.1",
-    "typescript": "^5.3.2",
-    "vscode-test": "^1.5.2",
-    "@vscode/test-cli": "^0.0.4",
+		"configuration": {
+			"type": "object",
+			"title": "Mach3Script",
+			"properties": {
+				"m1s.FormatterLevel": {
+					"type": "number",
+					"default": 0,
+					"description": "%m1s.config.FormatterLevel.description%"
+				},
+				"m1s.FormatterBreakOnSeperator": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether it breaks the line on occurrences of the \":\" statement separator."
+				},
+				"m1s.FormatterRemoveComments": {
+					"type": "boolean",
+					"default": false,
+					"description": "%m1s.config.FormatterRemoveComments.description%"
+				},
+				"m1s.interpreter": {
+					"type": "string",
+					"default": "C:\\WINDOWS\\system32\\cscript.exe",
+					"description": "%m1s.config.interpreter.description%"
+				},
+				"m1s.includes": {
+					"type": "array",
+					"uniqueItems": true,
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"description": "%m1s.config.includes.description%"
+				},
+				"m1s.showVariableSymbols": {
+					"type": "boolean",
+					"default": true,
+					"description": "%m1s.config.showVariableSymbols.description%"
+				},
+				"m1s.showParamSymbols": {
+					"type": "boolean",
+					"default": false,
+					"description": "%m1s.config.showParamSymbols.description%"
+				},
+				"m1s.custumIncludePattern": {
+					"type": "string",
+					"description": "%m1s.config.customIncludePattern.description%",
+					"deprecationMessage": "use customIncludePattern"
+				},
+				"m1s.customIncludePattern": {
+					"type": "string",
+					"default": "\\binclude\\b[\\t ]*\\(?[\\t ]*\"([^\"]+)\"[\\t ]*\\)?",
+					"description": "%m1s.config.customIncludePattern.description%"
+				},
+				"m1s.customIncludeDirs": {
+					"type": "array",
+					"uniqueItems": true,
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						".",
+						"${workspaceFolder}"
+					],
+					"description": "%m1s.config.customIncludeDirs.description%"
+				}
+			}
+		}
+	},
+	"devDependencies": {
+		"@types/chai": "^4.2.17",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "^18.x",
+		"@types/vscode": "^1.85.0",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"@typescript-eslint/parser": "^4.22.0",
+		"eslint": "^8.54.0",
+		"mocha": "^8.3.2",
+		"ts-node": "^9.1.1",
+		"typescript": "^5.3.2",
+		"vscode-test": "^1.5.2",
+		"@vscode/test-cli": "^0.0.4",
 		"@vscode/test-electron": "^2.3.8"
-  },
+	},
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "npm run lint",
 		"test": "vscode-test"
-  },
-  "dependencies": {
-    "vscode-debugadapter": "^1.47.0"
-  }
+	},
+	"dependencies": {
+		"vscode-debugadapter": "^1.47.0"
+	},
+	"__metadata": {
+		"installedTimestamp": 1712046663248
+	}
 }

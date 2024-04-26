@@ -1,5 +1,18 @@
 # M1S-VSCode Changelog
 
+## 0.14.3
+
+- Fixed errors in the formatting of labels and argument assignments
+
+## 0.14.2
+
+- Fix formatting for minus parameter values
+- Highlight gLobal Vars.
+
+## 0.14.1
+
+- Hotfix for formatting problem with #expand
+
 ## 0.14.0
 
 - snippets adjusted

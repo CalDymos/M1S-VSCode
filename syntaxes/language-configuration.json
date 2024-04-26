@@ -32,9 +32,15 @@
             "\""
         ]
     ],
+    "folding": {
+        "markers": {
+          "start": "^\\s*''\\s*#?region\\b",
+          "end": "^\\s*''\\s*#?endregion\\b"
+        }
+    },
     "indentationRules": {
-        "increaseIndentPattern": "(?i)(^\\s*\\b((Else|For|Select|Case|Sub|Function|With|Type)|(Else)?If\\b.*\\bThen)\\b.*$",
-        "decreaseIndentPattern": "^(?i)\\s*\\b(End\\s\\b(If|Select|Sub|Function|With|Type)\\b|Else(If)?|Case|Next|Loop|WEnd)\\b"
+        "increaseIndentPattern": "(?i)(^\\s*\\b((Else|For|Select|Case|Sub|Function|With|Type|Do|While)|(Else)?If\\b.*\\bThen)\\b.*$",
+        "decreaseIndentPattern": "^(?i)\\s*\\b(End\\s\\b(If|Select|Sub|Function|With|Type)\\b|Else(If)?|Case|Next|Loop|Wend)\\b"
     },
     "wordPattern": "(?i)[a-z][a-z0-9_]+"
 }

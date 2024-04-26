@@ -1,17 +1,5 @@
 Option Explicit
 
-''' <summary>An intrinsic global object that can send output to a script debugger, such as the Microsoft Script Debugger.</summary>
-Class Debug
-
-	Sub Write(str)
-	End Sub
-	
-	
-	Sub WriteLine(str)
-	End Sub
-End Class
-
-
 ''' <summary>Object that stores data key, item pairs.</summary>
 Class Dictionary
 	

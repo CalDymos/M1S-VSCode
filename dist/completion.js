@@ -129,8 +129,8 @@ function getCompletions(text, scope, parseParams = false) {
     ];
 }
 function getObjectMembersCode(line, code, toAddObj) {
-    const matches = { "Err": "Err", "WScript": "WScript", "Debug": "Debug", "fso": "FileSystemObject" };
-    for (const cls of ["Err", "WScript", "Debug", "fso"]) {
+    const matches = { "Err": "Err", "fso": "FileSystemObject" };
+    for (const cls of ["Err", "fso"]) {
         const lineClsReg = new RegExp(`.*\\b${cls}\\.\\w*`, "i");
         const codeClsReg = new RegExp(`Class[\t ]+${matches[cls]}.+?End[\t ]+Class`, "is");
         if (lineClsReg.test(line)) {
