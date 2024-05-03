@@ -1,5 +1,9 @@
 # M1S-VSCode Changelog
 
+## 0.14.4
+
+- Fixed errors in the formatting of File IO Keywords (Open, close, input etc.)
+
 ## 0.14.3
 
 - Fixed errors in the formatting of labels and argument assignments
