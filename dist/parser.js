@@ -157,6 +157,7 @@ var m1sparser = function m1sparser_(options) {
       bLength = source.length,
       buffer = options.source.split(''),
       n = 0,
+      p = 0,
       isSpace = function m1sparser_tokenizer_isSpace(char) {
         return (char === ' ' || char === '\t' || char === '\f' || char ===
           '\v');
@@ -245,6 +246,40 @@ var m1sparser = function m1sparser_(options) {
         n--;
         return str;
       },
+      readPrevWord = function m1sparser_tokenizer_readPrevWord() {
+        var ch,
+          str = '';
+        do {
+          ch = charAt(index + p--);
+        } while (index + p != 0 && (isSpace(ch) || ch === '_' || ch === '\r' || ch === '\n'));
+        if (index + p === 0) {
+          return '';
+        }
+        do {
+          ch = charAt(index + p--);
+        } while (index + p != 0 && (!isSpace(ch) && ch != '_' && ch != '\r' && ch != '\n'));
+        if (index + p === 0) {
+          return '';
+        }
+        do {
+          ch = charAt(index + p--);
+        } while (index + p != 0 && (isSpace(ch) || ch === '_' || ch === '\r' || ch === '\n'));
+        if (index + p === 0) {
+          return '';
+        }
+        do {
+          ch = charAt(index + p--);
+        } while (index + p != 0 && (!isSpace(ch) && ch != '_' && ch != '\r' && ch != '\n'));
+        p++;
+        if (index + p === 0) {
+          return '';
+        }
+        while (isAlphaNumeric(ch = charAt(index + p++))) {
+          str += ch;
+        }
+        p--;
+        return str;
+      },
       readString = function m1sparser_tokenizer_readString() {
         var n = 1,
           str = '',
@@ -303,9 +338,11 @@ var m1sparser = function m1sparser_(options) {
       curChar,
       nextChr,
       prevChr,
+      prevChr2,
       ch,
       word,
-      nextWord;
+      nextWord,
+      prevWord;
 
     while ((ch = currentChar()) !== -1) {
       word = '';
@@ -340,16 +377,12 @@ var m1sparser = function m1sparser_(options) {
           pushToken(readLine(), 'COMMENT');
           break;
         case '#':
-          read();
-          word = '#' + readTill(function(char) {
-            return char !== '#';
-          });
-          read();
+          word = readLine();
           if (word.indexOf("#expand ") != -1){
-            pushToken(word, 'STRING');
+            pushToken(word, 'EXPAND');
+            continue;
           }else { 
-            word + '#';
-            pushToken(word, 'DATE');
+            pushToken(word, 'UNKNOWN');
           }
           break; 
         case '[':
@@ -502,7 +535,10 @@ var m1sparser = function m1sparser_(options) {
                 if (nextWord.toLowerCase() === 'each') {
                   read(n);
                   pushToken('For Each', 'FOR_EACHLOOP');
+                } else if (nextWord.toLowerCase() === 'input' || nextWord.toLowerCase() === 'output' || nextWord.toLowerCase() === 'binary' || nextWord.toLowerCase() === 'append'){
+                  pushToken(tokenTable[word.toLowerCase()].label, 'FOR_MODE'); 
                 } else {
+                  
                   pushToken(tokenTable[word.toLowerCase()].label, tokenTable[word.toLowerCase()].type);
                 }
 
@@ -625,30 +661,36 @@ var m1sparser = function m1sparser_(options) {
             }
           } else {
 
-              curChar = currentChar()
-              nextChr = nextChar();
+              switch (word.toLowerCase()){
 
-              switch (curChar) {
-              
-                case ':':
-                  if (nextChr === '='){
-                    read(2);
-                    nextWord = readTill(function(char) {
-                      return isAlphaNumeric(char);
-                    });
-                    pushToken(word + ':=' + nextWord, "ARGUMENT_ASSIGNMENT")
-                    break;
-                  }
-                  if ((nextChr === '\n') || (nextChr === '\r')){
-                    read();
-                    pushToken(word + ':', "LABEL");
-                    break;
-                  }
                 default:
-                  pushToken(word, 'UNKNOWN');
-                  break;
-            
-                }
+                  curChar = currentChar()
+                  nextChr = nextChar();
+    
+                  switch (curChar) {
+                  
+                    case ':':
+                      if (nextChr === '='){
+                        read(2);
+                        nextWord = readTill(function(char) {
+                          return isAlphaNumeric(char);
+                        });
+                        pushToken(word + ':=' + nextWord, "ARGUMENT_ASSIGNMENT")
+                        break;
+                      }
+                      if ((nextChr === '\n') || (nextChr === '\r')){
+                        read();
+                        pushToken(word + ':', "LABEL");
+                        break;
+                      }
+                    default:
+                      pushToken(word, 'UNKNOWN');
+                      break;
+                
+                    }
+                break;
+                
+              }
             /*switch (word.toUpperCase()) {
                             case 'REM':
                                 pushToken(word + readLine(), 'COMMENT');
