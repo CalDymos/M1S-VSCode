@@ -120,6 +120,10 @@
 			"name": "keyword.control.m1s"
 		},
 		{
+			"match": "(?i:\\b(Open)\\b(?=[\\t ])|\\b(Put|Get|Close|Print|Input)\\b(?=[\\t ]\\#))",
+			"name": "keyword.io.m1s"
+		},
+		{
 			"match": "(?i:\\b(Mod|And|Not|Or|Xor|As|Is|Eqv)\\b)",
 			"name": "keyword.operator.expression.m1s"
 		},
