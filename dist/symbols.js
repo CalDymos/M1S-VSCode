@@ -26,6 +26,7 @@ const showParameterSymbols = vscode_1.workspace.getConfiguration("m1s").get("sho
 const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
 const CLASS = RegExp(PATTERNS.CLASS.source, "i");
 const PROP = RegExp(PATTERNS.PROP.source, "i");
+const TYPE = RegExp(PATTERNS.TYPE.source, "i");
 function provideDocumentSymbols(doc) {
     const result = [];
     const varList = [];
@@ -39,21 +40,24 @@ function provideDocumentSymbols(doc) {
             let name;
             let symbol;
             let matches = [];
-            if ((matches = CLASS.exec(lineText)) !== null) {
-                name = matches[3];
-                symbol = new vscode_1.DocumentSymbol(name, "", vscode_1.SymbolKind.Class, line.range, line.range);
-            }
-            else if ((matches = FUNCTION.exec(lineText)) !== null) {
+            // Cypress Enable Script Language don't support classes
+            // if ((matches = CLASS.exec(lineText)) !== null) {
+            //     name = matches[3];
+            //     symbol = new vscode_1.DocumentSymbol(name, "", vscode_1.SymbolKind.Class, line.range, line.range);
+            // }
+            // else 
+            if ((matches = FUNCTION.exec(lineText)) !== null) {
                 name = matches[4];
                 let detail = "";
                 let symKind = vscode_1.SymbolKind.Function;
                 if (matches[3].toLowerCase() === "sub")
-                    if ((/class_(initialize|terminate)/i).test(name)) {
-                        symKind = vscode_1.SymbolKind.Constructor;
-                    }
-                    else {
+                    // Cypress Enable Script Language don't support classes
+                    //if ((/class_(initialize|terminate)/i).test(name)) {
+                       // symKind = vscode_1.SymbolKind.Constructor;
+                    //}
+                    //else {
                         detail = "Sub";
-                    }
+                    //}
                 else {
                     detail = "Function";
                 }
@@ -67,11 +71,17 @@ function provideDocumentSymbols(doc) {
                         });
                 }
             }
-            else if ((matches = PROP.exec(lineText)) !== null) {
-                name = matches[4];
-                symbol = new vscode_1.DocumentSymbol(name, matches[3], vscode_1.SymbolKind.Property, line.range, line.range);
-                if ((/Default[\t ]*Property[\t ]*Get/i).test(matches[2]))
-                    symbol.detail = "Default Get";
+            // Cypress Enable Script Language don't support Properties
+            // else if ((matches = PROP.exec(lineText)) !== null) {
+            //     name = matches[4];
+            //     symbol = new vscode_1.DocumentSymbol(name, matches[3], vscode_1.SymbolKind.Property, line.range, line.range);
+            //     if ((/Default[\t ]*Property[\t ]*Get/i).test(matches[2]))
+            //         symbol.detail = "Default Get";
+            //}
+            else if ((matches = TYPE.exec(lineText)) !== null) {
+                name = matches[2];
+                let detail = "";
+                symbol = new vscode_1.DocumentSymbol(name, detail, vscode_1.SymbolKind.Struct, line.range, line.range);
             }
             else if (showVariableSymbols) {
                 while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {

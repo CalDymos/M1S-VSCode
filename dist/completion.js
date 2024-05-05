@@ -120,12 +120,32 @@ function getClassCompletions(text, scope) {
     }
     return CIs;
 }
+function getTypeCompletions(text, scope) {
+    const CIs = [];
+    const foundVals = new Array();
+    let matches;
+    while (matches = PATTERNS.TYPE.exec(text)) {
+        const name = matches[2];
+        if (foundVals.indexOf(name.toLowerCase()) === -1) {
+            foundVals.push(name.toLowerCase());
+            const ci = new vscode_1.CompletionItem(name, vscode_1.CompletionItemKind.Struct);
+            if (matches[1]) {
+                const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+                ci.documentation = summary === null || summary === void 0 ? void 0 : summary[1];
+            }
+            ci.detail = `${name} [${scope}]`;
+            CIs.push(ci);
+        }
+    }
+    return CIs;
+}
 function getCompletions(text, scope, parseParams = false) {
     return [
         ...getVariableCompletions(text, scope),
         ...getFunctionCompletions(text, scope, parseParams),
         ...getPropertyCompletions(text, scope),
-        ...getClassCompletions(text, scope)
+        ...getClassCompletions(text, scope),
+        ...getTypeCompletions(text, scope)
     ];
 }
 function getObjectMembersCode(line, code, toAddObj) {
