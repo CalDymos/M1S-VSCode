@@ -163,8 +163,16 @@
 				}
 			]
 		},
-		{ "match": "^\\s*(#\\s*expand)\\s+(<.*>|\".*\")",
-		  "name": "keyword.control.directive.include.m1s"
+		{ 
+			"captures": {
+				"1": {
+			"name": "keyword.control.directive.include.m1s"
+		  	},
+				"2": {
+			"name": "string.quoted.other.lt-gt.include.m1s"
+			}
+		},
+			"match": "^\\s*(#\\s*expand)\\s+(<.*>|\".*\")"
 	    },
 		{
 			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CDate|CDbl|Chr|CInt|CLng|Cos|CreateObject|CSng|CStr|Date|DateSerial|DateValue|Day|Exp|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|Second|Sgn|Sin|Space|Sqr|StrComp|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
