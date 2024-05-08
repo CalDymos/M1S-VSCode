@@ -7,6 +7,7 @@ var m1sparser = function m1sparser_(options) {
       "const": { "label": "Const", "type": "CONST"},
       "function": { "label": "Function", "type": "FUNCTION"},
       "type": { "label": "Type", "type": "TYPE"},
+      "declare": { "label": "Declare", "type": "DECLARE"},
       "sub": { "label": "Sub", "type": "SUB"},
       "goto": { "label": "Goto", "type": "GOTO"},
       "xor": { "label": "Xor", "type": "BINARY_OPERATOR"},
@@ -653,7 +654,20 @@ var m1sparser = function m1sparser_(options) {
                     pushToken(tokenTable[word.toLowerCase()].label, tokenTable[word.toLowerCase()].type);
                     break;
                 }
+              case 'declare':
+                nextWord = readNextWord();
 
+                switch (nextWord.toLowerCase()) {
+                  case 'function':
+                    read(n);
+                    pushToken('Declare Function', 'DECLARE_FUNCTION');
+
+                    break;
+                  case 'sub':
+                    read(n);
+                    pushToken('Declare Sub', 'DECLARE_SUB');
+                    break;
+                }
                 break;
               default:
                 pushToken(tokenTable[word.toLowerCase()].label, tokenTable[word.toLowerCase()].type);

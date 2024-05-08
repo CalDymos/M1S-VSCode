@@ -56,8 +56,8 @@ const editor = vscode_1.window.activeTextEditor;
 function activate(context) {
 	//vscode_1.window.showInformationMessage('M1S is now active!');
 
-    Includes_1.Includes.set("Global", new Includes_1.IncludeFile(context.asAbsolutePath("./GlobalDefs.vbs")));
-    Includes_1.Includes.set("ObjectDefs", new Includes_1.IncludeFile(context.asAbsolutePath("./ObjectDefs.vbs")));
+    Includes_1.Includes.set("Global", new Includes_1.IncludeFile(context.asAbsolutePath("./GlobalDefs.m1s")));
+    Includes_1.Includes.set("ObjectDefs", new Includes_1.IncludeFile(context.asAbsolutePath("./ObjectDefs.m1s")));
     vscode_1.workspace.onDidChangeConfiguration(Includes_1.reloadImportDocuments);
     Includes_1.reloadImportDocuments();
     

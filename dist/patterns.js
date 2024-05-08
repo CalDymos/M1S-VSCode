@@ -21,6 +21,6 @@ function PARAM_SUMMARY(input, word) {
 exports.PARAM_SUMMARY = PARAM_SUMMARY;
 exports.ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property|Type)/i);
 exports.ARRAYBRACKETS = /\(\s*\d*\s*\)/;
-exports.INCLUDES = /(?:#expand\s(\<|"))([^"<\n\r]*)("|\>)/i;
+exports.INCLUDES = /(?:(#expand)\s(\<|"))([^"<\n\r]*)("|\>)/i;
 exports.TYPE = /(?:(Type))[\t ]+(\[?[a-zA-Z]\w*\]?)/img;
 //# sourceMappingURL=patterns.js.map
