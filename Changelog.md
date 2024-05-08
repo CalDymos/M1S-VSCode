@@ -1,5 +1,11 @@
 # M1S-VSCode Changelog
 
+## 0.14.5
+
+- Outline corrected / adjusted
+- change extension of Import Files (GlobalDefs / ObjectDefs)
+- Add syntax highlighting and formatting for 'Declare'
+
 ## 0.14.4
 
 - Fixed errors in the formatting of File IO Keywords (Open, close, input etc.)
