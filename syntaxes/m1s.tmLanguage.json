@@ -119,6 +119,9 @@
 			"match": "(?i:\\b(Call|Then|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Sub))\\b)",
 			"name": "keyword.control.m1s"
 		},
+		{   "match":"(?i:\\b(Declare|Alias|Lib)\\b)",
+		    "name":"keyword.other.vba"
+	    },
 		{
 			"match": "(?i:\\b(Open)\\b(?=[\\t ])|\\b(Put|Get|Close|Print|Input)\\b(?=[\\t ]\\#))",
 			"name": "keyword.io.m1s"
