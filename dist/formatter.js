@@ -178,6 +178,12 @@ var m1sformatter = function m1sformatter_(options) {
                               WSAfter = "";
                               lineIndent = 0;
                               break;  
+                          case 'SHORT_TYPE_DECL':     
+                              indent = 0;
+                              WSBefore = "";
+                              WSAfter = "";
+                              lineIndent = 0;
+                              break; 
                         }
 
                         return {
@@ -207,7 +213,7 @@ var m1sformatter = function m1sformatter_(options) {
                     nextTokenWSAfter = nextTokentInpact.WSAfter;
 
                     //Let's make sure we don't merge two different tokens because of spacing
-                    if (curTokenWSAfter === '' && nextTokenWSBefore === '') {
+                    if (curTokenWSAfter === '' && nextTokenWSBefore === '' && curTokenType) {
                         switch (nextTokenType) {
                             case 'NEWLINE':
                             case 'DOT_OPERATOR':
@@ -215,6 +221,7 @@ var m1sformatter = function m1sformatter_(options) {
                             case 'CLOSE_BRACKET':
                             case 'COMMA':
                             case 'EOF':
+                            case 'SHORT_TYPE_DECL':
                                 break;
                             default:
                                 curTokenWSAfter = ' ';

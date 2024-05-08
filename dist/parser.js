@@ -200,6 +200,17 @@ var m1sparser = function m1sparser_(options) {
         }
         return -1;
       },
+      prevCharIgnWS = function m1sparser_tokenizer_prevChar() { //get previous character, but ignore white space
+        var c = 1;
+        if (index - c < 0 || bLength <= 0)
+          return -1;
+        while (isSpace(buffer[index - c])) {
+          c++;
+          if (index - c < 0)
+            return -1;
+        }
+        return buffer[index - c]
+      },
       prevChar = function m1sparser_tokenizer_prevChar() {
         if (index - 1 >= 0 && bLength > 0) {
           return buffer[index - 1]
@@ -353,11 +364,30 @@ var m1sparser = function m1sparser_(options) {
         case '?':
         case '|':
         case '`':
-        case '!':
         case '{':
         case '}':
             pushToken(ch, UNKNOWN);
             break;*/
+        case '!':
+          prevChr = prevChar();
+  
+          if (isAlphaNumeric(prevChr)) {
+            //this is short Type Declaration for Single
+            pushToken(read(), 'SHORT_TYPE_DECL');
+          } else {
+            pushToken(read(), 'INVALID');
+          }
+          break;
+        case '$':
+            prevChr = prevChar();
+    
+            if (isAlphaNumeric(prevChr)) {
+              //this is short Type Declaration for String
+              pushToken(read(), 'SHORT_TYPE_DECL');
+            } else {
+              pushToken(read(), 'INVALID');
+            }
+            break;
         case '\t':
         case '\v':
         case ' ':
@@ -378,10 +408,15 @@ var m1sparser = function m1sparser_(options) {
           pushToken(readLine(), 'COMMENT');
           break;
         case '#':
+          prevChr = prevChar();
           word = readLine();
+
           if (word.indexOf("#expand ") != -1){
             pushToken(word, 'EXPAND');
             continue;
+          } else if (isAlphaNumeric(prevChr)) {
+            //this is short Type Declaration for Double
+            pushToken(ch, 'SHORT_TYPE_DECL');
           }else { 
             pushToken(word, 'UNKNOWN');
           }
@@ -407,14 +442,25 @@ var m1sparser = function m1sparser_(options) {
         case '^':
         case '*':
         case '/':
-        case '%':
         case '\\':
         case '=':
           pushToken(read(), 'ARTHMETIC_OPERATOR');
           break;
+        case '%':
+            prevChr = prevChar();
+  
+            if (isAlphaNumeric(prevChr)) {
+              //this is short Type Declaration for Integer
+              pushToken(read(), 'SHORT_TYPE_DECL');
+            } else {
+              pushToken(read(), 'ARTHMETIC_OPERATOR');
+            }
+  
+            break;
         case '-':
-          prevChr = prevChar();
-          if ((charAt(index - 2) === ',') && (prevChr === ' ')) {
+          prevChr = prevCharIgnWS();
+
+          if (prevChr === ',' || prevChr === '=') {
             pushToken(read(), 'INVALID');
             continue;
           }
@@ -444,10 +490,14 @@ var m1sparser = function m1sparser_(options) {
           break;
         case '&':
           nextChr = nextChar();
+          prevChr = prevChar();
 
           if (nextChr === 'H' || nextChr === 'h') {
             //this is a hexa decimal value
             pushToken(read() + readAlphaNumeric(), 'HEXNUMBER');
+          } else if (isAlphaNumeric(prevChr)) {
+            //this is short Type Declaration for Long
+            pushToken(read(), 'SHORT_TYPE_DECL');
           } else {
             pushToken(read(), 'ARTHMETIC_OPERATOR');
           }
