@@ -1,5 +1,10 @@
 # M1S-VSCode Changelog
 
+## 0.14.6
+
+- Formatting for constants / parameters with preceding minus adjusted
+- Formatting adjusted for short type declaration
+
 ## 0.14.5
 
 - Outline corrected / adjusted
