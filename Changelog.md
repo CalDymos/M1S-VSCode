@@ -1,5 +1,10 @@
 # M1S-VSCode Changelog
 
+## 0.14.7
+
+- Add #Region comment for a better outline
+- Readme updated
+
 ## 0.14.6
 
 - Formatting for constants / parameters with preceding minus adjusted
