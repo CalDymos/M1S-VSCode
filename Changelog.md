@@ -1,5 +1,9 @@
 # M1S-VSCode Changelog
 
+## 0.14.8
+
+- Fixed bug that #Region was not folded.
+
 ## 0.14.7
 
 - Add #Region comment for a better outline
