@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TYPE = exports.INCLUDES = exports.ARRAYBRACKETS = exports.ENDLINE = exports.PARAM_SUMMARY = exports.COMMENT_SUMMARY = exports.DEFVAR = exports.DEF = exports.VAR_COMPLS = exports.VAR = exports.PROP = exports.CLASS = exports.FUNCTION = void 0;
+exports.REGION = exports.ENDREGION = exports.TYPE = exports.INCLUDES = exports.ARRAYBRACKETS = exports.ENDLINE = exports.PARAM_SUMMARY = exports.COMMENT_SUMMARY = exports.DEFVAR = exports.DEF = exports.VAR_COMPLS = exports.VAR = exports.PROP = exports.CLASS = exports.FUNCTION = void 0;
 exports.FUNCTION = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:(?:Public|Private)[\t ]+)?(Function|Sub)[\t ]+((\[?[a-z]\w*\]?)[\t ]*(?:\((.*)\))?))/img;
 exports.CLASS = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:(?:Public|Private)[\t ]+)?Class[\t ]+(\[?[a-z]\w*\]?))/img;
 exports.PROP = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:Public[\t ]+(?:Default[\t ]+)?|Private[\t ]+)?Property[\t ]+(Get|Let|Set)[\t ]+(\[?[a-z]\w*\]?))(?:\((.*)\))?/img;
@@ -21,6 +21,8 @@ function PARAM_SUMMARY(input, word) {
 exports.PARAM_SUMMARY = PARAM_SUMMARY;
 exports.ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property|Type)/i);
 exports.ARRAYBRACKETS = /\(\s*\d*\s*\)/;
-exports.INCLUDES = /(?:(#expand)\s(\<|"))([^"<\n\r]*)("|\>)/i;
-exports.TYPE = /(?:(Type))[\t ]+(\[?[a-zA-Z]\w*\]?)/img;
+exports.INCLUDES = /(?:(#expand)\s(\<|"))([^"<\n\r]*)("|\>)/ig;
+exports.TYPE = /(?:(Type))[\t ]+(\[?[a-zA-Z]\w*\]?)/ig;
+exports.REGION = /(?:'#Region\s)([^<\n\r]*)/ig;
+exports.ENDREGION = /(?:'#End Region)/ig;
 //# sourceMappingURL=patterns.js.map

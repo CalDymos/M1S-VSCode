@@ -1,14 +1,14 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function (o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
+    Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+}) : (function (o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function (o, v) {
     Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
+}) : function (o, v) {
     o["default"] = v;
 });
 var __importStar = (this && this.__importStar) || function (mod) {
@@ -24,19 +24,26 @@ const PATTERNS = __importStar(require("./patterns"));
 const showVariableSymbols = vscode_1.workspace.getConfiguration("m1s").get("showVariableSymbols");
 const showParameterSymbols = vscode_1.workspace.getConfiguration("m1s").get("showParamSymbols");
 const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
-const CLASS = RegExp(PATTERNS.CLASS.source, "i");
-const PROP = RegExp(PATTERNS.PROP.source, "i");
+//const CLASS = RegExp(PATTERNS.CLASS.source, "i");
+//const PROP = RegExp(PATTERNS.PROP.source, "i");
 const TYPE = RegExp(PATTERNS.TYPE.source, "i");
+const REGION = RegExp(PATTERNS.REGION.source, "i");
+const ENDREGION = RegExp(PATTERNS.ENDREGION.source, "i");
 function provideDocumentSymbols(doc) {
     const result = [];
     const varList = [];
     const Blocks = [];
     for (let lineNum = 0; lineNum < doc.lineCount; lineNum++) {
         const line = doc.lineAt(lineNum);
-        if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
+        if (line.isEmptyOrWhitespace || (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'" && line.text.charAt(line.firstNonWhitespaceCharacterIndex + 1) != "#"))
             continue;
-        const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
-        for (const lineText of LineTextwithoutComment[1].split(":")) {
+        //const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
+        var LineTextwithComment
+        if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'" && line.text.indexOf(':') != -1)
+            LineTextwithComment =  (/^([^\n\r]*)(?:.{1,}?)\:/).exec(line.text)[1]; // Text only up to the first colon
+        else
+            LineTextwithComment = (/^([^\n\r]*)/).exec(line.text)[1];
+        for (const lineText of LineTextwithComment.split(":")) {
             let name;
             let symbol;
             let matches = [];
@@ -53,11 +60,11 @@ function provideDocumentSymbols(doc) {
                 if (matches[3].toLowerCase() === "sub")
                     // Cypress Enable Script Language don't support classes
                     //if ((/class_(initialize|terminate)/i).test(name)) {
-                       // symKind = vscode_1.SymbolKind.Constructor;
+                    // symKind = vscode_1.SymbolKind.Constructor;
                     //}
                     //else {
-                        detail = "Sub";
-                    //}
+                    detail = "Sub";
+                //}
                 else {
                     detail = "Function";
                 }
@@ -82,6 +89,11 @@ function provideDocumentSymbols(doc) {
                 name = matches[2];
                 let detail = "";
                 symbol = new vscode_1.DocumentSymbol(name, detail, vscode_1.SymbolKind.Struct, line.range, line.range);
+            }
+            if ((matches = REGION.exec(lineText)) !== null) {
+                name = matches[1];
+                let detail = "Region";
+                symbol = new vscode_1.DocumentSymbol(name, detail, vscode_1.SymbolKind.Namespace, line.range, line.range);
             }
             else if (showVariableSymbols) {
                 while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
@@ -114,7 +126,7 @@ function provideDocumentSymbols(doc) {
                     Blocks[Blocks.length - 1].children.push(symbol);
                 Blocks.push(symbol);
             }
-            if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)
+            if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null || (matches = PATTERNS.ENDREGION.exec(lineText)) !== null)
                 Blocks.pop();
         }
     }
