@@ -33,35 +33,36 @@ class M1SColorProvider {
             const posEnd = doc.positionAt(matches.index + matches[0].length);
             const range = new vscode.Range(pos, posEnd);
             let color;
-            if (matches[1]) {
-                switch (matches[1].toLowerCase()) {
-                    case "vbblack":
-                        color = new vscode.Color(0, 0, 0, 1);
-                        break;
-                    case "vbblue":
-                        color = new vscode.Color(0, 0, 1, 1);
-                        break;
-                    case "vbcyan":
-                        color = new vscode.Color(0, 1, 1, 1);
-                        break;
-                    case "vbgreen":
-                        color = new vscode.Color(0, 1, 0, 1);
-                        break;
-                    case "vbmagenta":
-                        color = new vscode.Color(1, 0, 1, 1);
-                        break;
-                    case "vbred":
-                        color = new vscode.Color(1, 0, 0, 1);
-                        break;
-                    case "vbwhite":
-                        color = new vscode.Color(1, 1, 1, 1);
-                        break;
-                    case "vbyellow":
-                        color = new vscode.Color(1, 1, 0, 1);
-                        break;
-                }
-            }
-            else if (matches[2]) {
+            /* if (matches[1]) {
+            //     switch (matches[1].toLowerCase()) {
+            //         case "vbblack":
+            //             color = new vscode.Color(0, 0, 0, 1);
+            //             break;
+            //         case "vbblue":
+            //             color = new vscode.Color(0, 0, 1, 1);
+            //             break;
+            //         case "vbcyan":
+            //             color = new vscode.Color(0, 1, 1, 1);
+            //             break;
+            //         case "vbgreen":
+            //             color = new vscode.Color(0, 1, 0, 1);
+            //             break;
+            //         case "vbmagenta":
+            //             color = new vscode.Color(1, 0, 1, 1);
+            //             break;
+            //         case "vbred":
+            //             color = new vscode.Color(1, 0, 0, 1);
+            //             break;
+            //         case "vbwhite":
+            //             color = new vscode.Color(1, 1, 1, 1);
+            //             break;
+            //         case "vbyellow":
+            //             color = new vscode.Color(1, 1, 0, 1);
+            //             break;
+            //     }
+            // }
+            else */if (matches[2]) {
+                
                 let r, g, b;
                 if (matches[3].toLowerCase().startsWith("&h"))
                     r = Number.parseInt(matches[3].substr(2), 16) / this.MAX_COLOR;

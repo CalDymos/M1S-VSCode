@@ -164,7 +164,6 @@ function getObjectMembersCode(line, code, toAddObj) {
 function provideCompletionItems(doc, position) {
     const codeAtPosition = doc.lineAt(position).text.substring(0, position.character);
     const line = doc.lineAt(position);
-    const match = codeAtPosition.match(/^\s*#\s*expand\s*(<[^>]*|"[^"]*)$/);
     if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
         return [];
     if (PATTERNS.VAR_COMPLS.test(codeAtPosition))

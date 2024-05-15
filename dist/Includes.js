@@ -19,9 +19,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getImportsWithLocal = exports.reloadImportDocuments = exports.customIncludePattern = exports.customIncludeDirs = exports.Includes = exports.IncludeFile = void 0;
+//exports.getImportsWithLocal = exports.reloadImportDocuments = exports.customIncludePattern = exports.customIncludeDirs = exports.Includes = exports.IncludeFile = void 0;
+exports.getImportsWithLocal = exports.reloadImportDocuments = exports.Includes = exports.IncludeFile = void 0;
 const vscode_1 = require("vscode");
 const pathns = __importStar(require("path"));
+const PATTERNS = __importStar(require("./patterns"));
+const INCLUDES = RegExp(PATTERNS.INCLUDES.source);
 const fs = __importStar(require("fs"));
 class IncludeFile {
     constructor(path) {
@@ -37,21 +40,21 @@ class IncludeFile {
 exports.IncludeFile = IncludeFile;
 exports.Includes = new Map();
 function reloadImportDocuments() {
-    const custumIncludePatternStr = vscode_1.workspace.getConfiguration("m1s").get("custumIncludePattern");
-    const customIncludePatternStr = vscode_1.workspace.getConfiguration("m1s").get("customIncludePattern");
+    //const custumIncludePatternStr = vscode_1.workspace.getConfiguration("m1s").get("custumIncludePattern");
+    //const customIncludePatternStr = vscode_1.workspace.getConfiguration("m1s").get("customIncludePattern");
     exports.customIncludeDirs = vscode_1.workspace.getConfiguration("m1s").get("customIncludeDirs");
-    if (custumIncludePatternStr !== customIncludePatternStr && custumIncludePatternStr !== "")
-        exports.customIncludePattern = new RegExp(custumIncludePatternStr, "ig");
-    else
-        exports.customIncludePattern = new RegExp(customIncludePatternStr, "ig");
-    const SourceImportFiles = vscode_1.workspace.getConfiguration("m1s").get("includes");
+    // if (custumIncludePatternStr !== customIncludePatternStr && custumIncludePatternStr !== "")
+    //     exports.customIncludePattern = new RegExp(custumIncludePatternStr, "ig");
+    // else
+    //     exports.customIncludePattern = new RegExp(customIncludePatternStr, "ig");
+    //const SourceImportFiles = vscode_1.workspace.getConfiguration("m1s").get("includes");
     for (const key of exports.Includes.keys()) {
         if (key.startsWith("Include"))
             exports.Includes.delete(key);
     }
-    SourceImportFiles === null || SourceImportFiles === void 0 ? void 0 : SourceImportFiles.forEach((file) => {
-        exports.Includes.set(`Include ${pathns.basename(file)}`, new IncludeFile(file));
-    });
+    // SourceImportFiles === null || SourceImportFiles === void 0 ? void 0 : SourceImportFiles.forEach((file) => {
+    //     exports.Includes.set(`Include ${pathns.basename(file)}`, new IncludeFile(file));
+    // });
 }
 exports.reloadImportDocuments = reloadImportDocuments;
 function getImportsWithLocal(doc) {
@@ -59,7 +62,8 @@ function getImportsWithLocal(doc) {
     const localIncludes = [...exports.Includes];
     const processedMatches = Array();
     let match;
-    while ((match = exports.customIncludePattern.exec(doc.getText())) !== null) {
+    //while ((match = exports.customIncludePattern.exec(doc.getText())) !== null) {
+        while ((match = INCLUDES.exec(doc.getText())) !== null) {
         if (processedMatches.indexOf(match[1].toLowerCase()) === -1) {
             for (const incDir of exports.customIncludeDirs) {
                 let incDirResolved = incDir;

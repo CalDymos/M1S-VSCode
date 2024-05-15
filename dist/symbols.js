@@ -23,29 +23,31 @@ const vscode_1 = require("vscode");
 const PATTERNS = __importStar(require("./patterns"));
 const showVariableSymbols = vscode_1.workspace.getConfiguration("m1s").get("showVariableSymbols");
 const showParameterSymbols = vscode_1.workspace.getConfiguration("m1s").get("showParamSymbols");
+const showFieldSymbols = vscode_1.workspace.getConfiguration("m1s").get("showFieldSymbols");
 const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
 //const CLASS = RegExp(PATTERNS.CLASS.source, "i");
 //const PROP = RegExp(PATTERNS.PROP.source, "i");
 const TYPE = RegExp(PATTERNS.TYPE.source, "i");
 const REGION = RegExp(PATTERNS.REGION.source, "i");
 const ENDREGION = RegExp(PATTERNS.ENDREGION.source, "i");
+const FIELD = RegExp(PATTERNS.FIELD.source, "i");
 function provideDocumentSymbols(doc) {
     const result = [];
     const varList = [];
-    const Blocks = [];
+    var Blocks = [];
     for (let lineNum = 0; lineNum < doc.lineCount; lineNum++) {
-        const line = doc.lineAt(lineNum);
+        var line = doc.lineAt(lineNum);
         if (line.isEmptyOrWhitespace || (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'" && line.text.charAt(line.firstNonWhitespaceCharacterIndex + 1) != "#"))
             continue;
         //const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
         var LineTextwithComment
         if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'" && line.text.indexOf(':') != -1)
-            LineTextwithComment =  (/^([^\n\r]*)(?:.{1,}?)\:/).exec(line.text)[1]; // Text only up to the first colon
+            LineTextwithComment = (/^([^\n\r]*)(?:.{1,}?)\:/).exec(line.text)[1]; // Text only up to the first colon
         else
             LineTextwithComment = (/^([^\n\r]*)/).exec(line.text)[1];
-        for (const lineText of LineTextwithComment.split(":")) {
+        for (var lineText of LineTextwithComment.split(":")) {
             let name;
-            let symbol;
+            var symbol = null;
             let matches = [];
             // Cypress Enable Script Language don't support classes
             // if ((matches = CLASS.exec(lineText)) !== null) {
@@ -89,7 +91,43 @@ function provideDocumentSymbols(doc) {
                 name = matches[2];
                 let detail = "";
                 symbol = new vscode_1.DocumentSymbol(name, detail, vscode_1.SymbolKind.Struct, line.range, line.range);
+                if (Blocks.length === 0)
+                    result.push(symbol);
+                else
+                    Blocks[Blocks.length - 1].children.push(symbol);
+                Blocks.push(symbol);
+                symbol = null;
+                if (showFieldSymbols) {
+                    for (; lineNum < doc.lineCount; lineNum++) {
+                        const fline = doc.lineAt(lineNum);
+                        if (fline.isEmptyOrWhitespace || fline.text.charAt(fline.firstNonWhitespaceCharacterIndex) === "'")
+                            continue;
+                        const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(fline.text)[1];
+                        for (const flineText of LineTextwithoutComment.split(":")) {
+                            let Fieldmatches = [];
+
+                            if ((Fieldmatches = FIELD.exec(flineText)) !== null) {
+                                const FieldName = Fieldmatches[1];
+                                let FieldKind = vscode_1.SymbolKind.Field;
+                                symbol = new vscode_1.DocumentSymbol(FieldName, "Field", FieldKind, fline.range, fline.range);
+                                if (Blocks.length === 0)
+                                    result.push(symbol);
+                                else
+                                    Blocks[Blocks.length - 1].children.push(symbol);
+                            }
+                            if ((Fieldmatches = PATTERNS.ENDTYPE.exec(flineText)) !== null){
+                                lineText = flineText;
+                                line = fline;
+                                symbol = null;
+                                break;
+                            }
+                        }
+                        if ((matches = PATTERNS.ENDTYPE.exec(lineText)) !== null)
+                            break;
+                    }
+                }
             }
+
             if ((matches = REGION.exec(lineText)) !== null) {
                 name = matches[1];
                 let detail = "Region";
@@ -126,7 +164,7 @@ function provideDocumentSymbols(doc) {
                     Blocks[Blocks.length - 1].children.push(symbol);
                 Blocks.push(symbol);
             }
-            if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null || (matches = PATTERNS.ENDREGION.exec(lineText)) !== null)
+            if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null || (matches = ENDREGION.exec(lineText)) !== null)
                 Blocks.pop();
         }
     }
