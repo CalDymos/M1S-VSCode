@@ -4,9 +4,12 @@
   "m1s.config.interpreter.description": "Path to Script Interpreter",
   "m1s.config.includes.description": "Additional include sourcefiles for completion",
   "m1s.config.showVariableSymbols.description": "Show variables in outline",
+  "m1s.config.showFieldSymbols.description": "Show fields in outline",
   "m1s.config.showParamSymbols.description": "Show parameters in outline",
   "m1s.config.customIncludePattern.description": "Custom RegExp-Pattern for userdefined include statement",
   "m1s.config.customIncludeDirs.description": "Custom directories with files for custom include statement",
+  "m1s.config.FormatterLevel.description": "Indent level to start off",
+  "m1s.config.FormatterRemoveComments.description": "Whether it removes comments from the input.",
   "m1s.msg.runningscript": "Running the script...'",
   "m1s.msg.interpreterRunError": "Script Interpreter can't be executed"
 }
