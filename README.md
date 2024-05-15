@@ -24,17 +24,9 @@ This extension implements basic language features of Mach3 Script for [Visual St
 - Color Information
 ![ColorProvider](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/ColorProvider.png)
 
-- Add extra M1S Source (libraries) files for extra completion
-```
-{ // settings.json
-    "m1s.includes": ["c:\\mylibrary.m1s"]
-}
-```
-
 ## Functions not yet fully implemented (still in progress)
 
 - full Syntax check (execute / check the macro via the Cypress Enbable compiler)
-- Include additional files (#expand) in the auto-completion.
 
 ## Contribute
 You can support this project through PR with your changes or simply add an issue with your idea/bug.

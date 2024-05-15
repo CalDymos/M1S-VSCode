@@ -13,9 +13,19 @@ End Function
 Function Asc(ByVal String As String) As Integer
 End Function
 
+Sub AppActivate(Title)
+End Sub
+
+Sub AppActivate(Title, Wait)
+End Sub
+
 ''' <summary>Returns the arctangent of a number.</summary>
 Function Atn(ByVal Number As Variant) As Double
 End Function
+
+Sub Beep()
+End Sub
+
 ''' <summary>Returns an expression that has been converted to a Variant of subtype Boolean.</summary>
 Function CBool(ByVal expression As Variant) As Boolean
 End Function
@@ -26,13 +36,17 @@ End Function
 Function CDbl(expr) As Double
 End Function
 
-Function Chr(charcode)
+Function Chr(charcode) As String
 End Function
 
-Function ChrB(charcode)
-End Function
+Sub ChDir(Path)
+End Sub
 
-Function ChrW(charcode)
+Sub ChDrive(Drive)
+End Sub
+
+''' <summary>Returns a value from a list of arguments</summary>
+Function Choose(Index, ChoiceArray)
 End Function
 
 Function CInt(expr) As Integer
@@ -41,13 +55,10 @@ End Function
 Function CLng(expr) As Long
 End Function
 
-Function Cos(number)
+Function Cos(number) As Double
 End Function
 
 Function CreateObject(classname)
-End Function
-
-Function CreateObject(classname, location)
 End Function
 
 Function CSng(expr) As Single
@@ -56,76 +67,82 @@ End Function
 Function CStr(expr) As String
 End Function
 
+Function CurDir() as String
+End Function
+
+Function CurDir(Drive) as String
+End Function
+
 Function Date()
 End Function
 
 ''' <summary>Returns a Variant of subtype Date for a specified year, month, and day.</summary>
 ''' <param name="year">Number between 100 and 9999, inclusive, or a numeric expression.</param>
-Function DateSerial(year, month, day)
+Function DateSerial(Year, Month, Day)
 End Function
 
 ''' <summary>Returns a Variant of subtype Date.</summary>
-Function DateValue(date)
+Function DateValue(Date)
+End Function
+
+Function DateDiff(interval, date1, date2)
+End Function
+
+Function DateDiff(interval, date1, date2, firstdayofweek)
+End Function
+
+Function DateDiff(interval, date1, date2, firstdayofweek, firstdayofyear)
+End Function
+
+Function DatePart(interval, Date)
 End Function
 
 ''' <summary>Returns a whole number between 1 and 31, inclusive, representing the day of the month.</summary>
-Function Day(date)
+Function Day(Date)
 End Function
 
 ''' <summary>Evaluates an expression and returns the result.</summary>
 Function Eval(expr)
 End Function
 
+Function EOF(FileNumber) As Boolean
+End Function
+
+Function Erase(arraylist)
+End Function
+
 ''' <summary>Returns e (the base of natural logarithms) raised to a power.</summary>
 Function Exp(number)
-End Function
-
-''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-''' <param name="InputStrings">One-dimensional array of strings to be searched.</param>
-''' <param name="Value">String to search for.</param>
-Function Filter(InputStrings, Value)
-End Function
-
-''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-''' <param name="InputStrings">One-dimensional array of strings to be searched.</param>
-''' <param name="Value">String to search for.</param>
-''' <param name="Include">Boolean value indicating whether to return substrings that include or exclude Value. If Include is True, Filter returns the subset of the array that contains Value as a substring. If Include is False, Filter returns the subset of the array that does not contain Value as a substring.</param>
-Function Filter(InputStrings, Value, Include)
-End Function
-
-''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-''' <param name="InputStrings">One-dimensional array of strings to be searched.</param>
-''' <param name="Value">String to search for.</param>
-''' <param name="Include">Boolean value indicating whether to return substrings that include or exclude Value. If Include is True, Filter returns the subset of the array that contains Value as a substring. If Include is False, Filter returns the subset of the array that does not contain Value as a substring.</param>
-''' <param name="Compare">Numeric value indicating the kind of string comparison to use</param>
-Function Filter(InputStrings, Value, Include, Compare)
 End Function
 
 Function Fix(number)
 End Function
 
-Function GetLocale() ' As Long
+Sub FileCopy(Source, Destination)
+End Sub
+
+Function FileDateTime(PathName)
+End Function
+
+Function FileLen(BSTR PathName) as Long
+End Function
+
+Function GetAttr(PathName)
 End Function
 
 ''' <summary>?</summary>
-Function GetObject(pathname) ' As Object
+Function GetObject(pathname)  As Object
 End Function
 
 ''' <summary>?</summary>
-Function GetObject(pathname, classname) ' As Object
+Function GetObject(pathname, classname)  As Object
 End Function
 
-Function GetRef(procname)
-End Function
-
-Function GetUILanguage() ' As Integer
-End Function
-
-Function Hex(number) ' As String
+Function Hex(number)  As String
 End Function
 
 ''' <summary>Returns a whole number between 0 and 23, inclusive, representing the hour of the day.</summary>
-Function Hour(time) ' As Integer
+Function Hour(Time)  As Integer
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
@@ -137,103 +154,48 @@ Function InputBox(prompt, title)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Function InputBox(prompt, title, default)
+Function InputBox(prompt, title, Default )
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Function InputBox(prompt, title, default, xpos)
+Function InputBox(prompt, title, Default , xpos)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Function InputBox(prompt, title, default, xpos, ypos)
-End Function
-
-''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Function InputBox(prompt, title, default, xpos, ypos, helpfile, context)
-End Function
-
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-''' <param name="string1">The string to be searched</param>
-''' <param name="string2">The string expression to search for</param>
-Function InStr(string1, string2) ' As Long
+Function InputBox(prompt, title, Default , xpos, ypos)
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
 ''' <param name="start">Specifies the starting position for search</param>
 ''' <param name="string1">The string to be searched</param>
 ''' <param name="string2">The string expression to search for</param>
-Function InStr(start, string1, string2) ' As Long
-End Function
-
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-''' <param name="string1">The string to be searched</param>
-''' <param name="string2">The string expression to search for</param>
-''' <param name="compare">Specifies the string comparison to use</param>
-Function InStr(string1, string2, compare) ' As Long
-End Function
-
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-''' <param name="start">Specifies the starting position for search</param>
-''' <param name="string1">The string to be searched</param>
-''' <param name="string2">The string expression to search for</param>
-''' <param name="compare">Specifies the string comparison to use</param>
-Function InStr(start, string1, string2, compare) ' As Long
-End Function
-
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Function InStrB(string1, string2) ' As Long
-End Function
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Function InStrB(start, string1, string2) ' As Long
-End Function
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Function InStrB(string1, string2, compare) ' As Long
-End Function
-''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Function InStrB(start, string1, string2, compare) ' As Long
-End Function
-
-''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
-Function InStrRev(string1, string2) ' As Long
-End Function
-
-''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
-Function InStrRev(string1, string2, start) ' As Long
-End Function
-
-''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
-Function InStrRev(string1, string2, start, compare) ' As Long
+Function InStr(start, string1, string2) As Long
 End Function
 
 Function Int(number)
 End Function
 
-Function IsArray(var) ' As Boolean
+Function IsArray(var) As Boolean
 End Function
 
-Function IsDate(expr) ' As Boolean
+Function IsDate(expr) As Boolean
 End Function
 
-Function IsEmpty(expr) ' As Boolean
+Function IsEmpty(expr) As Boolean
 End Function
 
-Function IsNull(expr) ' As Boolean
+Function IsNull(expr) As Boolean
 End Function
 
 ''' <summary>Returns a Boolean value indicating whether an expression can be evaluated as a number.</summary>
-Function IsNumeric(expr) ' As Boolean
+Function IsNumeric(expr) As Boolean
 End Function
 
-Function IsObject(expr) ' As Boolean
+Function IsObject(expr) As Boolean
 End Function
 
-''' <summary>Returns a string created by joining a number of substrings contained in an array.</summary>
-Function Join(list) ' As String
-End Function
-
-''' <summary>Returns a string created by joining a number of substrings contained in an array.</summary>
-Function Join(list, delimiter) ' As String
-End Function
+Sub Kill(PathName)
+End Sub
 
 Function LBound(arrayname)
 End Function
@@ -241,57 +203,45 @@ End Function
 Function LBound(arrayname, dimension)
 End Function
 
-Function LCase(str) ' As String
+Function LCase(str) As String
 End Function
 
-Function Left(str, length) ' As String
-End Function
-
-Function LeftB(str, length) ' As String
+Function Left(str, length) As String
 End Function
 
 ''' <summary>Returns the number of characters in a string or the number of bytes required to store a variable.</summary>
-Function Len(str) ' As Long
+Function Len(str) As Long
 End Function
 
-Function LenB(str) ' As Long
+Function Loc(FileNumber)
 End Function
 
-Function LoadPicture(picturename)
+Function LOF(FileNumber)
 End Function
 
 Function Log(number)
 End Function
 
-Function LTrim(str) ' As String
+Function LTrim(str) As String
 End Function
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
-Function Mid(str, start) ' As String
+Function Mid(str, start, length) As String
 End Function
 
-''' <summary>Returns a specified number of characters from a string.</summary>
-Function Mid(str, start, length) ' As String
+Sub MkDir(Path)
+End Sub
+
+Function Minute(Time) As Integer
 End Function
 
-''' <summary>Returns a specified number of characters from a string.</summary>
-Function MidB(str, start) ' As String
+Function Month(Date) As Integer
 End Function
 
-''' <summary>Returns a specified number of characters from a string.</summary>
-Function MidB(str, start, length) ' As String
+Function MonthName(Date) ' As String
 End Function
 
-Function Minute(time) ' As Integer
-End Function
-
-Function Month(date) ' As Integer
-End Function
-
-Function MonthName(date) ' As String
-End Function
-
-Function MonthName(date, abbrevation) ' As String
+Function MonthName(Date, abbrevation) ' As String
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
@@ -312,15 +262,6 @@ End Function
 Function MsgBox(prompt, buttons, title)
 End Function
 
-''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
-''' <param name="prompt">String expression displayed as the message in the dialog box</param>
-''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. If omitted, the default value for buttons is 0.</param>
-''' <param name="title">String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar.</param>
-''' <param name="helpfile">String expression that identifies the Help file to use to provide context-sensitive Help for the dialog box. If helpfile is provided, context must also be provided. Not available on 16-bit platforms.</param>
-''' <param name="context">Numeric expression that identifies the Help context number assigned by the Help author to the appropriate Help topic. If context is provided, helpfile must also be provided. Not available on 16-bit platforms.</param>
-Function MsgBox(prompt, buttons, title, helpfile, context)
-End Function
-
 ''' <summary>Returns the current date and time according to the setting of your computer's system date and time.</summary>
 Function Now ' As Date
 End Function
@@ -328,36 +269,19 @@ End Function
 Function Oct(number) ' As String
 End Function
 
-''' <summary>Returns a string in which a specified substring has been replaced with another substring.</summary>
-Function Replace(str, find, replacewith) ' As String
-End Function
-
-''' <summary>Returns a string in which a specified substring has been replaced with another substring.</summary>
-Function Replace(str, find, replacewith, start) ' As String
-End Function
-
-''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
-Function Replace(str, find, replacewith, start, count) ' As String
-End Function
-
-''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
-Function Replace(str, find, replacewith, start, count, compare) ' As String
-End Function
-
-''' <summary>Returns a whole number representing an RGB color value.</summary>
-Function RGB(red, green, blue) ' As Long
-End Function
+Sub Reset()
+End Sub
 
 Function Right(str, length) ' As String
 End Function
 
-Function RightB(str, length) ' As String
-End Function
-
-Function Rnd()
-End Function
+Sub RmDir(Path)
+End Sub
 
 Function Rnd(number)
+End Function
+
+Function Round(number)
 End Function
 
 Function Round(number, digits)
@@ -366,14 +290,28 @@ End Function
 Function RTrim(str) ' As String
 End Function
 
-Function Second(time)
+Function Second(Time)
 End Function
 
-''' <summary>undocumented</summary>
-Function SetLocale(int)
+Function Seek(FileNumber)
 End Function
 
-Function Sgn(number)
+Sub SetAttr(PathName, Attributes)
+End Sub
+
+Sub SendKeys(Str)
+End Sub
+
+Sub SendKeys(Str, Wait)
+End Sub
+
+Function Shell(PathName)
+End Function
+
+Function Shell(PathName, WindowStyle)
+End Function
+
+Function Sgn(number) as Integer
 End Function
 
 Function Sin(number)
@@ -407,10 +345,10 @@ End Function
 Function Timer
 End Function
 
-Function TimeSerial(hour, minute, second)
+Function TimeSerial(Hour, Minute, Second)
 End Function
 
-Function TimeValue(time)
+Function TimeValue(Time)
 End Function
 
 Function Trim(str) ' As String
@@ -431,30 +369,18 @@ End Function
 Function UCase(str) ' As String
 End Function
 
-Function Unescape(str) ' As String
-End Function
-
 Function VarType(var) ' as Integer
 End Function
 
-Function Weekday(date) ' as Integer
+Function Weekday(Date) ' as Integer
 End Function
 
-Function Weekday(date, firstdayofweek) ' as Integer
-End Function
-
-Function WeekdayName(weekday) ' As String
-End Function
-
-Function WeekdayName(weekday, abbreviate) ' As String
-End Function
-
-Function WeekdayName(weekday, abbreviate, firstdayofweek) ' As String
+Function Weekday(Date, firstdayofweek) ' as Integer
 End Function
 
 ''' <summary>Returns a whole number representing the year.</summary>
 ''' <param name="date">Any expression that can represent a date</param>
-Function Year(date)
+Function Year(Date) As Integer
 End Function
 
 'Mach 3 Functions and Subs
@@ -1147,62 +1073,62 @@ Const ENABLE3 = 3
 Const ENABLE4 = 4
 Const ENABLE5 = 5
 Const ENABLE6 = 6
-Const CHARGE  =  13
-Const CHARGE2 =  14
+Const CHARGE = 13
+Const CHARGE2 = 14
 Const CURRENTHILOW = 15
-Const XPLUS  = 0
+Const XPLUS = 0
 Const XMINUS = 1
-Const XHOME  =  2
-Const YPLUS =  3
-Const YMINUS =  4
-Const YHOME =  5
-Const ZPLUS =  6
-Const ZMINUS =  7
-Const ZHOME =  8
-Const APLUS =  9
-Const AMINUS =  10
-Const AHOME  =  11
-Const BPLUS  = 12
+Const XHOME = 2
+Const YPLUS = 3
+Const YMINUS = 4
+Const YHOME = 5
+Const ZPLUS = 6
+Const ZMINUS = 7
+Const ZHOME = 8
+Const APLUS = 9
+Const AMINUS = 10
+Const AHOME = 11
+Const BPLUS = 12
 Const BMINUS = 13
-Const BHOME  = 14
-Const CPLUS  = 15
+Const BHOME = 14
+Const CPLUS = 15
 Const CMINUS = 16
-Const CHOME  = 17
+Const CHOME = 17
 Const INPUT1 = 18
 Const INPUT2 = 19
 Const INPUT3 = 20
 Const INPUT4 = 21
-Const DIGITIZE  = 22
-Const INDEX   = 23
-Const LIMITOVER  = 24
-Const EMERGENCY   =  25
-Const THCON   = 26
-Const THCUP   = 27
+Const DIGITIZE = 22
+Const INDEX = 23
+Const LIMITOVER = 24
+Const EMERGENCY = 25
+Const THCON = 26
+Const THCUP = 27
 Const THCDOWN = 28
 Const OEMTRIG1 = 29
 Const OEMTRIG2 = 30
 Const OEMTRIG3 = 31
-Const OEMTRIG4  = 32
-Const OEMTRIG5  = 33
-Const OEMTRIG6  = 34
-Const OEMTRIG7  = 35
-Const OEMTRIG8  = 36
-Const OEMTRIG9  = 37
+Const OEMTRIG4 = 32
+Const OEMTRIG5 = 33
+Const OEMTRIG6 = 34
+Const OEMTRIG7 = 35
+Const OEMTRIG8 = 36
+Const OEMTRIG9 = 37
 Const OEMTRIG10 = 38
 Const OEMTRIG11 = 39
 Const OEMTRIG12 = 40
 Const OEMTRIG13 = 41
 Const OEMTRIG14 = 42
 Const OEMTRIG15 = 43
-Const TIMING   = 44
-Const JOGXP    = 45
-Const JOGXM    = 46
-Const JOGYP    = 47
-Const JOGYM    = 48
-Const JOGZP    = 49
-Const JOGZM    = 50
-Const JOGAP    = 51
-Const JOGAM    = 52
-Const HOMING   = 53
-Const PROBING  = 54
-Const START    = 55
+Const TIMING = 44
+Const JOGXP = 45
+Const JOGXM = 46
+Const JOGYP = 47
+Const JOGYM = 48
+Const JOGZP = 49
+Const JOGZM = 50
+Const JOGAP = 51
+Const JOGAM = 52
+Const HOMING = 53
+Const PROBING = 54
+Const START = 55

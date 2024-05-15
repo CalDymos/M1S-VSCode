@@ -1,5 +1,11 @@
 # M1S-VSCode Changelog
 
+## 0.14.9
+
+- add Fields to Outline
+- update GlobalDefs
+- external files are now included in auto-completition (via #expand)
+
 ## 0.14.8
 
 - Fixed bug that #Region was not folded.

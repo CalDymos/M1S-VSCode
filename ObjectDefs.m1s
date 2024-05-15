@@ -207,8 +207,10 @@ Class FileSystemObject
 
 	Function CreateTextFile(filename) ' As TextStream
 	End Function
+
 	Function CreateTextFile(filename, overwrite) ' As TextStream
 	End Function
+	
 	Function CreateTextFile(filename, overwrite, unicode) ' As TextStream
 	End Function
 

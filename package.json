@@ -154,15 +154,6 @@
 					"default": "C:\\WINDOWS\\system32\\cscript.exe",
 					"description": "%m1s.config.interpreter.description%"
 				},
-				"m1s.includes": {
-					"type": "array",
-					"uniqueItems": true,
-					"items": {
-						"type": "string"
-					},
-					"default": [],
-					"description": "%m1s.config.includes.description%"
-				},
 				"m1s.showVariableSymbols": {
 					"type": "boolean",
 					"default": true,
@@ -170,30 +161,18 @@
 				},
 				"m1s.showParamSymbols": {
 					"type": "boolean",
-					"default": false,
+					"default": true,
 					"description": "%m1s.config.showParamSymbols.description%"
 				},
-				"m1s.custumIncludePattern": {
-					"type": "string",
-					"description": "%m1s.config.customIncludePattern.description%",
-					"deprecationMessage": "use customIncludePattern"
+				"m1s.showFieldSymbols": {
+					"type": "boolean",
+					"default": true,
+					"description": "%m1s.config.showFieldSymbols.description%"
 				},
-				"m1s.customIncludePattern": {
+				"m1s.mach3Dir": {
 					"type": "string",
-					"default": "\\binclude\\b[\\t ]*\\(?[\\t ]*\"([^\"]+)\"[\\t ]*\\)?",
-					"description": "%m1s.config.customIncludePattern.description%"
-				},
-				"m1s.customIncludeDirs": {
-					"type": "array",
-					"uniqueItems": true,
-					"items": {
-						"type": "string"
-					},
-					"default": [
-						".",
-						"${workspaceFolder}"
-					],
-					"description": "%m1s.config.customIncludeDirs.description%"
+					"default": "C:\\Mach3",
+					"description": "%m1s.config.mach3Dir.description%"
 				}
 			}
 		}
@@ -205,13 +184,13 @@
 		"@types/vscode": "^1.85.0",
 		"@typescript-eslint/eslint-plugin": "^4.22.0",
 		"@typescript-eslint/parser": "^4.22.0",
+		"@vscode/test-cli": "^0.0.4",
+		"@vscode/test-electron": "^2.3.8",
 		"eslint": "^8.54.0",
-		"mocha": "^8.3.2",
+		"mocha": "^10.4.0",
 		"ts-node": "^9.1.1",
 		"typescript": "^5.3.2",
-		"vscode-test": "^1.5.2",
-		"@vscode/test-cli": "^0.0.4",
-		"@vscode/test-electron": "^2.3.8"
+		"vscode-test": "^1.5.2"
 	},
 	"scripts": {
 		"lint": "eslint .",
