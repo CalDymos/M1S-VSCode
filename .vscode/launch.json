@@ -1,12 +1,16 @@
 {
 	"version": "0.14.0",
 	"configurations": [
+		
 		{
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceFolder}"]
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--disable-extensions"
+			]
 		}
 	]
 }
