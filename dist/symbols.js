@@ -25,12 +25,9 @@ const showVariableSymbols = vscode_1.workspace.getConfiguration("m1s").get("show
 const showParameterSymbols = vscode_1.workspace.getConfiguration("m1s").get("showParamSymbols");
 const showFieldSymbols = vscode_1.workspace.getConfiguration("m1s").get("showFieldSymbols");
 const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
-//const CLASS = RegExp(PATTERNS.CLASS.source, "i");
-//const PROP = RegExp(PATTERNS.PROP.source, "i");
 const TYPE = RegExp(PATTERNS.TYPE.source, "i");
-const REGION = RegExp(PATTERNS.REGION.source, "i");
-const ENDREGION = RegExp(PATTERNS.ENDREGION.source, "i");
 const FIELD = RegExp(PATTERNS.FIELD.source, "i");
+
 function provideDocumentSymbols(doc) {
     const result = [];
     const varList = [];
@@ -39,7 +36,6 @@ function provideDocumentSymbols(doc) {
         var line = doc.lineAt(lineNum);
         if (line.isEmptyOrWhitespace || (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'" && line.text.charAt(line.firstNonWhitespaceCharacterIndex + 1) != "#"))
             continue;
-        //const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
         var LineTextwithComment
         if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'" && line.text.indexOf(':') != -1)
             LineTextwithComment = (/^([^\n\r]*)(?:.{1,}?)\:/).exec(line.text)[1]; // Text only up to the first colon
@@ -49,24 +45,12 @@ function provideDocumentSymbols(doc) {
             let name;
             var symbol = null;
             let matches = [];
-            // Cypress Enable Script Language don't support classes
-            // if ((matches = CLASS.exec(lineText)) !== null) {
-            //     name = matches[3];
-            //     symbol = new vscode_1.DocumentSymbol(name, "", vscode_1.SymbolKind.Class, line.range, line.range);
-            // }
-            // else 
             if ((matches = FUNCTION.exec(lineText)) !== null) {
                 name = matches[4];
                 let detail = "";
                 let symKind = vscode_1.SymbolKind.Function;
                 if (matches[3].toLowerCase() === "sub")
-                    // Cypress Enable Script Language don't support classes
-                    //if ((/class_(initialize|terminate)/i).test(name)) {
-                    // symKind = vscode_1.SymbolKind.Constructor;
-                    //}
-                    //else {
                     detail = "Sub";
-                //}
                 else {
                     detail = "Function";
                 }
@@ -80,13 +64,6 @@ function provideDocumentSymbols(doc) {
                         });
                 }
             }
-            // Cypress Enable Script Language don't support Properties
-            // else if ((matches = PROP.exec(lineText)) !== null) {
-            //     name = matches[4];
-            //     symbol = new vscode_1.DocumentSymbol(name, matches[3], vscode_1.SymbolKind.Property, line.range, line.range);
-            //     if ((/Default[\t ]*Property[\t ]*Get/i).test(matches[2]))
-            //         symbol.detail = "Default Get";
-            //}
             else if ((matches = TYPE.exec(lineText)) !== null) {
                 name = matches[2];
                 let detail = "";
@@ -128,7 +105,7 @@ function provideDocumentSymbols(doc) {
                 }
             }
 
-            if ((matches = REGION.exec(lineText)) !== null) {
+            if ((matches = PATTERNS.REGION.exec(lineText)) !== null) {
                 name = matches[1];
                 let detail = "Region";
                 symbol = new vscode_1.DocumentSymbol(name, detail, vscode_1.SymbolKind.Namespace, line.range, line.range);
@@ -164,7 +141,7 @@ function provideDocumentSymbols(doc) {
                     Blocks[Blocks.length - 1].children.push(symbol);
                 Blocks.push(symbol);
             }
-            if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null || (matches = ENDREGION.exec(lineText)) !== null)
+            if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null || (matches = PATTERNS.ENDREGION.exec(lineText)) !== null)
                 Blocks.pop();
         }
     }

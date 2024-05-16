@@ -32,6 +32,7 @@ const signature_1 = __importDefault(require("./signature"));
 const definition_1 = __importDefault(require("./definition"));
 const colorprovider_1 = __importDefault(require("./colorprovider"));
 const Launcher_1 = __importDefault(require("./Launcher"));
+const diagnostics_1 = require("./diagnostics");
 const cmds = __importStar(require("./commands"));
 const Includes_1 = require("./Includes");
 
@@ -79,7 +80,11 @@ function activate(context) {
 		}
     });
 
-    context.subscriptions.push(hover_1.default, completion_1.default, symbols_1.default, signature_1.default, definition_1.default, colorprovider_1.default, Launcher_1.default.launchConfigProvider, Launcher_1.default.inlineDebugAdapterFactory, buttonActivation, formatFunction);
+	const m1sDiagnostics = vscode_1.languages.createDiagnosticCollection("Mach3ScriptDC");
+    context.subscriptions.push(m1sDiagnostics);
+    (0, diagnostics_1.subscribeToDocumentChanges)(context, m1sDiagnostics);
+
+    context.subscriptions.push(hover_1.default, completion_1.default, symbols_1.default, signature_1.default, definition_1.default, colorprovider_1.default, Launcher_1.default.launchConfigProvider, Launcher_1.default.inlineDebugAdapterFactory, buttonActivation, formatFunction, diagnostics_1.subscribeToDocumentChanges);
 }
 
 function prepareDocument(document) {
