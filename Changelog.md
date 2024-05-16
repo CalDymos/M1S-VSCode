@@ -1,9 +1,15 @@
 # M1S-VSCode Changelog
 
+
+## 0.14.10
+
+- fix Error in Pattern for If ... Then diagnostic.
+
 ## 0.14.9
 
 - add Fields to Outline
 - update GlobalDefs
+- First implementation of diagnostic informations
 - external files are now included in auto-completition (via #expand)
 
 ## 0.14.8

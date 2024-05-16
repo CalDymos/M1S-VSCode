@@ -2,7 +2,7 @@
 	"name": "m1svscode",
 	"displayName": "M1S",
 	"description": "Mach3 Script Language Support",
-	"version": "0.14.8",
+	"version": "0.14.10",
 	"publisher": "CalDymos",
 	"icon": "assets/logo.png",
 	"galleryBanner": {
@@ -173,6 +173,16 @@
 					"type": "string",
 					"default": "C:\\Mach3",
 					"description": "%m1s.config.mach3Dir.description%"
+				},
+				"m1s.useScreenSet": {
+					"type": "string",
+					"default": "1024.set",
+					"description": "%m1s.config.useScreenSet.description%"
+				},
+				"m1s.useProfile": {
+					"type": "string",
+					"default": "1024.xml",
+					"description": "%m1s.config.useProfile.description%"
 				}
 			}
 		}

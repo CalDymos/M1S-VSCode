@@ -2,8 +2,7 @@
 Diese Erweiterung bietet Sprachunterstützung für Mach3 Script für [Visual Studio Code](https://code.visualstudio.com/).
 
 <p align="center">
-  <a href="./README.md">English</a> | 
-  <span>Deutsch</span>
+  <a href="./README.md">English</a> | <span>Deutsch</span>
 </p>
 
 ## Features
@@ -31,10 +30,11 @@ Diese Erweiterung bietet Sprachunterstützung für Mach3 Script für [Visual Stu
 ## Funktionen noch nicht vollständig implementiert (noch in Arbeit)
 
 - vollständige Syntaxprüfung (Ausführen / Prüfen des Makros über den Cypress Enbable Compiler)
+- Anzeigen von Problemen / Fehlern
 
 ## Mitarbeit
 Du kannst dieses Projekt unterstützen, indem du die Quelldateien forkst und einen Pull Request/PR mit deinen Veränderungen erzeugst oder eine Issue mit deinem Problem/deiner Idee erzeugst.
-- Vervollständigung der M1S Sprachdokumentation #21
+- Vervollständigung der M1S Sprachdokumentation
 - Übersetzung in weitere Sprachen
 - ...
 
