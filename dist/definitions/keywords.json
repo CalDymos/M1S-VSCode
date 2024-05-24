@@ -11,6 +11,9 @@
     "Call": {
         "documentation": "Transfers control to a Sub procedure or Function procedure"
     },
+    "CancelButton": {
+        "documentation": "Defines a button for a dialog, for closing the dialog box"
+    },
     "Const": {
         "documentation": "Assigns a symbolic name to a constant value."
     },
@@ -28,6 +31,9 @@
     },
     "End": {
         "documentation": "Ends a program or a block of statements such as a Sub procedure, function or a Dialog Box control."
+    },
+    "End Dialog": {
+        "documentation": "Ends the definition of a Dialog Box control"
     },
     "Erase": {
         "documentation": "Reinitializes the elements of a fixed array."
@@ -62,11 +68,11 @@
     "Line Input": {
         "documentation": "Reads a line from a sequential file into a String or Variant variable."
     },
-    "New": {
-        "documentation": ""
-    },
     "Next": {
         "documentation": ""
+    },
+    "OKButton": {
+        "documentation": "Defines a button for a dialog, for selecting options and closing dialog boxes"
     },
     "Option Explicit": {
         "documentation": "Used at script level to force explicit declaration of all variables in that script."
@@ -99,13 +105,13 @@
         "documentation": "Returns from a subroutine within a procedure."
     },
     "Seek": {
-        "documentation": ""
+        "documentation": "Sets the position in a file for the next read or write"
     },
     "Select Case": {
         "documentation": "Executes one of the statement blocks in the 'case' based on the test variable."
     },
     "Set": {
-        "documentation": ""
+        "documentation": "Assigns an object to an object variable."
     },
     "Static": {
         "documentation": "Used to declare static variables and allocate storage space. These variables will retain their value through the program run."
@@ -126,9 +132,9 @@
         "documentation": ""
     },
     "Type": {
-        "documentation": "Defines a user-defined data type containing one or more elements."
+        "documentation": "Defines a user-defined data type (UDT) containing one or more elements."
     },
-    "TEXT": {
+    "Text": {
         "documentation": "Creates a text field for titles and labels in Dialog Box controls"
     },
     "Until": {
@@ -141,6 +147,6 @@
         "documentation": ""
     },
     "With": {
-        "documentation": ""
+        "documentation": "The With statement allows you to proform a series of commands or statements on a particular object without again refering to the name of that object."
     }
 }
