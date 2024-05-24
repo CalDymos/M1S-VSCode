@@ -66,7 +66,7 @@ function provideDocumentSymbols(doc) {
             }
             else if ((matches = TYPE.exec(lineText)) !== null) {
                 name = matches[2];
-                let detail = "";
+                let detail = "UDT";
                 symbol = new vscode_1.DocumentSymbol(name, detail, vscode_1.SymbolKind.Struct, line.range, line.range);
                 if (Blocks.length === 0)
                     result.push(symbol);
@@ -79,26 +79,26 @@ function provideDocumentSymbols(doc) {
                         const fline = doc.lineAt(lineNum);
                         if (fline.isEmptyOrWhitespace || fline.text.charAt(fline.firstNonWhitespaceCharacterIndex) === "'")
                             continue;
-                        const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(fline.text)[1];
-                        for (const flineText of LineTextwithoutComment.split(":")) {
-                            let Fieldmatches = [];
+                        const flineText = fline.text;
+                        let Fieldmatches = [];
 
-                            if ((Fieldmatches = FIELD.exec(flineText)) !== null) {
-                                const FieldName = Fieldmatches[1];
-                                let FieldKind = vscode_1.SymbolKind.Field;
-                                symbol = new vscode_1.DocumentSymbol(FieldName, "Field", FieldKind, fline.range, fline.range);
-                                if (Blocks.length === 0)
-                                    result.push(symbol);
-                                else
-                                    Blocks[Blocks.length - 1].children.push(symbol);
-                            }
-                            if ((Fieldmatches = PATTERNS.ENDTYPE.exec(flineText)) !== null){
-                                lineText = flineText;
-                                line = fline;
-                                symbol = null;
-                                break;
-                            }
+                        if ((Fieldmatches = FIELD.exec(flineText)) !== null) {
+                            const FieldName = Fieldmatches[1];
+                            const FieldType = Fieldmatches[2];
+                            let FieldKind = vscode_1.SymbolKind.Field;
+                            symbol = new vscode_1.DocumentSymbol(FieldName, FieldType, FieldKind, fline.range, fline.range);
+                            if (Blocks.length === 0)
+                                result.push(symbol);
+                            else
+                                Blocks[Blocks.length - 1].children.push(symbol);
                         }
+                        if ((Fieldmatches = PATTERNS.ENDTYPE.exec(flineText)) !== null) {
+                            lineText = flineText;
+                            line = fline;
+                            symbol = null;
+                            break;
+                        }
+
                         if ((matches = PATTERNS.ENDTYPE.exec(lineText)) !== null)
                             break;
                     }

@@ -28,21 +28,23 @@ const vscode_1 = __importStar(require("vscode"));
 const PATTERNS = __importStar(require("./patterns"));
 
 function refreshDiagnostics(doc, m1sDiagnostics) {
-    const diagnostics = [];
-    for (let lineNum = 0; lineNum < doc.lineCount; lineNum++) {
-        const line = doc.lineAt(lineNum);
-        let matches = [];
-        if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
-            continue;
-        if ((matches = PATTERNS.IF.exec(line.text)) !== null && lineNum != currentLine()) {
-            let matches2 = [];
-            if ((matches2 = PATTERNS.IFTHEN.exec(line.text)) === null) {
-                const index = line.text.indexOf(matches[1]);
-                diagnostics.push(createDiagnostic(doc, line, lineNum, index, 'missing_then'));
+    if (doc.languageId === 'm1s') {
+        const diagnostics = [];
+        for (let lineNum = 0; lineNum < doc.lineCount; lineNum++) {
+            const line = doc.lineAt(lineNum);
+            let matches = [];
+            if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
+                continue;
+            if ((matches = PATTERNS.IF.exec(line.text)) !== null && lineNum != currentLine()) {
+                let matches2 = [];
+                if ((matches2 = PATTERNS.IFTHEN.exec(line.text)) === null) {
+                    const index = line.text.indexOf(matches[1]);
+                    diagnostics.push(createDiagnostic(doc, line, lineNum, index, 'missing_then'));
+                }
             }
         }
+        m1sDiagnostics.set(doc.uri, diagnostics);
     }
-    m1sDiagnostics.set(doc.uri, diagnostics);
 }
 function createDiagnostic(doc, line, lineNum, startChr, diagCode) {
     const range = new vscode_1.Range(lineNum, startChr, lineNum, line.text.length - startChr);

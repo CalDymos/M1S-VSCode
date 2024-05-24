@@ -25,6 +25,12 @@ const vscode = __importStar(require("vscode"));
 const path_1 = require("path");
 const child_process_1 = require("child_process");
 const diagCollection = vscode.languages.createDiagnosticCollection("m1s");
+const configuration = vscode.workspace.getConfiguration("m1s");
+const outputDir = configuration.get("outputFolder");
+const mach3Dir = configuration.get("mach3Dir");
+const useScreenSet = configuration.get("useScreenSet");
+const useProfile = configuration.get("useProfile");
+
 class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
     constructor() {
         super();
@@ -38,11 +44,33 @@ class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
     }
     async launchRequest(response, args) {
         diagCollection.clear();
-        const workDir = path_1.dirname(args.program);
         this.sendResponse(response);
         const configuration = vscode.workspace.getConfiguration("m1s");
         const scriptInterpreter = configuration.get("interpreter");
-        this._runner = child_process_1.spawn(scriptInterpreter, [args.program], { "cwd": workDir });
+        let workDir; 
+        if (vscode.workspace.workspaceFolders != null)
+            workDir = vscode.workspace.workspaceFolders[0].uri.fsPath;
+        else
+            workDir = path_1.dirname(args.program);
+        const extDir = vscode.extensions.getExtension('caldymos.m1svscode').extensionUri.fsPath
+        const srcDir = path_1.dirname(args.program);
+
+        let CEinterpreter = scriptInterpreter;        
+        let outDir = outputDir;
+
+        CEinterpreter = CEinterpreter.replace("${workspaceFolder}", workDir);
+        CEinterpreter = CEinterpreter.replace("${extensionFolder}", extDir);
+        CEinterpreter = CEinterpreter.replace("${fileDirname}", srcDir);
+        outDir = outDir.replace("${workspaceFolder}", workDir);
+        outDir = outDir.replace("${extensionFolder}", extDir);
+        outDir = outDir.replace("${fileDirname}", srcDir);
+        let cmdline = ' -cmd:run' +
+                      ' -src:\'' + args.program + '\'' +
+                      ' -mach3Dir:\'' + mach3Dir + '\'' +
+                      ' -ScreenSet:\'' + useScreenSet + '\'' +
+                      ' -Profile:\'' + useProfile + '\'' +
+                      ' -outputFolder:\'' + outDir + '\''
+        this._runner = child_process_1.spawn(CEinterpreter, ['-src:' + args.program, '-cmd:run'], { "cwd": workDir });
         this._runner.stdout.on("data", data => {
             this.sendEvent(new vscode_debugadapter_1.OutputEvent(data.toString(), "stdout"));
         });
@@ -61,6 +89,9 @@ class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
             this.sendEvent(new vscode_debugadapter_1.OutputEvent(`Process [${this._runner.pid}] exited with code ${code} (&H${code.toString(16).toUpperCase()})`));
             this.sendEvent(new vscode_debugadapter_1.TerminatedEvent());
         });
+        this._runner.on('error', (err) => {
+            console.log(`Error launching debugger: ${err}`);
+        });
     }
     terminateRequest(response, _args, _req) {
         var _a;
@@ -76,7 +107,7 @@ class DebugConfigurationProvider {
         if (!config || !config.request) {
             if (editor && editor.document.languageId === "m1s") {
                 config.type = "m1s";
-                config.name = "CScript";
+                config.name = "VSCCE";
                 config.request = "launch";
                 config.program = editor.document.uri.fsPath;
             }
