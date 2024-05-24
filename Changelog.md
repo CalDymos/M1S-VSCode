@@ -1,10 +1,10 @@
 # M1S-VSCode Changelog
 
-## 0.2.2
+## 0.20.2
 
 - Jumps to error line in VS Code if an error occurs during compilation
 
-## 0.2.1
+## 0.20.1
 
 - Context menu “M1S Formatter” removed (duplicate entry for one and the same function)
   Formatting can still be performed via the context menu entry “Format Document” or the shortcut Shift+Alt+F.

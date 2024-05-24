@@ -2,7 +2,7 @@
 	"name": "m1svscode",
 	"displayName": "M1S",
 	"description": "Mach3 Script Language Support",
-	"version": "0.2.2",
+	"version": "0.20.2",
 	"publisher": "CalDymos",
 	"icon": "assets/logo.png",
 	"galleryBanner": {
