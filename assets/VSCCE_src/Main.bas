@@ -509,11 +509,11 @@ Sub Main()
                 Pipe.stdout (App.EXEName & " Info: start compiling Script '" & m_ScriptFile & "'" & vbCrLf)
                 ErrCode = CompileScript()
                 If ErrCode = 0 Then
+                    Pipe.stdout (App.EXEName & " CompileScript '" & ErrCode & "'" & vbCrLf)
                     ErrCode = VBHelp.MakePath(m_OutputFolder & "\")
                     If VBHelp.FolderExists(m_OutputFolder) Then
                         dstFile = m_OutputFolder + "\" & VBHelp.GetFilenameFromPath(m_OutputFolder, True) & ".mcc"
                         ErrCode = EnableAPI.enaSaveCompiledCode(m_ctx, dstFile)
-                        'Pipe.stdout "enaSaveCompiledCode:" & CStr(ErrCode) & vbCrLf
                         If ErrCode = 0 Then
                             Pipe.stdout (App.EXEName & " Info: compiling complete" & vbCrLf)
                             Pipe.stdout (App.EXEName & " Info: file saved to: " & dstFile & vbCrLf)
@@ -525,9 +525,8 @@ Sub Main()
                     m_ctx = 0
                 Else
                     Pipe.stderr (App.EXEName & " Error: compiling Script " & m_ScriptFile & "'" & vbCrLf)
-                    If m_ErrLine <> 0 Then
-                        Pipe.stderr (App.EXEName & " Line(" & CStr(m_ErrLine) & vbCrLf)
-                        Pipe.stderr (App.EXEName & " " & m_errMessage & vbCrLf)
+                    If Len(m_errMessage) Or m_ErrLine <> 0 Then
+                        Pipe.stderr (App.EXEName & " " & m_errMessage)
                     End If
                 End If
             Else
