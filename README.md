@@ -1,9 +1,7 @@
 # Mach3 Script Extension for Visual Studio Code
 This extension implements basic language features of Mach3 Script for [Visual Studio Code](https://code.visualstudio.com/).
 
-<p align="center">
-  <span>English</span> | <a href="./README.de.md">Deutsch</a>
-</p>
+### English | [Deutsch](README.de.md)
 
 ## Features
 - Formatting (via context menu)
@@ -27,6 +25,10 @@ This extension implements basic language features of Mach3 Script for [Visual St
 
 - full Syntax check (execute / check the macro via the Cypress Enbable compiler)
 - Display of problems / errors
+
+## How it works
+....
+....
 
 ## Contribute
 You can support this project through PR with your changes or simply add an issue with your idea/bug.

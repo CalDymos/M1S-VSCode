@@ -1,5 +1,22 @@
 # M1S-VSCode Changelog
 
+## 0.2.1
+
+- Context menu “M1S Formatter” removed (duplicate entry for one and the same function)
+  Formatting can still be performed via the context menu entry “Format Document” or the shortcut Shift+Alt+F.
+- Add context menu entry for "full syntax check" and "Compile Script".
+- Remove Commands "killScript" and "runnScript" because of the use of the internal launch config, instead of a user command.
+- Added external interpreter (vscce.exe) to compile and debug the script. Currently only compiling is possible.
+
+## 0.14.12
+
+- fix some bugs
+
+## 0.14.11
+
+- RegEx pattern for 'fields' optimized
+- fix error in diagnostic
+- semantic highlight extended
 
 ## 0.14.10
 

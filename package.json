@@ -2,7 +2,7 @@
 	"name": "m1svscode",
 	"displayName": "M1S",
 	"description": "Mach3 Script Language Support",
-	"version": "0.14.10",
+	"version": "0.2.1",
 	"publisher": "CalDymos",
 	"icon": "assets/logo.png",
 	"galleryBanner": {
@@ -38,7 +38,7 @@
 		"debuggers": [
 			{
 				"type": "m1s",
-				"label": "CScript",
+				"label": "VSCCE",
 				"program": "./dist/debugger/debugAdapter.js",
 				"runtime": "node",
 				"languages": [
@@ -58,13 +58,13 @@
 					{
 						"type": "m1s",
 						"request": "launch",
-						"name": "CScript",
+						"name": "VSCCE",
 						"program": "${file}"
 					}
 				],
 				"configurationSnippets": [
 					{
-						"label": "CScript",
+						"label": "VSCCE",
 						"body": {
 							"type": "m1s",
 							"request": "launch",
@@ -89,23 +89,24 @@
 		],
 		"commands": [
 			{
-				"command": "m1s.runScript",
-				"title": "%m1s.command.m1s.runScript%"
-			},
-			{
-				"command": "m1s.killScript",
-				"title": "%m1s.command.m1s.killScript%"
+				"when": "!editorReadonly && resourceExtname == '.m1s'",
+				"command": "m1s.compileScript",
+				"title": "%m1s.command.m1s.compileScript%"
 			},
 			{
 				"when": "!editorReadonly && resourceExtname == '.m1s'",
-				"command": "extension.indenter",
-				"title": "M1S-Formatter"
+				"command": "m1s.checkScript",
+				"title": "%m1s.command.m1s.checkScript%"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "extension.indenter",
-				"key": "ctrl+alt+b"
+				"command": "m1s.compileScript",
+				"key": "ctrl+alt+c"
+			},
+			{
+				"command": "m1s.checkScript",
+				"key": "ctrl+alt+s"
 			}
 		],
 		"grammars": [
@@ -125,7 +126,12 @@
 			"editor/context": [
 				{
 					"when": "!editorReadonly && resourceExtname == '.m1s'",
-					"command": "extension.indenter",
+					"command": "m1s.compileScript",
+					"group": "navigation"
+				},
+				{
+					"when": "!editorReadonly && resourceExtname == '.m1s'",
+					"command": "m1s.checkScript",
 					"group": "navigation"
 				}
 			]
@@ -151,8 +157,13 @@
 				},
 				"m1s.interpreter": {
 					"type": "string",
-					"default": "C:\\WINDOWS\\system32\\cscript.exe",
+					"default": "${extensionFolder}\\assets\\vscce.exe",
 					"description": "%m1s.config.interpreter.description%"
+				},
+				"m1s.outputFolder": {
+					"type": "string",
+					"default": "${workspaceFolder}\\out",
+					"description": "%m1s.config.outputFolder.description%"
 				},
 				"m1s.showVariableSymbols": {
 					"type": "boolean",

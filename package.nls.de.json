@@ -1,13 +1,18 @@
 {
-  "m1s.command.m1s.runScript": "M1S: Skript ausführen (veraltet, siehe issue #48)",
-  "m1s.command.m1s.killScript": "M1S: Laufendes Skript abbrechen",
+  "m1s.command.m1s.compileScript": "Skript kompilieren zu *.mcc",
+  "m1s.command.m1s.checkScript": "Komplette Syntaxüberprüfung",
   "m1s.config.interpreter.description": "Pfad zum Skriptinterpreter",
   "m1s.config.showVariableSymbols.description": "Variablen in Gliederung anzeigen",
   "m1s.config.showFieldSymbols.description": "Felder in Gliederung anzeigen",
   "m1s.config.showParamSymbols.description": "Parameter in Gliederung anzeigen",
-   "m1s.config.mach3Dir.description": "Installationspfad von Mach3",
+  "m1s.config.mach3Dir.description": "Installationspfad von Mach3",
+  "m1s.config.useScreenSet.description": "zu verwendender Mach3 ScreenSet",
+  "m1s.config.useProfile.description": "zu verwendendes Mach3 Profil", 
+  "m1s.config.outputFolder.description": "Ausgabeverzeichnis für kompiliertes Skript", 
   "m1s.config.FormatterLevel.description": "Einrückungsebene für den Beginn",
   "m1s.config.FormatterRemoveComments.description": "Entfernt die Kommentare aus der Eingabe.",
-  "m1s.msg.runningscript": "Führe Skript aus...'",
-  "m1s.msg.interpreterRunError": "Skriptinterpreter kann nicht ausgeführt werden"
+  "m1s.msg.runningScript": "Führe Skript aus...'",
+  "m1s.msg.compileScript": "Kompiliere Skript...'",
+  "m1s.msg.checkScript": "Syntax des Skripts wird über Interpreter geprüft...'",
+  "m1s.msg.interpreterRunError": "Skript-Interpreter kann nicht ausgeführt werden"
 }
