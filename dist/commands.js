@@ -28,6 +28,7 @@ const childProcess = __importStar(require("child_process"));
 const path_1 = __importDefault(require("path"));
 const localize_1 = __importDefault(require("./localize"));
 const fs = __importStar(require("fs"));
+const diagCollection = vscode_1.languages.createDiagnosticCollection("m1s");
 const configuration = vscode_1.workspace.getConfiguration("m1s");
 const m1sOut = vscode_1.window.createOutputChannel("Mach3Script");
 let runner;
@@ -80,6 +81,12 @@ function compileScript() {
         });
         runner.stderr.on("data", data => {
             const output = data.toString();
+            const match = (/.*Error on line: (\d+) - (.*)/).exec(output);
+            if (match) {
+                const line = Number.parseInt(match[1]) - 1;
+                const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
+                diagCollection.set(vscode_1.Uri.file(doc.fileName), [diag]);
+            }
             m1sOut.append(output);
         });
         runner.on("exit", code => {
