@@ -99,8 +99,16 @@
 			"name": "storage.type.struct.end.m1s"
 		},
 		{
-			"match": "(?i:\\s*\\b(Redim|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo|Stop|End)\\b\\s*)",
+			"match": "(?i:(\\s*\\b(Redim|With|End With|Randomize|Option Explicit|Option Base|On Error Resume Next|On Error GoTo|Stop)\\b\\s*)|\\s*(End[\\n\\r]))",
 			"name": "keyword.control.m1s"
+		},
+		{
+			"match": "(?i:\\s*\\b(Text|TextBox|ListBox|DropList|ComboBox|CheckBox|OKButton|Begin Dialog|End Dialog|OptionGroup|OKButton|CancelButton|PushButton|Picture|GroupBox)\\b\\s*)",
+			"name": "entity.name.function.macro.m1s"
+		},
+		{
+			"match": "(?i:\\s*\\b(DlgText|DlgEnable|DlgVisible|DlgSetPicture|DlgListBoxArray|DlgFocus|DlgEnable|DlgControlId|DlgValue)\\b\\s*)",
+			"name": "entity.name.function.member.m1s"
 		},
 		{
 			"comment": "not working (in only valid place), overwirtten by variable.parameter.function.m1s",
@@ -120,7 +128,7 @@
 			"name": "keyword.control.m1s"
 		},
 		{   "match":"(?i:\\b(Declare|Alias|Lib)\\b)",
-		    "name":"keyword.other.vba"
+		    "name":"keyword.other.m1s"
 	    },
 		{
 			"match": "(?i:\\b(Open)\\b(?=[\\t ])|\\b(Put|Get|Close|Print|Input)\\b(?=[\\t ]\\#))",
