@@ -1,5 +1,9 @@
 # M1S-VSCode Changelog
 
+## 0.2.2
+
+- Jumps to error line in VS Code if an error occurs during compilation
+
 ## 0.2.1
 
 - Context menu “M1S Formatter” removed (duplicate entry for one and the same function)
