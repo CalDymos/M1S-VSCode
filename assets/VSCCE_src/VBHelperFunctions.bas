@@ -41,10 +41,10 @@ Public Declare Function MakePath Lib "imagehlp.dll" _
 Public Declare Function GetLastError Lib "kernel32.dll" () As Long
         
 Public Function FolderExists(ByVal Path As String) As Boolean
-  ' Falls nicht vorhanden Backslash zum Pfad hinzufügen
+  ' If not available, add backslash to the path
   If Right$(Path, 1) <> "\" Then Path = Path & "\"
  
-  ' Prüfen ob Verzeichnis existiert
+  ' Check whether directory exists
   FolderExists = (UCase$(dir$(Path & "\nul")) = "NUL")
 End Function
 

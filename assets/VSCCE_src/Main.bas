@@ -26,7 +26,7 @@ Private Type tExpand
     asFiles() As String
 End Type
 
-Private tExpandScript As tExpand
+Private m_ExpandScript As tExpand
 Private m_ctx As Long
 
 Private m_objMach4 As IMach4Emu
@@ -42,6 +42,9 @@ Private m_OutputFolder As String ' Output Folder for compiling
 Private m_ErrLine As Long ' Error Line num on compiling
 Private m_errMessage As String ' Error message on compiling
 Private m_errType As String ' Error Type on Compiling
+Private m_errFile As String ' file in which error occurred
+
+Private g_asBuffer() As String 'Global buffer that contains the source code lines during compiling and syntax checking
 
 Private Declare Function FormatMessage Lib "kernel32" Alias "FormatMessageA" (ByVal dwFlags As Long, lpSource As Any, ByVal dwMessageId As Long, ByVal dwLanguageId As Long, ByVal lpBuffer As String, ByVal nSize As Long, Arguments As Long) As Long
 
@@ -175,7 +178,7 @@ Private Sub RemoveExpandBlocks(sBuffer As String)
     End If
 End Sub
 
-Private Function ExpandScript(asScript() As String)
+Private Function ExpandScript(asScript() As String, Optional recCall As Boolean = False)
     
     Dim bInfinityLoop As Boolean
     Dim sBuffer As String
@@ -191,16 +194,20 @@ Private Function ExpandScript(asScript() As String)
     Dim bFileLoaded  As Boolean
     Dim bQFN As Boolean
     Dim bExpand As Boolean
-    
+            
     ExpandScript = ERROR_PROCESS_ABORTED
+    
+    If Not recCall Then
+        Erase m_ExpandScript.asFiles
+        m_ExpandScript.nCurIndex = 0
+    End If
     
     If Not IsArrayInitialized(asScript) Then Exit Function
     
-    If (tExpandScript.nCurLevel = 0) Then
-        ReDim tExpandScript.asFiles(0)
-        
+    If (m_ExpandScript.nCurLevel = 0) Then
+        ReDim m_ExpandScript.asFiles(0)
     End If
-    tExpandScript.nCurLevel = tExpandScript.nCurLevel + 1
+    m_ExpandScript.nCurLevel = m_ExpandScript.nCurLevel + 1
     
     i = 0
     
@@ -229,8 +236,8 @@ Private Function ExpandScript(asScript() As String)
             
             
             If Not FileExists(sFileName) Then
-                Pipe.stderr App.EXEName & " Error: " & asScript(i)
-                Pipe.stderr App.EXEName & " File '" & sFileName & "' not found !"
+                Pipe.stderr App.EXEName & " Error: " & asScript(i) & vbCrLf
+                Pipe.stderr App.EXEName & " File '" & sFileName & "' not found !" & vbCrLf
                 ExpandScript = &H2
                 Exit Function
             End If
@@ -248,42 +255,42 @@ Private Function ExpandScript(asScript() As String)
                 End If
                 If (v71) Then
                     
-                    ReDim Preserve tExpandScript.asFiles(tExpandScript.nCurIndex) ';sub_40B132((void *)(4 * nCurIndex + 6986664), &v72);
-                    tExpandScript.asFiles(tExpandScript.nCurIndex) = sFileName
+                    ReDim Preserve m_ExpandScript.asFiles(m_ExpandScript.nCurIndex) '
+                    m_ExpandScript.asFiles(m_ExpandScript.nCurIndex) = sFileName
                     
                     bInfinityLoop = False
-                    For j = 0 To tExpandScript.nCurIndex - 1 ';;For ( j = 0; j < nCurIndex - 1; ++j )
+                    For j = 0 To m_ExpandScript.nCurIndex - 1 '
                         
-                        If (tExpandScript.asFiles(j) = sFileName) Then
+                        If (m_ExpandScript.asFiles(j) = sFileName) Then
                             bInfinityLoop = True
                             Exit For
                         End If
                     Next
-                    tExpandScript.nCurIndex = tExpandScript.nCurIndex + 1
+                    m_ExpandScript.nCurIndex = m_ExpandScript.nCurIndex + 1
                     If (bInfinityLoop) Then
                         
-                        tExpandScript.nCurIndex = tExpandScript.nCurIndex - 1
-                        tExpandScript.nCurLevel = tExpandScript.nCurLevel - 1
-                        Alert ("#Expand is calling itself (infinity loop)")
+                        m_ExpandScript.nCurIndex = m_ExpandScript.nCurIndex - 1
+                        m_ExpandScript.nCurLevel = m_ExpandScript.nCurLevel - 1
+                        Pipe.stderr ("#Expand is calling itself (infinity loop)" & vbCrLf)
                         ExpandScript = False
                         Exit Function
                     End If
                     DeleteStrArrayElemnt asScript, i
-                    InsertStrArrayElemnt asScript, i, "'#Expand Start of " & sExpandBlock & vbTab & " ##"
+                    InsertStrArrayElemnt asScript, i, "'#Expand Start of " & sExpandBlock & vbTab & "file:'" & sFileName & "' ##"
                     For j = 0 To UBound(asBuffer)
                         InsertStrArrayElemnt asScript(), i + j + 1, asBuffer(j)
                     Next j
                     
-                    If (Not ExpandScript(asScript)) Then
+                    If (Not ExpandScript(asScript, True)) Then
                         ExpandScript = False
                         Exit Function
                     End If
                     InsertStrArrayElemnt asScript, i + j + 2, "'#Expand End of " & sExpandBlock & vbTab & " ##"
-                    tExpandScript.nCurIndex = tExpandScript.nCurIndex - 1
+                    m_ExpandScript.nCurIndex = m_ExpandScript.nCurIndex - 1
                 End If
                 
             Else
-                Alert ("#Expand File Not found at:" & vbCrLf & vbCrLf & sFileName)
+                Pipe.stderr ("#Expand File Not found at: " & sFileName & vbCrLf)
             End If
             
         End If
@@ -291,8 +298,8 @@ Private Function ExpandScript(asScript() As String)
         
     Loop While (i <= UBound(asScript))
     
-    tExpandScript.nCurLevel = tExpandScript.nCurLevel - 1
-    If Not tExpandScript.nCurLevel Then
+    m_ExpandScript.nCurLevel = m_ExpandScript.nCurLevel - 1
+    If Not m_ExpandScript.nCurLevel Then
         
         i = i - 1
         If Len(asScript(i)) Then
@@ -303,8 +310,7 @@ Private Function ExpandScript(asScript() As String)
                 asScript(i) = asScript(i) & vbCrLf
             End If
         End If
-        Erase tExpandScript.asFiles
-        tExpandScript.nCurIndex = 0
+
     End If
     
     ExpandScript = True
@@ -314,10 +320,10 @@ End Function
 Private Function CompileScript() As Long
     Dim rc As Long
     Dim hwnd As Long
-    Dim asBuffer() As String
     Dim sBuffer As String
     Dim i As Integer
     Dim RetVal As Long
+    Erase g_asBuffer() ' clear Buffer
     
     CompileScript = ERROR_PROCESS_ABORTED
     
@@ -343,43 +349,42 @@ Private Function CompileScript() As Long
             Exit Function
         End If
         
-        asBuffer = GetArrayFromText(sBuffer)
+        g_asBuffer = GetArrayFromText(sBuffer)
         
-        If IsArrayInitialized(asBuffer) Then
-            If ExpandScript(asBuffer()) = ERROR_PROCESS_ABORTED Then
+        If IsArrayInitialized(g_asBuffer) Then
+            If ExpandScript(g_asBuffer()) = ERROR_PROCESS_ABORTED Then
                 EnableAPI.enaFreeContext m_ctx
                 Exit Function
             End If
-            'Pipe.stdout "Script Expanded:" & CStr(rc) & vbCrLf
                 
-            sBuffer = Join(asBuffer(), vbCrLf)
+            sBuffer = Join(g_asBuffer(), vbCrLf)
             Sleep (100)
               
             
         End If
         
         rc = EnableAPI.enaSetOption(m_ctx, ENOPT_CALL_APP_WITH_CTX, True)   ' Include implicit context parameter in App calls
-        'Pipe.stdout "enaSetOption:" & CStr(rc) & vbCrLf
+
         rc = EnableAPI.enaAddTypeLibFileRef(m_ctx, Mach3.g_MainFolder & "\Mach3.exe", 0)
-        'Pipe.stdout "enaAddTypeLibFileRef:" & CStr(rc) & vbCrLf
+
         For i = 0 To UBound(Mach3.g_asDefinitions())
             rc = EnableAPI.enaAppendText(m_ctx, Mach3.g_asDefinitions(i))
         Next i
-        'Pipe.stdout "enaAppendText:" & CStr(rc) & vbCrLf
+
         
         rc = EnableAPI.enaSetDefaultDispatch(m_ctx, 0, m_objMScript)
-        'Pipe.stdout "enaSetDefaultDispatch:" & CStr(rc) & vbCrLf
+
         
         rc = EnableAPI.enaAppendText(m_ctx, sBuffer)
-        'Pipe.stdout "enaAppendText:" & CStr(rc) & vbCrLf
+
     End If
     If Not rc Then
         rc = EnableAPI.enaRegisterOutputCallback(m_ctx, AddressOf CompileOutputCallback)
-        'Pipe.stdout "enaRegisterOutputCallback:" & CStr(rc) & vbCrLf
+
         rc = EnableAPI.enaRegisterGetProcAddrCallback(m_ctx, AddressOf MyGetProcAddr)
-        'Pipe.stdout "enaRegisterGetProcAddrCallback:" & CStr(rc) & vbCrLf
+
         rc = EnableAPI.enaCompile(m_ctx)
-        'Pipe.stdout "enaCompile:" & CStr(rc) & vbCrLf
+
     Else
         sBuffer = Space(512)
         RetVal = FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0&, rc, &H400, sBuffer, Len(sBuffer), 0&)
@@ -391,7 +396,7 @@ Private Function CompileScript() As Long
     If rc <> 0 Then
         EnableAPI.enaFreeContext (m_ctx)
     End If
-       
+            
     
     CompileScript = rc
     
@@ -422,17 +427,14 @@ Private Sub AssignCmdLineOptionsToVars(aOptions() As tCmdLineOption)
         Select Case aOptions(i).Option
             Case "CMD"
                 m_Command = aOptions(i).Parameter
-                'MsgBox m_Command
             Case "MACH3DIR"
                 Mach3.g_MainFolder = aOptions(i).Parameter
-                'MsgBox Mach3.g_MainFolder
             Case "PROFILE"
                 Mach3.g_XMLProfile = aOptions(i).Parameter
             Case "SCREENSET"
                 Mach3.g_CurrentScreenSet = aOptions(i).Parameter
             Case "SRC"
                 m_ScriptFile = aOptions(i).Parameter
-                'MsgBox m_ScriptFile
             Case "OUTPUTFOLDER"
                 m_OutputFolder = aOptions(i).Parameter
         End Select
@@ -443,21 +445,67 @@ Private Sub ResetYieldCounter(): m_yieldCounter = 0: End Sub
 
 Private Function MyOutputCallback(pOutputInfo As OutputInfo) As Long
 '    suppress all errors
-    MsgBox "Error" & vbCrLf & "Buff:" & CStr(pOutputInfo.bufNum) & vbCrLf & "Line:" & CStr(pOutputInfo.lineNum) & vbCrLf & "offset:" & CStr(pOutputInfo.offset)
+    Pipe.stderr "Error" & vbCrLf & "Buff:" & CStr(pOutputInfo.bufNum) & vbCrLf & "Line:" & CStr(pOutputInfo.lineNum) & vbCrLf & "offset:" & CStr(pOutputInfo.offset) & vbCrLf
     MyOutputCallback = 0
 End Function
 
 Private Function CompileOutputCallback(pOutputInfo As OutputInfo) As Long
-    'Dim Result As VbMsgBoxResult
-    'Result = MsgBox(pOutputInfo.errMessage, IIf(pOutputInfo.outputType <> 0, &H30, 0), App.Title)
+    Dim k As Long
+    Dim lLine As Long
+    Dim iIndex As Integer
+    Dim lLines() As Long
+    Dim sFile As String
+    Dim nSPos As Integer
+    Dim nEPos As Integer
+    Dim sMsg As String
+    
     If pOutputInfo.scode <> 0 Then
         m_ErrLine = pOutputInfo.lineNum
         m_errMessage = pOutputInfo.errMessage
         m_errType = pOutputInfo.scode
+        m_errFile = m_ScriptFile
+        
+        ' check in which file the error occurred (main / or include file)
+        ' and adjust the line number if necessary
+        lLine = CLng(m_ErrLine - 1)
+        iIndex = -1
+        If lLine > -1 And lLine <= UBound(g_asBuffer()) Then
+            ReDim lLines(0)
+            iIndex = 0
+            lLines(iIndex) = 0
+            sFile = m_ScriptFile
+            For k = 0 To lLine
+                If InStr(g_asBuffer(k), "'#Expand Start of") <> 0 Then
+                    lLines(iIndex) = lLines(iIndex) + 1
+                    iIndex = iIndex + 1
+                    ReDim Preserve lLines(iIndex)
+                    lLines(iIndex) = 0
+                    nSPos = InStr(1, g_asBuffer(k), vbTab & "file:'", vbTextCompare)
+                    nEPos = InStr(nSPos + 7, g_asBuffer(k), "'", vbTextCompare)
+                    sFile = Mid(g_asBuffer(k), nSPos + 7, nEPos - (nSPos + 7))
+                ElseIf InStr(g_asBuffer(k), "'#Expand end of") <> 0 Then
+                    iIndex = iIndex - 1
+                    '      : g_asBuffer(6) : "'#Expand End of #expand <test>  ##" : String
+                Else
+                    lLines(iIndex) = lLines(iIndex) + 1
+                End If
+            Next k
+            m_errFile = sFile
+            m_ErrLine = lLines(iIndex)
+            If iIndex > 0 Then
+                sMsg = Mid(m_errMessage, InStr(1, m_errMessage, " - ") + 3)
+                m_errMessage = " Error on line: " & CStr(m_ErrLine) & " - " & sMsg
+            End If
+            Erase lLines()
+        Else
+            m_errFile = m_ScriptFile
+        End If
+               
     Else
         m_ErrLine = 0
         m_errType = 0
         m_errMessage = ""
+        m_errFile = ""
     End If
     CompileOutputCallback = 0
 End Function
@@ -523,10 +571,11 @@ Sub Main()
                 Else
                     Pipe.stderr (App.EXEName & " Error: compiling Script " & m_ScriptFile & "'" & vbCrLf)
                     If Len(m_errMessage) Or m_ErrLine <> 0 Then
-                        If Len(m_errMessage) = 0 Then
-                            Pipe.stderr (App.EXEName & " Error on line: " & m_ErrLine & " - syntax error")
+                        If Len(m_errMessage) Or m_ErrLine <> 0 Then
+                            'Pipe.stderr (App.EXEName & " Error on line: " & m_ErrLine & " - syntax error (" & m_errFile & ")")
+                            Pipe.stderr (App.EXEName & " Error: syntax error found " & vbCrLf)
                         Else
-                            Pipe.stderr (App.EXEName & " " & m_errMessage)
+                            Pipe.stderr (App.EXEName & " " & m_errMessage & "(" & m_errFile & ")" & vbCrLf)
                         End If
                     End If
                 End If
@@ -546,11 +595,10 @@ Sub Main()
                     If Len(m_errMessage) Or m_ErrLine <> 0 Then
                         
                         If Len(m_errMessage) = 0 Or InStr(m_errMessage, "Compile error:") = 1 Then
-                        
-                            'Pipe.stderr (App.EXEName & " Error on line: " & m_ErrLine & " - syntax error")
+                            'Pipe.stderr (App.EXEName & " Error on line: " & m_ErrLine & " - syntax error (" & m_errFile & ")")
                             Pipe.stderr (App.EXEName & " Error: syntax error found " & vbCrLf)
                         Else
-                            Pipe.stderr (App.EXEName & " " & m_errMessage)
+                            Pipe.stderr (App.EXEName & " " & m_errMessage & "(" & m_errFile & ")" & vbCrLf)
                         End If
                     End If
                 End If
