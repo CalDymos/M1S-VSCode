@@ -22,6 +22,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
 const Includes_1 = require("./Includes");
 const PATTERNS = __importStar(require("./patterns"));
+const configuration = vscode_1.workspace.getConfiguration("m1s");
+const mach3Dir = configuration.get("mach3Dir");
+const useScreenSet = configuration.get("useScreenSet");
+
 function findExtDef(docText, lookup, docuri) {
     const posloc = [];
     let match = PATTERNS.DEF(docText, lookup);
@@ -56,7 +60,20 @@ function provideDefinition(doc, position) {
     const lookup = doc.getText(lookupRange);
     const docText = doc.getText();
     const posLoc = [];
-    let match = PATTERNS.DEF(docText, lookup);
+    let match = PATTERNS.INCLUDEFILE(docText, lookup);
+    let file;
+    if (match) {
+        file = match[2];
+        if (match[1] === '<') 
+            file = mach3Dir + "\\ScreenSetMacros\\" + useScreenSet + "\\" + file + ".m1s";
+        else if (match[1] != '"')
+            return posLoc;
+
+        vscode_1.workspace.openTextDocument(file).then(doc2 => {
+            vscode_1.window.showTextDocument(doc2);
+        });
+    }
+    match = PATTERNS.DEF(docText, lookup);
     if (match)
         posLoc.push(new vscode_1.Location(doc.uri, doc.positionAt(match.index)));
     match = PATTERNS.DEFVAR(docText, lookup);

@@ -69,6 +69,7 @@ function compileScript() {
         let cmdline = ' -cmd:compile' +
             ' -src:\'' + doc.fileName + '\'' +
             ' -mach3Dir:\'' + mach3Dir + '\'' +
+            ' -screenSet:\'' + useScreenSet + '\'' +
             ' -outputFolder:\'' + outDir + '\''
         runner = childProcess.spawn(CEinterpreter, [cmdline], {
             cwd: workDir, windowsHide: true, timout: 10000
@@ -80,11 +81,16 @@ function compileScript() {
         });
         runner.stderr.on("data", data => {
             const output = data.toString();
-            const match = (/.*Error on line: (\d+) - (.*)/).exec(output);
+            const match = (/.*Error on line: (\d+) - (.*)\r\n\((.*)\)/).exec(output);
             if (match) {
                 const line = Number.parseInt(match[1]) - 1;
                 const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
-                diagnostics_1.diagCollectionLaunch.set(vscode_1.Uri.file(doc.fileName), [diag]);
+                const diagFile = match[3];
+                if (diagFile != doc.fileName) 
+                    vscode_1.workspace.openTextDocument(diagFile).then(doc2 => {
+                        vscode_1.window.showTextDocument(doc2);
+                    });
+                diagnostics_1.diagCollectionLaunch.set(vscode_1.Uri.file(diagFile), [diag]);
             }
             m1sOut.append(output);
         });
@@ -131,7 +137,8 @@ function checkScript() {
         outDir = outDir.replace("${fileDirname}", srcDir);
         let cmdline = ' -cmd:check' +
             ' -src:\'' + doc.fileName + '\'' +
-            ' -mach3Dir:\'' + mach3Dir + '\''
+            ' -mach3Dir:\'' + mach3Dir + '\'' +
+            ' -screenSet:\'' + useScreenSet + '\''
         runner = childProcess.spawn(CEinterpreter, [cmdline], {
             cwd: workDir, windowsHide: true, timout: 10000
 
@@ -142,11 +149,16 @@ function checkScript() {
         });
         runner.stderr.on("data", data => {
             const output = data.toString();
-            const match = (/.*Error on line: (\d+) - (.*)/).exec(output);
+            const match = (/.*Error on line: (\d+) - (.*)\r\n\((.*)\)/).exec(output);
             if (match) {
                 const line = Number.parseInt(match[1]) - 1;
                 const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
-                diagnostics_1.diagCollectionLaunch.set(vscode_1.Uri.file(doc.fileName), [diag]);
+                const diagFile = match[3];
+                if (diagFile != doc.fileName) 
+                    vscode_1.workspace.openTextDocument(diagFile).then(doc2 => {
+                        vscode_1.window.showTextDocument(doc2);
+                    });
+                diagnostics_1.diagCollectionLaunch.set(vscode_1.Uri.file(diagFile), [diag]);
             }
             m1sOut.append(output);
         });
