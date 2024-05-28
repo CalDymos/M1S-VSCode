@@ -144,10 +144,21 @@
 					"name": "storage.type.m1s"
 				},
 				"2": {
-					"name": "variable.other.dim.m1s"
+					"name": "variable.other.readwrite.m1s"
 				}
 			},
-			"match": "\\b(?i:((?:global|private)\\s+const|global|private|dim|const)\\s+\\b(\\[?[a-zA-Z]\\w*\\]?\\b(?:\\s*,\\s*\\b\\[?[a-zA-Z]\\w*\\]?\\b)*))"
+			"match": "\\b(?i:((?:global|private|dim))\\s+\\b((?!const|private|global|dim\\b)\\[?[a-zA-Z]\\w*\\]?\\b(?:\\s*,\\s*\\b\\[?[a-zA-Z]\\w*\\]?\\b)*))"
+		},
+		{
+			"captures": {
+				"1": {
+					"name": "storage.type.m1s"
+				},
+				"2": {
+					"name": "variable.other.constant.m1s"
+				}
+			},
+			"match": "\\b(?i:((?:global|private)\\s+const)\\s+\\b((?!const|private|global|dim\\b)\\[?[a-zA-Z]\\w*\\]?\\b(?:\\s*,\\s*\\b\\[?[a-zA-Z]\\w*\\]?\\b)*))"
 		},
 		{
 			"match": "(?i:\\s*\\b(Empty|False|Nothing|Null|True)\\b)",
