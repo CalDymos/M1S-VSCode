@@ -1,8 +1,14 @@
 # M1S-VSCode Changelog
 
+
+## 0.20.3
+
+- implements "full syntax check"
+- diagnistic adjusted
+
 ## 0.20.2
 
-- Jumps to error line in VS Code if an error occurs during compilation
+- Shows error line in VS Code if an error occurs during compilation
 
 ## 0.20.1
 
