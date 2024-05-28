@@ -24,12 +24,12 @@ const vscode_debugadapter_1 = require("vscode-debugadapter");
 const vscode = __importStar(require("vscode"));
 const path_1 = require("path");
 const child_process_1 = require("child_process");
-const diagCollection = vscode.languages.createDiagnosticCollection("m1s");
 const configuration = vscode.workspace.getConfiguration("m1s");
 const outputDir = configuration.get("outputFolder");
 const mach3Dir = configuration.get("mach3Dir");
 const useScreenSet = configuration.get("useScreenSet");
 const useProfile = configuration.get("useProfile");
+const diagnostics_1 = require("./diagnostics");
 
 class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
     constructor() {
@@ -43,7 +43,7 @@ class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
         this.sendResponse(response);
     }
     async launchRequest(response, args) {
-        diagCollection.clear();
+        diagnostics_1.diagCollectionLaunch.clear();
         this.sendResponse(response);
         const configuration = vscode.workspace.getConfiguration("m1s");
         const scriptInterpreter = configuration.get("interpreter");
@@ -80,8 +80,9 @@ class M1sDebugSession extends vscode_debugadapter_1.LoggingDebugSession {
             if (match) {
                 const line = Number.parseInt(match[1]) - 1;
                 const char = Number.parseInt(match[2]) - 1;
+
                 const diag = new vscode.Diagnostic(new vscode.Range(line, char, line, char), match[3], vscode.DiagnosticSeverity.Error);
-                diagCollection.set(vscode.Uri.file(args.program), [diag]);
+                diagnostics_1.diagCollectionLaunch.set(vscode.Uri.file(args.program), [diag]);
             }
             this.sendEvent(new vscode_debugadapter_1.OutputEvent(output, "stderr"));
         });

@@ -26,8 +26,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.subscribeToDocumentChanges = void 0;
 const vscode_1 = __importStar(require("vscode"));
 const PATTERNS = __importStar(require("./patterns"));
+exports.diagCollection = vscode_1.languages.createDiagnosticCollection("m1s");
+exports.diagCollectionLaunch = vscode_1.languages.createDiagnosticCollection("m1sLaunch");
 
-function refreshDiagnostics(doc, m1sDiagnostics) {
+function refreshDiagnostics(doc, diagCollection) {
     if (doc.languageId === 'm1s') {
         const diagnostics = [];
         for (let lineNum = 0; lineNum < doc.lineCount; lineNum++) {
@@ -39,30 +41,31 @@ function refreshDiagnostics(doc, m1sDiagnostics) {
                 let matches2 = [];
                 if ((matches2 = PATTERNS.IFTHEN.exec(line.text)) === null) {
                     const index = line.text.indexOf(matches[1]);
-                    diagnostics.push(createDiagnostic(doc, line, lineNum, index, 'missing_then'));
+                    diagnostics.push(createDiagnostic(line.text, lineNum, index, "Error, If / ElseIf ... Then", 'missing_then'));
                 }
             }
         }
-        m1sDiagnostics.set(doc.uri, diagnostics);
+        diagCollection.set(doc.uri, diagnostics);
     }
 }
-function createDiagnostic(doc, line, lineNum, startChr, diagCode) {
-    const range = new vscode_1.Range(lineNum, startChr, lineNum, line.text.length - startChr);
-    const diagnostic = new vscode_1.Diagnostic(range, "Error, If / ElseIf ... Then", vscode_1.DiagnosticSeverity.Error);
+function createDiagnostic(lineText, lineNum, startChr, diagMsg, diagCode) {
+    const range = new vscode_1.Range(lineNum, startChr, lineNum, lineText.length - startChr);
+    const diagnostic = new vscode_1.Diagnostic(range, diagMsg, vscode_1.DiagnosticSeverity.Error);
     diagnostic.code = diagCode;
     return diagnostic;
 }
-function subscribeToDocumentChanges(context, m1sDiagnostics) {
+
+function subscribeToDocumentChanges(context) {
     if (vscode_1.window.activeTextEditor) {
-        refreshDiagnostics(vscode_1.window.activeTextEditor.document, m1sDiagnostics);
+        refreshDiagnostics(vscode_1.window.activeTextEditor.document, exports.diagCollection);
     }
     context.subscriptions.push(vscode_1.window.onDidChangeActiveTextEditor(editor => {
         if (editor) {
-            refreshDiagnostics(editor.document, m1sDiagnostics);
+            refreshDiagnostics(editor.document, exports.diagCollection);
         }
     }));
-    context.subscriptions.push(vscode_1.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, m1sDiagnostics)));
-    context.subscriptions.push(vscode_1.workspace.onDidCloseTextDocument(doc => m1sDiagnostics.delete(doc.uri)));
+    context.subscriptions.push(vscode_1.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, exports.diagCollection)));
+    context.subscriptions.push(vscode_1.workspace.onDidCloseTextDocument(doc => exports.diagCollection.delete(doc.uri)));
 }
 
 

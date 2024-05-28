@@ -52,7 +52,7 @@ const removeCommentsValue = contributions.get('FormatterRemoveComments');
 const editor = vscode_1.window.activeTextEditor;
 
 /**
- * @param {vscode.ExtensionContext} context
+ * @param {vscode_1.ExtensionContext} context
  */
 function activate(context) {
 	//vscode_1.window.showInformationMessage('M1S is now active!');
@@ -75,9 +75,8 @@ function activate(context) {
 		}
 	});
 
-	const m1sDiagnostics = vscode_1.languages.createDiagnosticCollection("Mach3ScriptDC");
-	context.subscriptions.push(m1sDiagnostics);
-	(0, diagnostics_1.subscribeToDocumentChanges)(context, m1sDiagnostics);
+	context.subscriptions.push(diagnostics_1.diagCollection);
+	(0, diagnostics_1.subscribeToDocumentChanges)(context);
 
 	context.subscriptions.push(hover_1.default, completion_1.default, symbols_1.default, signature_1.default, definition_1.default, colorprovider_1.default, Launcher_1.default.launchConfigProvider, Launcher_1.default.inlineDebugAdapterFactory, formatFunction, diagnostics_1.subscribeToDocumentChanges, compileScriptCmd, checkSyntaxCmd);
 	//context.subscriptions.push(hover_1.default, completion_1.default, symbols_1.default, signature_1.default, definition_1.default, colorprovider_1.default, Launcher_1.default.launchConfigProvider, Launcher_1.default.inlineDebugAdapterFactory, buttonActivation, formatFunction, diagnostics_1.subscribeToDocumentChanges);

@@ -82,8 +82,11 @@ function getImportsWithLocal(doc) {
                     new IncludeFile(path)
                 ]);
             else
-
+                {
+                //const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
+                //diagnostics_1.diagCollectionExpand.set(vscode_1.Uri.file(doc.fileName), [diag]);
                 processedMatches.push(file.toLowerCase());
+                }
         }
     }
     return localIncludes;

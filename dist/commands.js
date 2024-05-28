@@ -28,7 +28,7 @@ const childProcess = __importStar(require("child_process"));
 const path_1 = __importDefault(require("path"));
 const localize_1 = __importDefault(require("./localize"));
 const fs = __importStar(require("fs"));
-const diagCollection = vscode_1.languages.createDiagnosticCollection("m1s");
+const diagnostics_1 = require("./diagnostics");
 const configuration = vscode_1.workspace.getConfiguration("m1s");
 const m1sOut = vscode_1.window.createOutputChannel("Mach3Script");
 let runner;
@@ -43,6 +43,7 @@ function compileScript() {
     if (!vscode_1.window.activeTextEditor)
         return;
     const doc = vscode_1.window.activeTextEditor.document;
+    diagnostics_1.diagCollectionLaunch.clear();
     doc.save().then(() => {
         m1sOut.clear();
         m1sOut.show(true);
@@ -66,11 +67,9 @@ function compileScript() {
         outDir = outDir.replace("${extensionFolder}", extDir);
         outDir = outDir.replace("${fileDirname}", srcDir);
         let cmdline = ' -cmd:compile' +
-                      ' -src:\'' + doc.fileName + '\'' +
-                      ' -mach3Dir:\'' + mach3Dir + '\'' +
-                      ' -ScreenSet:\'' + useScreenSet + '\'' +
-                      ' -Profile:\'' + useProfile + '\'' +
-                      ' -outputFolder:\'' + outDir + '\''
+            ' -src:\'' + doc.fileName + '\'' +
+            ' -mach3Dir:\'' + mach3Dir + '\'' +
+            ' -outputFolder:\'' + outDir + '\''
         runner = childProcess.spawn(CEinterpreter, [cmdline], {
             cwd: workDir, windowsHide: true, timout: 10000
 
@@ -85,7 +84,7 @@ function compileScript() {
             if (match) {
                 const line = Number.parseInt(match[1]) - 1;
                 const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
-                diagCollection.set(vscode_1.Uri.file(doc.fileName), [diag]);
+                diagnostics_1.diagCollectionLaunch.set(vscode_1.Uri.file(doc.fileName), [diag]);
             }
             m1sOut.append(output);
         });
@@ -107,6 +106,61 @@ function checkScript() {
     if (!vscode_1.window.activeTextEditor)
         return;
     const doc = vscode_1.window.activeTextEditor.document;
+    diagnostics_1.diagCollectionLaunch.clear();
+    doc.save().then(() => {
+        m1sOut.clear();
+        m1sOut.show(true);
+        if (statbar)
+            statbar.dispose();
+        statbar = vscode_1.window.setStatusBarMessage(localize_1.default("m1s.msg.checkScript"));
+        let workDir;
+        if (vscode_1.workspace.workspaceFolders != null)
+            workDir = vscode_1.workspace.workspaceFolders[0].uri.fsPath;
+        else
+            workDir = path_1.default.dirname(doc.fileName);
+        const extDir = vscode_1.extensions.getExtension('caldymos.m1svscode').extensionUri.fsPath
+        const srcDir = path_1.default.dirname(doc.fileName);
+        let CEinterpreter = scriptInterpreter;
+        let outDir = outputDir;
+
+        CEinterpreter = CEinterpreter.replace("${workspaceFolder}", workDir);
+        CEinterpreter = CEinterpreter.replace("${extensionFolder}", extDir);
+        CEinterpreter = CEinterpreter.replace("${fileDirname}", srcDir);
+        outDir = outDir.replace("${workspaceFolder}", workDir);
+        outDir = outDir.replace("${extensionFolder}", extDir);
+        outDir = outDir.replace("${fileDirname}", srcDir);
+        let cmdline = ' -cmd:check' +
+            ' -src:\'' + doc.fileName + '\'' +
+            ' -mach3Dir:\'' + mach3Dir + '\''
+        runner = childProcess.spawn(CEinterpreter, [cmdline], {
+            cwd: workDir, windowsHide: true, timout: 10000
+
+        });
+        runner.stdout.on("data", data => {
+            const output = data.toString();
+            m1sOut.append(output);
+        });
+        runner.stderr.on("data", data => {
+            const output = data.toString();
+            const match = (/.*Error on line: (\d+) - (.*)/).exec(output);
+            if (match) {
+                const line = Number.parseInt(match[1]) - 1;
+                const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
+                diagnostics_1.diagCollectionLaunch.set(vscode_1.Uri.file(doc.fileName), [diag]);
+            }
+            m1sOut.append(output);
+        });
+        runner.on("exit", code => {
+            m1sOut.appendLine(`Process exited with code ${code}`);
+            statbar.dispose();
+        });
+        runner.on('error', (err) => {
+            console.log(`Error launching command: ${err}`);
+        });
+    }, () => {
+        vscode_1.window.showErrorMessage("Document can't be saved");
+        return;
+    });
 }
 exports.checkScript = checkScript;
 
