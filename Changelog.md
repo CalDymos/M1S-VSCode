@@ -4,7 +4,8 @@
 ## 0.20.3
 
 - implements "full syntax check"
-- diagnistic adjusted
+- diagnistic adjusted and Expand file is opened if there is an error in the expand file. (syntax check)
+- 'Go to Definition' for Expand Files added
 
 ## 0.20.2
 
