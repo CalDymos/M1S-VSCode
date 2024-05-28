@@ -385,8 +385,6 @@ Private Function CompileScript() As Long
         RetVal = FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0&, rc, &H400, sBuffer, Len(sBuffer), 0&)
         If RetVal Then
             Pipe.stderr (sBuffer)
-        Else
-            Pipe.stderr ("Error running script")
         End If
         
     End If
@@ -509,7 +507,6 @@ Sub Main()
                 Pipe.stdout (App.EXEName & " Info: start compiling Script '" & m_ScriptFile & "'" & vbCrLf)
                 ErrCode = CompileScript()
                 If ErrCode = 0 Then
-                    Pipe.stdout (App.EXEName & " CompileScript '" & ErrCode & "'" & vbCrLf)
                     ErrCode = VBHelp.MakePath(m_OutputFolder & "\")
                     If VBHelp.FolderExists(m_OutputFolder) Then
                         dstFile = m_OutputFolder + "\" & VBHelp.GetFilenameFromPath(m_OutputFolder, True) & ".mcc"
@@ -526,7 +523,11 @@ Sub Main()
                 Else
                     Pipe.stderr (App.EXEName & " Error: compiling Script " & m_ScriptFile & "'" & vbCrLf)
                     If Len(m_errMessage) Or m_ErrLine <> 0 Then
-                        Pipe.stderr (App.EXEName & " " & m_errMessage)
+                        If Len(m_errMessage) = 0 Then
+                            Pipe.stderr (App.EXEName & " Error on line: " & m_ErrLine & " - syntax error")
+                        Else
+                            Pipe.stderr (App.EXEName & " " & m_errMessage)
+                        End If
                     End If
                 End If
             Else
@@ -535,7 +536,27 @@ Sub Main()
         Case "RUN"
             Pipe.stdout (App.EXEName & " Info: Running the script is not yet supported" & vbCrLf)
         Case "CHECK"
-            Pipe.stdout (App.EXEName & " Info: Checking the script is not yet supported" & vbCrLf)
+            If Len(m_ScriptFile) Then
+                ChDir Mach3.g_MainFolder
+                Pipe.stdout (App.EXEName & " Info: check Script '" & m_ScriptFile & "' for Syntax Errors" & vbCrLf)
+                ErrCode = CompileScript()
+                If ErrCode = 0 Then
+                    Pipe.stdout (App.EXEName & " Info: check complete, no errors found !" & vbCrLf)
+                Else
+                    If Len(m_errMessage) Or m_ErrLine <> 0 Then
+                        
+                        If Len(m_errMessage) = 0 Or InStr(m_errMessage, "Compile error:") = 1 Then
+                        
+                            'Pipe.stderr (App.EXEName & " Error on line: " & m_ErrLine & " - syntax error")
+                            Pipe.stderr (App.EXEName & " Error: syntax error found " & vbCrLf)
+                        Else
+                            Pipe.stderr (App.EXEName & " " & m_errMessage)
+                        End If
+                    End If
+                End If
+            Else
+                ErrCode = &H2
+            End If
         Case Else
             Pipe.stderr (App.EXEName & " Error: unknown option (cmd)" & vbCrLf)
             ErrCode = ERROR_BAD_COMMAND
