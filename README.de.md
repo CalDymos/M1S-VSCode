@@ -26,10 +26,17 @@ Diese Erweiterung bietet Sprachunterstützung für Mach3 Script für [Visual Stu
 
 ![ColorProvider](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/ColorProvider.png)
 
+- Code Vorlagen
+
+- Higlight von Problemen / Fehlern
+
+- Vollständige Syntaxprüfung über Cypress Enable Compiler
+
+- Kompilieren des Skripts über Cypress Enable Compiler
+
 ## Funktionen noch nicht vollständig implementiert (noch in Arbeit)
 
-- vollständige Syntaxprüfung (Ausführen / Prüfen des Makros über den Cypress Enbable Compiler)
-- Anzeigen von Problemen / Fehlern
+- Hervorheben und Anzeigen von Problemen / Fehlern
 
 ## Wie funktioniert die Erweiterung
 ...

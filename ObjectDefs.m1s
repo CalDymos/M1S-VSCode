@@ -6,30 +6,30 @@ Class Dictionary
 	Sub Add(key, value)
 	End Sub
 	
-	Property Get CompareMode ' As Long
+	Property Get CompareMode As Long
 	End Property
 	Property Let CompareMode(Mode)
 	End Property
 	
-	Property Get Count ' As Long
+	Property Get Count As Long
 	End Property
 	
-	Function Exists(key) ' as Boolean
+	Function Exists(key) as Boolean
 	End Function
 	
-	Property Get HashVal(key) ' As Long
+	Property Get HashVal(key) As Long
 	End Property
 	
 	Public Default Property Get Item(key)
 	End Property
 	
-	Function Items(key) ' As Variant
+	Function Items(key) As Variant
 	End Function
 	
 	Property Get Key(key)
 	End Property
 	
-	Function Keys() ' As Variant
+	Function Keys() As Variant
 	End Function
 	
 	Sub Remove(key)
@@ -58,7 +58,7 @@ End Class
 
 Class File
 
-	Property Get Attributes ' as Long
+	Property Get Attributes as Long
 	End Property
 
 	Sub Copy(Destination)
@@ -66,13 +66,13 @@ Class File
 	Sub Copy(Destination, OverWriteFiles)
 	End Sub
 
-	Property Get DateCreated ' as Date
+	Property Get DateCreated as Date
 	End Property
 
-	Property Get DateLastAccessed ' as Date
+	Property Get DateLastAccessed as Date
 	End Property
 	
-	Property Get DateLastModified ' as Date
+	Property Get DateLastModified as Date
 	End Property
 
 	Sub Delete()
@@ -80,20 +80,20 @@ Class File
 	Sub Delete(Force)
 	End Sub
 
-	Property Get Drive ' as Drive
+	Property Get Drive as Drive
 	End Property
 
 	Sub Move(Destination)
 	End Sub
 
-	Property Get Name ' As String
+	Property Get Name As String
 	End Property
 
-	Function OpenAsTextStream() ' As TextStream
+	Function OpenAsTextStream() As TextStream
 	End Function
-	Function OpenAsTextStream(IOMode) ' As TextStream
+	Function OpenAsTextStream(IOMode) As TextStream
 	End Function
-	Function OpenAsTextStream(IOMode, Format) ' As TextStream
+	Function OpenAsTextStream(IOMode, Format) As TextStream
 	End Function
 
 	Property Get ParentFolder ' As Folder

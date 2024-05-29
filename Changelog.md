@@ -1,5 +1,9 @@
 # M1S-VSCode Changelog
 
+## 0.20.4
+
+-  diagnostics for non-existent include files and non-initialized constants extended
+-  fix some bugs
 
 ## 0.20.3
 

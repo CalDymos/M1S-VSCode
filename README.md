@@ -21,14 +21,43 @@ This extension implements basic language features of Mach3 Script for [Visual St
 - Color Information
 ![ColorProvider](https://github.com/CalDymos/M1S-VSCode/raw/master/assets/docs/ColorProvider.png)
 
+- Code snippets
+
+- Higlight of problems / errors
+
+- full syntax check via Cypress Enable compiler
+
+- compile script via cypress Enable Compiler
+
 ## Functions not yet fully implemented (still in progress)
 
-- full Syntax check (execute / check the macro via the Cypress Enbable compiler)
-- Display of problems / errors
+- Higlight of problems / errors (diagnostic)
 
 ## How it works
-....
-....
+
+#### Formatting
+- Right-click in the code window -> select the context menu entry “Format Document”.<br>
+  The indents and spelling of keywords are adjusted in the current document.<br>
+  Optionally, comments can also be removed and lines can be wrapped with ':' (see Settings)
+
+#### Completion
+- For auto-completion, the current code, all include files (#expand),<br>
+  the 'objectDefs.m1s' file and the 'GlobalDefs.m1s' file are searched for definitions.
+
+#### Goto Definition
+- Right click on a variable, procedure or include file, select the context menu entry 'Go To Definition'
+
+#### Full syntax check
+- Right-click in the code window and select the context menu entry 'full syntax check'.<br>
+  The settings 'Mach3Dir' and 'UseScreenSet' must be set correctly.<br>
+  It is best to create a new folder '.vscode' in the respective workspace (folder) and set the settings in<br>
+  this folder via the 'settings.json' file so that they are only valid for this workspace
+
+#### Compile script
+- Right-click in the code window and select the context menu entry 'compile Script'.<br>
+  The settings 'Mach3Dir', 'UseScreenSet' and 'OutputFolder' must be set correctly.<br>
+  It is best to create a new folder '.vscode' in the respective workspace (folder) and set the settings in<br>
+  this folder via the 'settings.json' file so that they are only valid for this workspace
 
 ## Contribute
 You can support this project through PR with your changes or simply add an issue with your idea/bug.

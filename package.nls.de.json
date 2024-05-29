@@ -14,5 +14,8 @@
   "m1s.msg.runningScript": "Führe Skript aus...'",
   "m1s.msg.compileScript": "Kompiliere Skript...'",
   "m1s.msg.checkScript": "Syntax des Skripts wird über Interpreter geprüft...'",
-  "m1s.msg.interpreterRunError": "Skript-Interpreter kann nicht ausgeführt werden"
+  "m1s.msg.interpreterRunError": "Skript-Interpreter kann nicht ausgeführt werden",
+  "m1s.error.missingThen": "missing 'Then'",
+  "m1s.error.openIncludeFile": "Die Datei Quelle kann nicht geöffnet werden: ${1}",
+  "m1s.error.constantReqInit": "Die Konstante ${1} benötigt einen Initialisierer."
 }

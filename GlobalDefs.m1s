@@ -952,7 +952,7 @@ End Function
 Function IsSafeZ() As Integer
 End Function
 
-Sub MachMSG(ByVal Msg As String, ByVal Title As String, ByVal iType As Integer)
+Sub MachMSG(ByVal Msg As String, ByVal Title As String, ByVal iType As Integer) as Integer
 End Sub
 
 Function GetMessage() As String
