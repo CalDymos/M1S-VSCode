@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.COLOR = exports.REGION = exports.ENDREGION = exports.TYPE = exports.INCLUDES = exports.ARRAYBRACKETS = exports.ENDLINE = exports.PARAM_SUMMARY = exports.ENDTYPE = exports.FIELD
-exports.COMMENT_SUMMARY = exports.DEFVAR = exports.DEF = exports.VAR_COMPLS = exports.VAR = exports.PROP = exports.CLASS = exports.FUNCTION = exports.IF = exports.IFTHEN = exports.INCLUDEFILE = void 0;
+exports.COLOR = exports.REGION = exports.ENDREGION = exports.TYPE = exports.INCLUDES = exports.ARRAYBRACKETS = exports.ENDLINE = exports.PARAM_SUMMARY = exports.ENDTYPE = 
+exports.FIELD = exports.COMMENT_SUMMARY = exports.DEFVAR = exports.DEF = exports.VAR_COMPLS = exports.CONST = exports.VAR = exports.PROP = exports.CLASS = exports.FUNCTION = 
+exports.IF = exports.IFTHEN = exports.INCLUDEFILE = exports.INIT_CONST = void 0;
 exports.FUNCTION = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:(?:Public|Private)[\t ]+)?(Function|Sub)[\t ]+((\[?[a-z]\w*\]?)[\t ]*(?:\((.*)\))?))/img;
 exports.CLASS = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:(?:Public|Private)[\t ]+)?Class[\t ]+(\[?[a-z]\w*\]?))/img;
 exports.PROP = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:Public[\t ]+(?:Default[\t ]+)?|Private[\t ]+)?Property[\t ]+(Get|Let|Set)[\t ]+(\[?[a-z]\w*\]?))(?:\((.*)\))?/img;
@@ -35,4 +36,6 @@ exports.REGION = /(?:'#Region\s)([^<\n\r]*)/i;
 exports.ENDREGION = /(?:'#End Region)/i;
 exports.IFTHEN = /^[\t ]*(Elseif|If)[\t ]+[^\n\r]*(?:[\t \)](\bThen\b))/i;
 exports.IF = /^[\t ]*(Elseif|If)[\t ]*/i;
+exports.CONST = /^[\t ]*(?:(Private|Public)[\t ]+)?(?:const[\t ]+)(?:([^\t \n\r]+))(?:[\t ]+as[\t ]+(\bInteger|String|Boolean|Long|Double|Any|Byte|Currency|Date|Single|Object|Variant\b))?/i;
+exports.INIT_CONST = /^([^\n\r]*[=][\t ]*([\"][\w ]*[\"]|([\w]+)))/i;
 //# sourceMappingURL=patterns.js.map

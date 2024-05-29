@@ -22,10 +22,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.subscribeToDocumentChanges = void 0;
 const vscode_1 = __importStar(require("vscode"));
 const PATTERNS = __importStar(require("./patterns"));
+const fs = __importStar(require("fs"));
+const localize_1 = __importDefault(require("./localize"));
+const configuration = vscode_1.workspace.getConfiguration("m1s");
+const mach3Dir = configuration.get("mach3Dir");
+const useScreenSet = configuration.get("useScreenSet");
 exports.diagCollection = vscode_1.languages.createDiagnosticCollection("m1s");
 exports.diagCollectionLaunch = vscode_1.languages.createDiagnosticCollection("m1sLaunch");
 
@@ -41,7 +49,30 @@ function refreshDiagnostics(doc, diagCollection) {
                 let matches2 = [];
                 if ((matches2 = PATTERNS.IFTHEN.exec(line.text)) === null) {
                     const index = line.text.indexOf(matches[1]);
-                    diagnostics.push(createDiagnostic(line.text, lineNum, index, "Error, If / ElseIf ... Then", 'missing_then'));
+                    diagnostics.push(createDiagnostic(line.text, lineNum, 0, localize_1.default("m1s.error.missingThen"), 1));
+                }
+            }
+            if ((matches = PATTERNS.INCLUDES.exec(line.text)) !== null) {
+                let file = matches[2];
+                if (matches[1] === '<')
+                    file = mach3Dir + "\\ScreenSetMacros\\" + useScreenSet + "\\" + file + ".m1s";
+                else if (matches[1] !== '"')
+                    file = "";
+
+                if (file !== "") {
+                    if (fs.existsSync(file) !== true) {
+                        let file = matches[2];
+                        let index = line.text.indexOf(file);
+                        diagnostics.push(createDiagnostic(line.text, lineNum, 0, localize_1.default("m1s.error.openIncludeFile").replace('${1}', file), 1696));
+                    }
+                }
+            }
+            if ((matches = PATTERNS.CONST.exec(line.text)) !== null) {
+                let constName = matches[2];
+                let matches2 = [];
+                if ((matches2 = PATTERNS.INIT_CONST.exec(line.text)) === null) {
+                let index = line.text.indexOf(constName);
+                diagnostics.push(createDiagnostic(line.text, lineNum, 0, localize_1.default("m1s.error.constantReqInit").replace('${1}', constName), 257));
                 }
             }
         }
