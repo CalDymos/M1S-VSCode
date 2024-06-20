@@ -70,7 +70,7 @@ function refreshDiagnostics(doc, diagCollection) {
             if ((matches = PATTERNS.CONST.exec(line.text)) !== null) {
                 let constName = matches[2];
                 let matches2 = [];
-                if ((matches2 = PATTERNS.INIT_CONST.exec(line.text)) === null) {
+                if ((matches2 = PATTERNS.INIT_CONST.exec(line.text)) === null || matches2[1].length === 0) {
                 let index = line.text.indexOf(constName);
                 diagnostics.push(createDiagnostic(line.text, lineNum, 0, localize_1.default("m1s.error.constantReqInit").replace('${1}', constName), 257));
                 }

@@ -37,5 +37,5 @@ exports.ENDREGION = /(?:'#End Region)/i;
 exports.IFTHEN = /^[\t ]*(Elseif|If)[\t ]+[^\n\r]*(?:[\t \)](\bThen\b))/i;
 exports.IF = /^[\t ]*(Elseif|If)[\t ]*/i;
 exports.CONST = /^[\t ]*(?:(Private|Public)[\t ]+)?(?:const[\t ]+)(?:([^\t \n\r]+))(?:[\t ]+as[\t ]+(\bInteger|String|Boolean|Long|Double|Any|Byte|Currency|Date|Single|Object|Variant\b))?/i;
-exports.INIT_CONST = /^([^\n\r]*[=][\t ]*([\"][\w ]*[\"]|([\w]+)))/i;
+exports.INIT_CONST = /^(?:[^\n\r]*[=][\t ]*([\"][^\n\r]*[\"]|[\w]+|[-]?[\d]+|\&H[a-zA-Z\d]+))/i;
 //# sourceMappingURL=patterns.js.map
