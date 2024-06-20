@@ -1,7 +1,8 @@
 IMach4Emu = 130, 130, 1418, 654, 
-modMain = 26, 26, 1314, 550, Z
+modMain = 26, 26, 1314, 550, 
 IMyScriptObjectEmu = 156, 156, 1444, 680, 
 Mach3 = 52, 52, 1340, 576, 
 VBHelp = 104, 104, 1392, 628, 
 EnableAPI = 182, 182, 1470, 706, 
 Pipe = 208, 208, 1496, 732, 
+CMach4DocEmu = 208, 208, 1505, 707, Z

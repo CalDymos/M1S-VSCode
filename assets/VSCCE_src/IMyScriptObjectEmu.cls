@@ -11,6 +11,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
+Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 Public Sub StraightFeed(ByVal x As Double, ByVal Y As Double, ByVal Z As Double, ByVal a As Double, ByVal B As Double, ByVal C As Double)
@@ -529,7 +531,7 @@ End Function
 Public Function SetMachPos(ByVal Axis As Integer, ByVal Value As Double) As Integer
 
 End Function
-Public Function SetInputData(ByVal InputNumber As Integer, ByVal PinNumber As Integer, ByVal ActiveLow) As Integer
+Public Function SetInputData(ByVal InputNumber As Integer, ByVal PinNumber As Integer, ByVal ActiveLow As Integer) As Integer
 
 End Function
 Public Function SetIODevDataPointers(ByVal DeviceID As Integer, ByVal PinNumber As Integer, ByVal SetValueDRO As Integer, ByVal SetOffsetDRO As Integer) As Integer

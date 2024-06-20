@@ -1,5 +1,4 @@
 Attribute VB_Name = "modMain"
-
 Option Explicit
 
 ' FormatMessage Konstanten
@@ -30,7 +29,7 @@ Private m_ExpandScript As tExpand
 Private m_ctx As Long
 
 Private m_objMach4 As IMach4Emu
-Private m_objMScript As IMyScriptObjectEmu
+Private m_objMScript As Object
 
 Private m_yieldCounter As Long
 Private m_maxYield As Long
@@ -285,7 +284,7 @@ Private Function ExpandScript(asScript() As String, Optional recCall As Boolean 
                         ExpandScript = False
                         Exit Function
                     End If
-                    InsertStrArrayElemnt asScript, i + j + 2, "'#Expand End of " & sExpandBlock & vbTab & " ##"
+                    InsertStrArrayElemnt asScript, i + j + 1, "'#Expand End of " & sExpandBlock & vbTab & " ##"
                     m_ExpandScript.nCurIndex = m_ExpandScript.nCurIndex - 1
                 End If
                 
@@ -357,20 +356,18 @@ Private Function CompileScript() As Long
                 Exit Function
             End If
                 
-            sBuffer = Join(g_asBuffer(), vbCrLf)
+            sBuffer = Join(g_asBuffer(), vbLf)
             Sleep (100)
-              
-            
+                                      
         End If
         
-        rc = EnableAPI.enaSetOption(m_ctx, ENOPT_CALL_APP_WITH_CTX, True)   ' Include implicit context parameter in App calls
+        rc = EnableAPI.enaSetOption(m_ctx, ENOPT_CALL_APP_WITH_CTX, 1)   ' Include implicit context parameter in App calls
 
         rc = EnableAPI.enaAddTypeLibFileRef(m_ctx, Mach3.g_MainFolder & "\Mach3.exe", 0)
 
         For i = 0 To UBound(Mach3.g_asDefinitions())
             rc = EnableAPI.enaAppendText(m_ctx, Mach3.g_asDefinitions(i))
         Next i
-
         
         rc = EnableAPI.enaSetDefaultDispatch(m_ctx, 0, m_objMScript)
 
@@ -411,6 +408,9 @@ Private Function GetArrayFromText(ByVal sText As String) As String()
             asBuffer = Split(sText, vbCr)
         ElseIf InStr(1, sText, vbLf) Then
             asBuffer = Split(sText, vbLf)
+        Else
+            ReDim asBuffer(0)
+            asBuffer(0) = sText
         End If
         
         If asBuffer(UBound(asBuffer)) = "" Then ReDim Preserve asBuffer(UBound(asBuffer) - 1)
@@ -483,7 +483,7 @@ Private Function CompileOutputCallback(pOutputInfo As OutputInfo) As Long
                     nSPos = InStr(1, g_asBuffer(k), vbTab & "file:'", vbTextCompare)
                     nEPos = InStr(nSPos + 7, g_asBuffer(k), "'", vbTextCompare)
                     sFile = Mid(g_asBuffer(k), nSPos + 7, nEPos - (nSPos + 7))
-                ElseIf InStr(g_asBuffer(k), "'#Expand end of") <> 0 Then
+                ElseIf InStr(g_asBuffer(k), "'#Expand End of") <> 0 Then
                     iIndex = iIndex - 1
                     '      : g_asBuffer(6) : "'#Expand End of #expand <test>  ##" : String
                 Else
@@ -492,7 +492,7 @@ Private Function CompileOutputCallback(pOutputInfo As OutputInfo) As Long
             Next k
             m_errFile = sFile
             m_ErrLine = lLines(iIndex)
-            If iIndex > 0 Then
+            If UBound(lLines()) > 0 Then
                 sMsg = Mid(m_errMessage, InStr(1, m_errMessage, " - ") + 3)
                 m_errMessage = " Error on line: " & CStr(m_ErrLine) & " - " & sMsg
             End If
@@ -538,7 +538,7 @@ Sub Main()
     AssignCmdLineOptionsToVars aCmdLineOptions()
     
     'Init Mach3/Script Interface
-    Set m_objMach4 = New IMach4Emu
+    Set m_objMach4 = New CMach4DocEmu
     If Not m_objMach4 Is Nothing Then
         Set m_objMScript = m_objMach4.GetScriptDispatch()
     Else
