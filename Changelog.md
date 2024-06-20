@@ -1,5 +1,10 @@
 # M1S-VSCode Changelog
 
+## 0.20.5
+
+- fix bug in const diagnostic
+- fix some bugs in 'vscce'
+
 ## 0.20.4
 
 -  diagnostics for non-existent include files and non-initialized constants extended
