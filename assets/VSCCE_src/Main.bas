@@ -525,6 +525,21 @@ Private Function MyGetProcAddr(ByVal Ctx As Long, ByVal funcName As String) As L
 
 End Function
 
+Private Sub RegServeEXE(ByVal Path As String, mode As Boolean)
+    On Error GoTo RegServeEXE_Error
+    
+    'ActiveX-Exen besitzen von sich aus eine Methode, sich zu registrieren
+    If mode Then
+        Shell Path & " /regserver"
+    Else
+        Shell Path & " /unregserver"
+    End If
+
+    Exit Sub
+RegServeEXE_Error:
+    MsgBox ("Fehler! ActiveX Registrierung." & vbCrLf & Err.Number & ": " & Err.Description)
+End Sub
+
 
 Sub Main()
     On Error GoTo Main_Error
@@ -532,7 +547,16 @@ Sub Main()
     Dim aCmdLineOptions() As tCmdLineOption
     Dim ErrCode As Long
     Dim dstFile As String
+    Dim AppPath As String
     
+    If Right(App.Path, 1) <> "\" Then
+        AppPath = App.Path & "\"
+    Else
+        AppPath = App.Path
+    End If
+    
+    Call RegServeEXE(AppPath & "vscce.exe", True)
+     
     ParseCommandLine aCmdLineOptions()
     
     AssignCmdLineOptionsToVars aCmdLineOptions()
