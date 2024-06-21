@@ -1,5 +1,10 @@
 # M1S-VSCode Changelog
 
+## 0.20.7
+
+- Manifest for 'vscce' has been removed because of problems on some computers
+- change self Registration for 'vscce.exe' (Add Note to README)
+
 ## 0.20.6
 
 - prevent change of Class ID between Version changes for 'vscce.exe' 

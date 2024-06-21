@@ -26,7 +26,7 @@ This extension implements basic language features of Mach3 Script for [Visual St
 - Higlight of problems / errors
 
 - full syntax check via Cypress Enable compiler
-
+  
 - compile script via cypress Enable Compiler
 
 ## Functions not yet fully implemented (still in progress)
@@ -53,12 +53,16 @@ This extension implements basic language features of Mach3 Script for [Visual St
   It is best to create a new folder '.vscode' in the respective workspace (folder) and set the settings in<br>
   this folder via the 'settings.json' file so that they are only valid for this workspace
 
+  **If the error message "Unexpected error, quitting" appears, <br>the file 'vscce.exe' must be executed once with administrator rights so that the COM interfaces are registered correctly.**
+
 #### Compile script
 - Right-click in the code window and select the context menu entry 'compile Script'.<br>
   The settings 'Mach3Dir', 'UseScreenSet' and 'OutputFolder' must be set correctly.<br>
   It is best to create a new folder '.vscode' in the respective workspace (folder) and set the settings in<br>
   this folder via the 'settings.json' file so that they are only valid for this workspace
 
+  **If the error message "Unexpected error, quitting" appears, <br>the file 'vscce.exe' must be executed once with administrator rights so that the COM interfaces are registered correctly.**
+  
 ## Contribute
 You can support this project through PR with your changes or simply add an issue with your idea/bug.
 - Complete Language Source Documentation
