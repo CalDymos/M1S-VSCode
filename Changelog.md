@@ -1,5 +1,12 @@
 # M1S-VSCode Changelog
 
+## 0.20.6
+
+- prevent change of Class ID between Version changes for 'vscce.exe' 
+- added self Registration for ActiveX Exe 'vscce.exe'
+- added Manifest for 'vscce.exe'
+- Include the dependencies 'msvbvm60.dll' and 'msxml6.dll' in the package
+
 ## 0.20.5
 
 - fix bug in const diagnostic
