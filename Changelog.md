@@ -1,5 +1,11 @@
 # M1S-VSCode Changelog
 
+## 0.20.8
+
+- Output file name during compilation corrected.
+- Bugfix in 'vscce' (stderr adjusted for 'syntax error')
+- RegEx pattern for 'INCLUDEFILE' adjusted
+
 ## 0.20.7
 
 - Manifest for 'vscce' has been removed because of problems on some computers
