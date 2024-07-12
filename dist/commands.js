@@ -81,7 +81,7 @@ function compileScript() {
         });
         runner.stderr.on("data", data => {
             const output = data.toString();
-            const match = (/.*Error on line: (\d+) - (.*)\r\n\((.*)\)/).exec(output);
+            const match = (/.*Error on line: (\d+) - (.*)[\r\n]\((.*)\)/).exec(output);
             if (match) {
                 const line = Number.parseInt(match[1]) - 1;
                 const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);
@@ -149,7 +149,7 @@ function checkScript() {
         });
         runner.stderr.on("data", data => {
             const output = data.toString();
-            const match = (/.*Error on line: (\d+) - (.*)\r\n\((.*)\)/).exec(output);
+            const match = (/.*Error on line: (\d+) - (.*)[\r\n]\((.*)\)/).exec(output);
             if (match) {
                 const line = Number.parseInt(match[1]) - 1;
                 const diag = new vscode_1.Diagnostic(new vscode_1.Range(line, 0, line, doc.lineAt(line).text.length), match[2], vscode_1.DiagnosticSeverity.Error);

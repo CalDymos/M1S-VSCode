@@ -59,19 +59,22 @@ function provideDefinition(doc, position) {
     const lookupRange = doc.getWordRangeAtPosition(position);
     const lookup = doc.getText(lookupRange);
     const docText = doc.getText();
+    const lineText = doc.lineAt(position);
     const posLoc = [];
     let match = PATTERNS.INCLUDEFILE(docText, lookup);
     let file;
     if (match) {
-        file = match[2];
         if (match[1] === '<') 
-            file = mach3Dir + "\\ScreenSetMacros\\" + useScreenSet + "\\" + file + ".m1s";
-        else if (match[1] != '"')
+            file = mach3Dir + "\\ScreenSetMacros\\" + useScreenSet + "\\" + match[2] + ".m1s";
+        else if (match[4] === '"')
+            file = match[5];
+        else
             return posLoc;
 
         vscode_1.workspace.openTextDocument(file).then(doc2 => {
             vscode_1.window.showTextDocument(doc2);
         });
+        return posLoc;
     }
     match = PATTERNS.DEF(docText, lookup);
     if (match)
