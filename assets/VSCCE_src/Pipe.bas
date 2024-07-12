@@ -14,13 +14,21 @@ Private Declare Function GetEnvironmentVariable Lib "kernel32" Alias "GetEnviron
 
 
 Public Sub stdout(OutStr As String)
-  Dim lResult As Long
-  WriteFile GetStdHandle(STD_OUTPUT_HANDLE), OutStr, Len(OutStr), lResult, ByVal 0&
+    Dim lResult As Long
+    If Not VBHelp.DebugMode Then
+        WriteFile GetStdHandle(STD_OUTPUT_HANDLE), OutStr, Len(OutStr), lResult, ByVal 0&
+    Else
+        Debug.Print OutStr
+    End If
 End Sub
 
 Public Sub stderr(ErrStr As String)
-  Dim lResult As Long
-  WriteFile GetStdHandle(STD_ERROR_HANDLE), ErrStr, Len(ErrStr), lResult, ByVal 0&
+    Dim lResult As Long
+    If Not VBHelp.DebugMode Then
+        WriteFile GetStdHandle(STD_ERROR_HANDLE), ErrStr, Len(ErrStr), lResult, ByVal 0&
+    Else
+        Debug.Print ErrStr
+    End If
 End Sub
 
 Public Function stdin() As String

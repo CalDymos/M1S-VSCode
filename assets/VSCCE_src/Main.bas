@@ -13,6 +13,7 @@ Private Const FORMAT_MESSAGE_MAX_WIDTH_MASK = &HFF
 Private Const ERROR_PROCESS_ABORTED = &H42B
 Private Const ERROR_NOINTERFACE = &H278
 Private Const ERROR_BAD_COMMAND = &H16
+Private Const ERROR_BAD_ARGUMENTS = &HA0
 
 Private Type tCmdLineOption
   Option As String
@@ -23,6 +24,11 @@ Private Type tExpand
     nCurIndex As Integer
     nCurLevel As Integer
     asFiles() As String
+End Type
+
+Private Type tLines
+    lLine As Long
+    sFile As String
 End Type
 
 Private m_ExpandScript As tExpand
@@ -46,11 +52,9 @@ Private m_errFile As String ' file in which error occurred
 Private g_asBuffer() As String 'Global buffer that contains the source code lines during compiling and syntax checking
 
 Private Declare Function FormatMessage Lib "kernel32" Alias "FormatMessageA" (ByVal dwFlags As Long, lpSource As Any, ByVal dwMessageId As Long, ByVal dwLanguageId As Long, ByVal lpBuffer As String, ByVal nSize As Long, Arguments As Long) As Long
+Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
-
-
-
-Private Sub ParseCommandLine(ret_aCmdLineOptions() As tCmdLineOption, Optional MaxArgs)
+Private Function ParseCommandLine(ret_aCmdLineOptions() As tCmdLineOption, Optional MaxArgs) As Boolean
     'Declare variables.
     Dim C, CmdLine, CmdLnLen, InArg, i, NumArgs, bOpt, bParam, QParam, bNot1stChr
     'See if MaxArgs was provided.
@@ -65,6 +69,7 @@ Private Sub ParseCommandLine(ret_aCmdLineOptions() As tCmdLineOption, Optional M
     'at a time.
                 
     'Pipe.stdout CmdLine
+    If CmdLnLen > 0 Then
     For i = 1 To CmdLnLen
         C = Mid(CmdLine, i, 1)
         'Ignore Quote
@@ -130,7 +135,11 @@ Continue_I:
     Next i
     'Resize array just enough to hold arguments.
     ReDim Preserve ret_aCmdLineOptions(1 To NumArgs)
-End Sub
+    ParseCommandLine = True
+    Else
+    ParseCommandLine = False
+    End If
+End Function
 
 Private Function LoadMacroFile(sFileName As String, sBuffer As String) As Boolean
     Dim iFile As Integer
@@ -453,7 +462,7 @@ Private Function CompileOutputCallback(pOutputInfo As OutputInfo) As Long
     Dim k As Long
     Dim lLine As Long
     Dim iIndex As Integer
-    Dim lLines() As Long
+    Dim lLines() As tLines
     Dim sFile As String
     Dim nSPos As Integer
     Dim nEPos As Integer
@@ -472,28 +481,32 @@ Private Function CompileOutputCallback(pOutputInfo As OutputInfo) As Long
         If lLine > -1 And lLine <= UBound(g_asBuffer()) Then
             ReDim lLines(0)
             iIndex = 0
-            lLines(iIndex) = 0
-            sFile = m_ScriptFile
+            lLines(iIndex).lLine = 0
+            lLines(iIndex).sFile = m_ScriptFile
             For k = 0 To lLine
                 If InStr(g_asBuffer(k), "'#Expand Start of") <> 0 Then
-                    lLines(iIndex) = lLines(iIndex) + 1
+                    lLines(iIndex).lLine = lLines(iIndex).lLine + 1
                     iIndex = iIndex + 1
                     ReDim Preserve lLines(iIndex)
-                    lLines(iIndex) = 0
+                    lLines(iIndex).lLine = 0
                     nSPos = InStr(1, g_asBuffer(k), vbTab & "file:'", vbTextCompare)
                     nEPos = InStr(nSPos + 7, g_asBuffer(k), "'", vbTextCompare)
-                    sFile = Mid(g_asBuffer(k), nSPos + 7, nEPos - (nSPos + 7))
+                    lLines(iIndex).sFile = Mid(g_asBuffer(k), nSPos + 7, nEPos - (nSPos + 7))
                 ElseIf InStr(g_asBuffer(k), "'#Expand End of") <> 0 Then
                     iIndex = iIndex - 1
                     '      : g_asBuffer(6) : "'#Expand End of #expand <test>  ##" : String
                 Else
-                    lLines(iIndex) = lLines(iIndex) + 1
+                    lLines(iIndex).lLine = lLines(iIndex).lLine + 1
                 End If
             Next k
-            m_errFile = sFile
-            m_ErrLine = lLines(iIndex)
+            m_errFile = lLines(iIndex).sFile
+            m_ErrLine = lLines(iIndex).lLine
             If UBound(lLines()) > 0 Then
-                sMsg = Mid(m_errMessage, InStr(1, m_errMessage, " - ") + 3)
+                If InStr(1, m_errMessage, " - ") = 0 Then
+                    sMsg = Replace(m_errMessage, vbLf, " ") & vbLf
+                Else
+                    sMsg = Mid(m_errMessage, InStr(1, m_errMessage, " - ") + 3)
+                End If
                 m_errMessage = " Error on line: " & CStr(m_ErrLine) & " - " & sMsg
             End If
             Erase lLines()
@@ -528,16 +541,16 @@ End Function
 Private Sub RegServeEXE(ByVal Path As String, mode As Boolean)
     On Error GoTo RegServeEXE_Error
     
-    'ActiveX-Exen besitzen von sich aus eine Methode, sich zu registrieren
     If mode Then
-        Shell Path & " /regserver"
+        ShellExecute 0, "RunAs", Path, " /regserver", "", 0
     Else
-        Shell Path & " /unregserver"
+        ShellExecute 0, "RunAs", Path, " /unregserver", "", 0
     End If
-
+    
+    On Error GoTo 0
     Exit Sub
 RegServeEXE_Error:
-    MsgBox ("Fehler! ActiveX Registrierung." & vbCrLf & Err.Number & ": " & Err.Description)
+    MsgBox ("Error! ActiveX registration." & vbCrLf & Err.Number & ": " & Err.Description)
 End Sub
 
 
@@ -554,13 +567,15 @@ Sub Main()
     Else
         AppPath = App.Path
     End If
-    
+
     Call RegServeEXE(AppPath & "vscce.exe", True)
      
-    ParseCommandLine aCmdLineOptions()
+    If Not ParseCommandLine(aCmdLineOptions()) Then
+        MsgBox "No Arguments"
+        VBHelp.ExitApp ERROR_BAD_ARGUMENTS
+    End If
     
     AssignCmdLineOptionsToVars aCmdLineOptions()
-    
     'Init Mach3/Script Interface
     Set m_objMach4 = New CMach4DocEmu
     If Not m_objMach4 Is Nothing Then
@@ -581,7 +596,7 @@ Sub Main()
                 If ErrCode = 0 Then
                     ErrCode = VBHelp.MakePath(m_OutputFolder & "\")
                     If VBHelp.FolderExists(m_OutputFolder) Then
-                        dstFile = m_OutputFolder + "\" & VBHelp.GetFilenameFromPath(m_OutputFolder, True) & ".mcc"
+                        dstFile = m_OutputFolder + "\" & VBHelp.GetFilenameFromPath(m_ScriptFile, True) & ".mcc"
                         ErrCode = EnableAPI.enaSaveCompiledCode(m_ctx, dstFile)
                         If ErrCode = 0 Then
                             Pipe.stdout (App.EXEName & " Info: compiling complete" & vbCrLf)
@@ -641,6 +656,6 @@ Sub Main()
     VBHelp.ExitApp ErrCode
     
 Main_Error:
-    Pipe.stderr (App.EXEName & " Error :" & Err.Number & " (" & Err.Description & ")" & vbCrLf)
+    Pipe.stderr (App.EXEName & "(Main) Error :" & Err.Number & " (" & Err.Description & ")" & vbCrLf)
     VBHelp.ExitApp Err.Number
 End Sub

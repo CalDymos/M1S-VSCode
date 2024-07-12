@@ -40,6 +40,26 @@ Public Declare Function MakePath Lib "imagehlp.dll" _
         lpPath As String) As Long
 Public Declare Function GetLastError Lib "kernel32.dll" () As Long
         
+' Flag for debug mode
+Private mbDebugMode As Boolean
+
+
+' Set mbDebugMode to true. This happens only
+' if the Debug.Assert call happens. It only
+' happens in the IDE.
+Private Function InDebugMode() As Boolean
+    mbDebugMode = True
+    InDebugMode = True
+End Function
+' Set the mbDebugMode flag.
+Public Function DebugMode() As Boolean
+    ' This will only be done if in the IDE
+    Debug.Assert InDebugMode
+    If mbDebugMode Then
+        DebugMode = True
+    End If
+End Function
+
 Public Function FolderExists(ByVal Path As String) As Boolean
   ' If not available, add backslash to the path
   If Right$(Path, 1) <> "\" Then Path = Path & "\"
