@@ -205,6 +205,10 @@
 			"name": "support.type.m1s"
 		},
 		{
+			"match": "\\b(?!Dim\\b|Const\\b|Set\\b)[a-zA-Z]\\w*\\b(?=\\s+[^=\\n\\r]+(?!.*\\bAs\\b))",
+			"name": "entity.name.function.m1s"
+		},
+		{
 			"match": "\\b\\[?[a-zA-Z]\\w*\\]?\\s*\\(",
 			"name": "entity.name.function.m1s"
 		},
