@@ -1,1 +1,6 @@
 **/assets/VSCCE_src
+.github/
+logs
+.gitignore
+pack.ps1
+node_modules/
