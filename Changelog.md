@@ -1,6 +1,6 @@
 # M1S-VSCode Changelog
 
-## 0.20.9
+## 0.20.10
 
 - Fixed: Sub/Function calls without parentheses (e.g. `TestSub 123`) are now correctly highlighted
 
