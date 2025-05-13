@@ -2,6 +2,10 @@
 
 ## 0.20.9
 
+- Fixed: Sub/Function calls without parentheses (e.g. `TestSub 123`) are now correctly highlighted
+
+## 0.20.9
+
 - `#expand` file is now only opened on Ctrl + Click (not on Ctrl key press alone)
 - Improved pattern for `INCLUDEFILE`: no longer restricted to specific keywords (e.g. "Lib")
 - Fixed: `#expand` only activates when the cursor is on the corresponding line
