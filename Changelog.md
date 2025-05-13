@@ -1,5 +1,12 @@
 # M1S-VSCode Changelog
 
+## 0.20.9
+
+- `#expand` file is now only opened on Ctrl + Click (not on Ctrl key press alone)
+- Improved pattern for `INCLUDEFILE`: no longer restricted to specific keywords (e.g. "Lib")
+- Fixed: `#expand` only activates when the cursor is on the corresponding line
+- Fixed wrong wordPattern and indentationRules
+
 ## 0.20.8
 
 - Output file name during compilation corrected.
