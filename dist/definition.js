@@ -59,22 +59,28 @@ function provideDefinition(doc, position) {
     const lookupRange = doc.getWordRangeAtPosition(position);
     const lookup = doc.getText(lookupRange);
     const docText = doc.getText();
-    const lineText = doc.lineAt(position);
+    const lineText = doc.lineAt(position).text;
     const posLoc = [];
-    let match = PATTERNS.INCLUDEFILE(docText, lookup);
+    let match;
     let file;
-    if (match) {
-        if (match[1] === '<') 
-            file = mach3Dir + "\\ScreenSetMacros\\" + useScreenSet + "\\" + match[2] + ".m1s";
-        else if (match[4] === '"')
-            file = match[5];
-        else
-            return posLoc;
+    if (lineText.includes("#expand")) {
+        match = PATTERNS.INCLUDEFILE(lineText);
+        if (match) {
+            if (match[1]) 
+                file = mach3Dir + "\\ScreenSetMacros\\" + useScreenSet + "\\" + match[1] + ".m1s";
+            else if (match[2])
+                file = match[2];
+            else
+                return posLoc;
 
-        vscode_1.workspace.openTextDocument(file).then(doc2 => {
-            vscode_1.window.showTextDocument(doc2);
-        });
-        return posLoc;
+            const uri = vscode_1.Uri.file(file);
+            const location = new vscode_1.Location(uri, new vscode_1.Position(0, 0));
+            return [location];
+            vscode_1.workspace.openTextDocument(file).then(doc2 => {
+                vscode_1.window.showTextDocument(doc2);
+            });
+            return posLoc;
+        }
     }
     match = PATTERNS.DEF(docText, lookup);
     if (match)
