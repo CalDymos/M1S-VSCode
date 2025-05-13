@@ -47,14 +47,9 @@
             "pattern": "^\\s*\\b(End\\s\\b(If|Select|Sub|Function|With|Type)\\b|Else(If)?|Case|Next|Loop|Wend)\\b",
             "flags": "i"
         }
-//    "indentationRules": {
-//        "increaseIndentPattern": "(?i)(^\\s*\\b((Else|For|Select|Case|Sub|Function|With|Type|Do|While)|(Else)?If\\b.*\\bThen)\\b.*$",
-//        "decreaseIndentPattern": "^(?i)\\s*\\b(End\\s\\b(If|Select|Sub|Function|With|Type)\\b|Else(If)?|Case|Next|Loop|Wend)\\b"
     },
     "wordPattern": {
         "pattern": "[a-z][a-z0-9_]+",
         "flags": "i"
     }
-//    "wordPattern": "(?i)[a-z][a-z0-9_]+"
-
 }
