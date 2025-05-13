@@ -76,10 +76,6 @@ function provideDefinition(doc, position) {
             const uri = vscode_1.Uri.file(file);
             const location = new vscode_1.Location(uri, new vscode_1.Position(0, 0));
             return [location];
-            vscode_1.workspace.openTextDocument(file).then(doc2 => {
-                vscode_1.window.showTextDocument(doc2);
-            });
-            return posLoc;
         }
     }
     match = PATTERNS.DEF(docText, lookup);
