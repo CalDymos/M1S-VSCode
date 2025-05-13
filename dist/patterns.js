@@ -22,9 +22,8 @@ function PARAM_SUMMARY(input, word) {
     return new RegExp(`'''\\s*<param name=["']${word}["']>(.*)<\\/param>`, "i").exec(input);
 }
 exports.PARAM_SUMMARY = PARAM_SUMMARY;
-function INCLUDEFILE(input, word) {
-    //return new RegExp(`#\\bexpand\\b[\\t ]*([<])(\\b${word}\\b)([>])|(["])(\\b${word}\\b)(["])$`, "i").exec(input);
-    return new RegExp(`#\\bexpand\\b[\\t ]*(?:([<])(\\bLib\\b)([>])|(["])([\\w\\s\\:\\\\\\-\\.]*\\bLib\\b[\\w\\s\\:\\\\\\-\\.]*)(["]))`, "i").exec(input);
+function INCLUDEFILE(input) {
+  return /#\s*expand\s+(?:<(.+?)>|"(.+?)")/i.exec(input);
 }
 exports.INCLUDEFILE = INCLUDEFILE;
 exports.ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property|Type)/i);
